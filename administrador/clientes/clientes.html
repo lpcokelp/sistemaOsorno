@@ -1,0 +1,39 @@
+<script src="modulos/clientes/js/clientes.js" type="text/javascript">
+</script>
+<div class="row ">
+    <div class="col m12 s12 " id="contenidoClientes">
+        <table id="tablaClientes">
+            <thead>
+                <th>
+                    Rut 
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                   Telefono
+                </th>           
+                <th>
+                </th>
+            </thead>
+            <tbody id="listadoclientes">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large white " onclick="cargadorModulo('app','clientes','agregarClientes')">
+        <i class="large material-icons blue-text">
+            add
+        </i>
+    </a>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+    cargarclientes();
+
+
+
+
+})
+</script>

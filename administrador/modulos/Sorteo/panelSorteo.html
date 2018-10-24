@@ -1,0 +1,39 @@
+<script src="modulos/sorteo/js/sorteo.js" type="text/javascript">
+</script>
+<div class="row ">
+    <div class="col m12 s12 " id="contenidoSorteo">
+        <table id="tablaSorteo">
+            <thead>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Hora        
+                </th>
+                <th>
+                    Premio
+                </th>           
+                <th>
+                </th>
+            </thead>
+            <tbody id="listadosorteo">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large white " onclick="cargadorModulo('app','sorteo','agregarSorteo')">
+        <i class="large material-icons blue-text">
+            add
+        </i>
+    </a>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+    cargarSorteo();
+
+
+
+
+})
+</script>

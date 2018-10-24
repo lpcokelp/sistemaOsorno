@@ -1,0 +1,147 @@
+<nav>
+    <div class="nav-wrapper blue darken-3 white-text ">
+        <a class="brand-logo" data-desactivates="mobile-demo" href="#!" id="encabezado" style="font-size: medium;">
+            ChamaClub
+        </a>
+        <a class="button-collapse" data-activates="mobile-demo" href="#">
+            <i class="material-icons">
+                menu
+            </i>
+        </a>
+        <ul class="right hide-on-med-and-down" id="barraComputador">
+            <li>
+                <a class="white-text" href="#app" onclick="cargadorModulo('app', 'locales', 'localSeleccionado')">
+                    Dia Actual
+                </a>
+            </li>
+            <li>
+                <a class="white-text" href="#app" onclick="cargadorModulo('app','finanzas','finanzasLocalSeleccionado')">
+                    Finanzas
+                </a>
+            </li>
+            <li>
+                <a class="white-text" href="#app" onclick="cargadorModulo('app','maquinas','panelMaquinas')">
+                    Maquinas
+                </a>
+            </li>
+            <li>
+                <a href="#app" onclick="cargadorModulo('app','clientes','panelClientes')">
+                    Clientes
+                </a>
+            </li>
+            <li>
+                <a class="white-text" href="#app" id="notificacionesPC" onclick="$('#modalNotificaciones').modal('open')">
+                    <i class="material-icons right">
+                        notifications
+                    </i>
+                </a>
+            </li>
+            <li>
+                <a href="#app" onclick="cerrarsession()">
+                    <i class="material-icons">
+                        power_settings_new
+                    </i>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-nav darken-2 white-text " id="mobile-demo">
+            <li class=" darken-2 blue">
+                <a class="white-text" href="#app" onclick="cargadorModulo('app', 'locales', 'localSeleccionado')">
+                    <i class="material-icons white-text">
+                        menu
+                    </i>
+                    Menú
+                </a>
+            </li>
+            <li class=" darken-2">
+                <a href="#app" onclick="cargadorModulo('app', 'locales', 'localSeleccionado')">
+                    Dia Actual
+                </a>
+            </li>
+            <li class=" darken-2">
+                <a href="#app" onclick="cargadorModulo('app','finanzas','finanzasLocalSeleccionado')">
+                    Finanzas
+                </a>
+            </li>
+            <li>
+                <a href="#app" onclick="cargadorModulo('app','maquinas','panelMaquinas')">
+                    Maquinas
+                </a>
+            </li>
+            <li>
+                <a href="#app" onclick="cargadorModulo('app','clientes','panelClientes')">
+                    Clientes
+                </a>
+            </li>
+       
+            <li>
+                <a href="#app" id="notificacionesCelu" onclick="$('#modalNotificaciones').modal('open')">
+                </a>
+            </li>
+            <li class=" darken-2 blue white-text" style="top:80%; height: 8%; position: absolute; width: 300px;">
+                <a class="white-text" href="#app" onclick="cerrarsession()">
+                    Cerrar Sesion
+                    <i class="material-icons white-text">
+                        reply_all
+                    </i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="modal" id="modalCajaBase">
+    <div class="modal-content">
+        <p class="blue-text" style="font-size:130%;">
+            Caja Base
+        </p>
+        <form onsubmit="actualizarCajaBase(montoCajaBaseDiaria.value); return false">
+            <input class="blue-text" id="montoCajaBaseDiaria" style="font-size:120%;" type="number">
+                <p>
+                </p>
+                <input class="btn white blue-text " type="submit" value="Actualizar">
+                </input>
+            </input>
+        </form>
+    </div>
+</div>
+<div class="modal" id="modalNotificaciones">
+    <div class="modal-content">
+        <p>
+            Notificaciones
+        </p>
+        <ul class="collection with-header" id="listadoNotificaciones">
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    function actualizarCajaBase(monto){
+    db.ref("sistema/locales/coyhaique/").update({
+        cajaBase:monto
+    })    
+    alert("Caja Base Modificada");
+    $('#modalNotificaciones').modal('close');
+}
+
+function cargarCajaBaseActual(){ 
+    db.ref("sistema/locales/coyhaique/").once('value', function(snapCajBas) {  
+          cajabaseActual=snapCajBas.val().cajaBase
+          console.log(cajabaseActual+"cargando")
+    $('#montoCajaBaseDiaria').val(cajabaseActual)
+    $('#modalCajaBase').modal('open');
+     })
+}
+    
+    $(document).ready(function () {
+        $('.modal').modal();
+        $('.button-collapse').sideNav({
+            menuWidth: 300, // Default is 300
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true    // Choose whether you can drag to open on touch screens,
+
+        });
+        cargarLocales();
+
+cargarNotificaciones();
+    });
+</script>

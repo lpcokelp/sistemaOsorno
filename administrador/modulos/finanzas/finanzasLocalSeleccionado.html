@@ -1,0 +1,53 @@
+<script src="modulos/finanzas/js/finanzas.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        cargarContadores();
+   $('#encabezado').html('Finanzas');
+ $('#fecha2').val(obtenerFecha());
+
+ $('#fecha1').val(obtenerPrimerDia());
+
+})
+</script>
+<div class="row ">
+    <!--Inicio div-card que contiene el form para indicar rango de fecha a buscar -->
+    <div class="col m6 card offset-m3" id="cardFinanzas">
+        <div class=" ">
+            <div class="darken-2 ">
+                <div class="row">
+                    <form class="row" onsubmit="cargarDetalle(fecha1.value,fecha2.value); return false">
+                        <div class="col input-field s6 ">
+                            <p style="font-size:150%;">
+                                Desde
+                            </p>
+                            <input class="datepicker blue-text" id="fecha1" placeholder="buscar" required="true" type="text">
+                            </input>
+                        </div>
+                        <div class="col input-field s6 ">
+                            <p style="font-size:150%;">
+                                Hasta
+                            </p>
+                            <input class="datepicker blue-text " id="fecha2" required="true" type="text">
+                            </input>
+                        </div>
+                        <div class="col input-field s12">
+                            <button class="btn-floating btn-large waves-effect waves-light white right" type="submit">
+                                <i class="material-icons blue-text">
+                                    search
+                                </i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large white" onclick="cargadorModulo('app','locales','localSeleccionado')">
+        <i class="large material-icons blue-text">
+            arrow_back
+        </i>
+    </a>
+</div>

@@ -1,0 +1,3 @@
+registro historico modificacion monto caja base referencia
+filtro rango fecha por mes
+meta maquinas

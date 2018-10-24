@@ -1,0 +1,115 @@
+<script src="modulos/finanzas/js/finanzas.js">
+</script>
+<section class="container">
+    <div class="row">
+        <div class="col s12">
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">
+                        folder
+                    </i>
+                    <span class="title">
+                        Recaudaciones
+                    </span>
+                    <p id="recaudacionesDetalle">
+                    </p>
+                    <a class="secondary-content" href="#!">
+                        <i class="material-icons">
+                            menu
+                        </i>
+                    </a>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">
+                        folder
+                    </i>
+                    <span class="title">
+                        Premios
+                    </span>
+                    <p id="premiosDetalle">
+                    </p>
+                    <a class="secondary-content" href="#!">
+                        <i class="material-icons">
+                            menu
+                        </i>
+                    </a>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">
+                        folder
+                    </i>
+                    <span class="title">
+                        Gastos
+                    </span>
+                    <p id="gastosDetalle">
+                    </p>
+                    <a class="secondary-content" href="#!">
+                        <i class="material-icons">
+                            menu
+                        </i>
+                    </a>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">
+                        folder
+                    </i>
+                    <span class="title">
+                        Diferencia
+                    </span>
+                    <p id="diferenciaDetalle">
+                    </p>
+                    <a class="secondary-content" href="#!">
+                        <i class="material-icons">
+                            menu
+                        </i>
+                    </a>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">
+                        folder
+                    </i>
+                    <span class="title">
+                        Ganancia
+                    </span>
+                    <p id="gananciaDetalle">
+                    </p>
+                    <a class="secondary-content" href="#!">
+                        <i class="material-icons">
+                            menu
+                        </i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="fixed-action-btn toolbar">
+        <a class="btn-floating btn-large blue-grey">
+            <i class="large material-icons">
+                menu
+            </i>
+        </a>
+        <ul>
+            <li class="waves-effect waves-light">
+                <a href="#!">
+                    Analitic
+                </a>
+            </li>
+            <li class="waves-effect waves-light">
+                <a href="#!">
+                    Detalle
+                </a>
+            </li>
+            <li class="waves-effect waves-light">
+                <a href="#!">
+                    Volver
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+<script type="text/javascript">
+    $(document).ready(function() {
+		cargarFiltroDetalleLocal() 
+		    $('select').material_select();
+	});
+</script>

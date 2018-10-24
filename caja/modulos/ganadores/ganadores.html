@@ -1,0 +1,58 @@
+<script src="modulos/ganadores/js/ganadores.js" type="text/javascript">
+</script>
+<div class="row">
+    <div class="col s12 offset-m3 m6 card" style="height: 500px;">
+        <div class="row">
+            <div class="col input-field s12">
+                <h5>
+                    Ganadores
+                </h5>
+            </div>
+            <div class="col s12">
+                <div>
+                    <div>
+                        <div class="row ">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <table class="bordered striped ">
+                                            <thead>
+                                                <th style="width: 25%;">
+                                                    Premio.
+                                                </th>
+                                                <th style="width: 25%;">
+                                                    Hora.
+                                                </th>
+                                                <th style="width: 25%;">
+                                                    Nombre.
+                                                </th>
+                                                <th style="width: 25%;">
+                                                    Rut.
+                                                </th>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+                                        <table class="bordered striped ">
+                                            <tbody id="tablaGanadores">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+    <div class="divider">
+    </div>
+</br>
+<script type="text/javascript">
+    $(document).ready(function($) {
+            cargarGanadores() 
+    });
+</script>

@@ -1,0 +1,40 @@
+<script src="modulos/finanzas/js/finanzas.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#encabezado').html('Balance');
+     cargarBalances();
+})
+</script>
+<div class="row card">
+    <div class="col s12">
+        <table class="bordered ">
+            <thead>
+                <th style="width: 10%;">
+                    N°
+                </th>
+                <th style="width: 25%;">
+                    In
+                </th>
+                <th style="width: 25%;">
+                    Out
+                </th>
+                <th style="width: 25%;">
+                    Balance
+                </th>
+                <th style="width: 15%;">
+                    Hora
+                </th>
+            </thead>
+            <tbody id="tablaBalance" style="max-height: 300; overflow-y:scroll;">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large blue" onclick="cargadorModulo('app', 'locales', 'localSeleccionado')">
+        <i class="large material-icons">
+            arrow_back
+        </i>
+    </a>
+</div>

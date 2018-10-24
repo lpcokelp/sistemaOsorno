@@ -1,0 +1,37 @@
+<script src="modulos/finanzas/js/finanzas.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#encabezado').html('01/02/2018/Contadores');
+     cargarContadores();
+})
+</script>
+<div class="row">
+    <div class="col s12">
+        <table class="bordered">
+            <thead>
+                <th>
+                    N°
+                </th>
+                <th>
+                    In
+                </th>
+                <th>
+                    Out
+                </th>
+                <th>
+                    Balance
+                </th>
+            </thead>
+            <tbody id="tablaContadores" style="max-height: 300; overflow-y:scroll;">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large blue" onclick="cargadorModulo('app', 'finanzas', 'diaSeleccionado')">
+        <i class="large material-icons">
+            arrow_back
+        </i>
+    </a>
+</div>

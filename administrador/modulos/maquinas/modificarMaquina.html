@@ -1,0 +1,65 @@
+<script src="modulos/maquinas/js/maquinas.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('#encabezado').html('Modificar Maquina')
+   cargarValoresModificar()
+})
+</script>
+<div class="row darken-1">
+    <div class="col s12 m12">
+        <br>
+        </br>
+    </div>
+    <style type="text/css">
+        .cajaTexto{
+
+        }
+    </style>
+    <div class="col offset-m3 s12 m6 card">
+        <form onsubmit="modificarMaquina(multiMaquina.value,inMaquina.value,outMaquina.value); return false">
+            <div class="row">
+                <div class="col s6 m6 ">
+                    <label class="blue-text">
+                        Maquina
+                    </label>
+                    <input class="blue-text" disabled="" id="numMaquina" style="font-size:200%;" type="number" required>
+                    </input>
+                </div>
+                <div class="col s6 m6">
+                    <label>
+                        Multiplicador
+                    </label>
+                    <input class="blue-text" id="multiMaquina" required="" style="font-size:200%;" type="number">
+                    </input>
+                </div>
+                <div class="col s6 m6">
+                    <label>
+                        IN
+                    </label>
+                    <input id="inMaquina" required="" type="number" required>
+                    </input>
+                </div>
+                <div class="col s6 m6">
+                    <label>
+                        OUT
+                    </label>
+                    <input id="outMaquina" required="" type="number" required>
+                    </input>
+                </div>
+                <div class="col offset-s6 s6">
+                    <button class="btn-large white blue-text lighten-1" style="width: 100%;" type="submit">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large blue-grey lighten-2">
+        <i class="large material-icons" onclick="cargadorModulo('app','maquinas','panelMaquinas')">
+            arrow_back
+        </i>
+    </a>
+</div>

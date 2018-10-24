@@ -1,0 +1,268 @@
+<script src="modulos/finanzas/js/finanzas.js">
+</script>
+<div class="row">
+    <!--Inicio div-card que contiene el form para indicar rango de fecha a buscar -->
+    <div class="col m6 offset-m3" id="cardFinanzas">
+        <div class="card ">
+            <div class="card-content ">
+                <span class="card-title">
+                    <h4>
+                        Finanzas
+                    </h4>
+                </span>
+                <div class="row">
+                    <form class="row" onsubmit="mostrarFinanzas(fecha1.value,fecha2.value); return false">
+                        <div class="col input-field s12">
+                            <input class="datepicker" id="fecha1" required="true" type="text">
+                                <label for="fecha1">
+                                    Desde
+                                </label>
+                            </input>
+                        </div>
+                        <div class="col input-field s12">
+                            <input class="datepicker" id="fecha2" required="true" type="text">
+                                <label for="fecha2">
+                                    Hasta
+                                </label>
+                            </input>
+                        </div>
+                        <div class="col input-field s12">
+                            <button class="btn-floating btn-large waves-effect waves-light blue right" type="submit">
+                                <i class="material-icons">
+                                    search
+                                </i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Fin div de suqueda por rango de fecha -->
+    <!--Inicio div contenedor... aca se muestra los resultados dspues de indicar el rango de fecha-->
+    <div id="contenedor" style="display: none;">
+        <div class="row card">
+            <div class="col s8">
+                <h4>
+                    Finanzas
+                </h4>
+            </div>
+            <div class="col s4">
+                <i class="material-icons medium right" onclick="mostrarCardFinanzas()">
+                    arrow_back
+                </i>
+            </div>
+            <div class="col s12 ">
+                <div class="card-content ">
+                    <!--Inicio ul que contiene informacion especifica por local  buscada (esto vendra de la bd)-->
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">
+                                <i class="material-icons">
+                                    expand_more
+                                </i>
+                                Osorno
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collection with-header">
+                                    <li class="collection-item">
+                                        <div>
+                                            Entrada
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Salida
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Balance
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Gastos
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Diferencia
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Deposito
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">
+                                <i class="material-icons">
+                                    expand_more
+                                </i>
+                                Coyhaique
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collection with-header">
+                                    <li class="collection-item">
+                                        <div>
+                                            Entrada
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Salida
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Balance
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Gastos
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Diferencia
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="collection-item">
+                                        <div>
+                                            Deposito
+                                            <a class="secondary-content">
+                                                $1111111111
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--Fin ul que contiene informacion especifica por local  buscada -->
+                    <!--Inicio ul que contiene informacion general buscada -->
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <span>
+                                Totales :
+                            </span>
+                            <a class="secondary-content" id="rangoFechaSeleccionada">
+                            </a>
+                        </li>
+                        <li class="collection-item">
+                            <div>
+                                Entradas
+                                <a class="secondary-content" id="entradasFinanzas">
+                                    <i class="material-icons">
+                                        mood
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>
+                                Salidas
+                                <a class="secondary-content" id="salidasFinanzas">
+                                    <i class="material-icons">
+                                        mood_bad
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>
+                                Contadores
+                                <a class="secondary-content" id="contadoresFinanzas">
+                                    <i class="material-icons">
+                                        format_list_numbered
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>
+                                Gastos
+                                <a class="secondary-content" id="gastosFinanzas">
+                                    <i class="material-icons">
+                                        local_atm
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>
+                                Depositos
+                                <a class="secondary-content" id="depositosFinanzas">
+                                    <i class="material-icons">
+                                        account_balance
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>
+                                Diferencia
+                                <a class="secondary-content" id="diferenciaFinanzas">
+                                    <i class="material-icons">
+                                        new_releases
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--Fin ul que contiene informacion general buscada -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Fin div de contenedor con la informacion buscada -->
+</div>
+<!--
+En el ultimo <ul> se inicia la seccion de finanzas general que nace a partir de la busqueda que aparece al entrar al modulo
+
+    id="entradasFinanzas" = Entradas 
+    id="salidasFinanzas" = salidas
+    id="contadoresFinanzas" = contadores de las maquinas  
+    id="gastosFinanzas" = Gastos  
+    id="depositosFinanzas" = Depositos
+    id="diferenciaFinanzas" = Diferencias 
+
+      -->

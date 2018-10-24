@@ -1,0 +1,347 @@
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" rel="stylesheet">
+        <script src="//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js">
+        </script>
+        <link href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css" rel="stylesheet"/>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js">
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js">
+        </script>
+        <script src="js/ticket.js">
+        </script>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+        <!--GUASOPALOMINO-->
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        </meta>
+    </link>
+</link>
+<style type="text/css">
+    .splitflap {
+        margin: 0 auto;
+        -webkit-perspective-origin: top center;
+        -moz-perspective-origin: top center;
+        -ms-perspective-origin: top center;
+        perspective-origin: top center;
+        -webkit-perspective: 900px;
+        -moz-perspective: 900px;
+        -ms-perspective: 900px;
+        perspective: 900px;
+    }
+    /*!
+Styles for full screen background video demo
+*/
+    /* =============================================================================
+  RESETS
+============================================================================= */
+    
+    html,
+    body,
+    div,
+    h1,
+    p,
+    a,
+    video {
+        margin: 0;
+        padding: 0;
+    }
+    /* =============================================================================
+  HTML, BODY
+============================================================================= */
+    
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+    
+        font-family: 'Roboto', sans-serif;
+      
+    }
+    /* =============================================================================
+  CONTENT
+============================================================================= */
+    
+    .content {
+        position: relative;
+        z-index: 3;
+        margin: 0 auto;
+
+  
+        top:10%;
+    }
+    
+    .content__heading {
+        margin-bottom: 24px;
+        color: #272727;
+        font-size: 44px;
+    }
+    
+    .content__teaser {
+        margin-bottom: 24px;
+        color: #595959;
+        font-size: 22px;
+    }
+    
+    .content__cta {
+        display: inline-block;
+        margin: 0;
+        padding: 12px 48px;
+        color: #ff3c64;
+        font-size: 22px;
+        text-decoration: none;
+        border: solid 4px #ff3c64;
+    }
+    /* =============================================================================
+  VIDEO
+============================================================================= */
+    
+    .video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    
+    .parpadea {
+        animation-name: parpadeo;
+        animation-duration: 0.4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: parpadeo;
+        -webkit-animation-duration: 0.4s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+    }
+    
+    @-moz-keyframes parpadeo {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
+    }
+    
+    @-webkit-keyframes parpadeo {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
+    }
+    
+    @keyframes parpadeo {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
+    }
+
+        .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #ffffff;
+    will-change: left, right;
+}
+
+.tabs .tab a.active {
+    background-color: #e0e0e0  ;
+    color: black;
+     text-decoration: underline;
+    text-decoration-color:#ffffff;
+}
+
+.tabs .tab a {
+    color: rgba(255, 255, 255, 0.7);
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0 24px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: color .28s ease;
+}
+
+.boton{
+    width: 45px; height: 45px;
+}
+</style>
+<body class="grey">
+    <div class="row content ">
+        <div class="col offset-m4 m4 s12 grey lighten-1 ">
+            <div class="col s12 grey lighten-1 ">
+                <ul class="tabs grey lighten-1 ">
+                    <li class="tab col s6">
+                        <a class="active" href="#test1">
+                            Cupones
+                        </a>
+                    </li>
+                    <li class="tab col s6" onclick="abrirregistro()">
+                        <a href="#test2">
+                            Registrar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col s12 grey lighten-2 offset-m4 m4" id="test1">
+            <div class="row">
+                <div class="col s12 center ">
+                    <span class="center black-text" style="width: 100%;">
+                        RUTT
+                    </span>
+                </div>
+                <div class="col s12 center grey darken-2">
+                    <span class="center white-text" id="rut1" style="width: 100%; height: 50px;">
+                    </span>
+                </div>
+            </div>
+            <!-- numeros del 1 al 3-->
+            <div class="row">
+                <div class="col s4 center ">
+                    <button class="btn center boton grey darken-2" onclick="tecladorut(1)">
+                        1
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(2)">
+                        2
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(3)">
+                        3
+                    </button>
+                </div>
+            </div>
+            <!-- numeros del 1 al 3-->
+            <div class="row">
+                <div class="col s4 center ">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(4)">
+                        4
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(5)">
+                        5
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(6)">
+                        6
+                    </button>
+                </div>
+            </div>
+            <!-- numeros del 7 al 9-->
+            <div class="row">
+                <div class="col s4 center ">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(7)">
+                        7
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(8)">
+                        8
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(9)">
+                        9
+                    </button>
+                </div>
+            </div>
+            <!-- numeros del 7 al 9-->
+            <div class="row">
+                <div class="col s4 center ">
+                    <button class="btn boton red" onclick="cancelartodo()">
+                        X
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut(0)">
+                        0
+                    </button>
+                </div>
+                <div class="col s4 center">
+                    <button class="btn boton grey darken-2" onclick="tecladorut('k')">
+                        k
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center">
+                    <button class="btn green " onclick="obtenerTicket()">
+                        Registrar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <form class="col s12 grey lighten-2 offset-m4 m4" id="test2" onsubmit="guardarCliente(nombreCliente.value,apellidoCliente.value); return false">
+            <div class="row">
+                <div class="col s12 center ">
+                    <span class="center black-text" style="width: 100%;">
+                        RUTt
+                    </span>
+                </div>
+                <div class="col s12 center grey darken-2">
+                    <span class="center white-text" id="rut2" style="width: 100%; height: 50px;">
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label class="black-text">
+                        Nombre
+                    </label>
+                    <input id="nombreCliente" required="" type="text">
+                    </input>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label class="black-text">
+                        Apellido
+                    </label>
+                    <input id="apellidoCliente" required="" type="text">
+                    </input>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center ">
+                    <button class="btn green " type="submit">
+                        Registrar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <video autoplay="" class="video" id="my-video" loop="" muted="">
+        <!-- <source src="http://chamaclub.cl/produccion/trabajadores/images/fondo.mp4" type="video/mp4">-->
+        <source id="fondotombola" src="http://chamaclub.cl/produccion/trabajadores/images/introcasino.mp4" type="video/mp4">
+        </source>
+    </video>
+</body>

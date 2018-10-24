@@ -1,0 +1,40 @@
+<script src="modulos/locales/js/locales.js" type="text/javascript">
+</script>
+<div class="row ">
+    <div class="col m12 s12">
+        <table class=" centered" style="overflow-x: scroll;">
+            <thead>
+                <th>
+                    Maquina
+                </th>
+                <th>
+                    Monto
+                </th>
+                <th>
+                    Hora
+                </th>
+            </thead>
+        </table>
+    </div>
+    <div class="col m12 s12 " id="contenidoMaquinas" style="max-height: 500px; overflow-y: scroll;">
+        <table class="centered">
+            <tbody id="contenidoRecaudaciones">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large white darken-3" onclick="cargadorModulo('app','locales','localSeleccionado')">
+        <i class="large material-icons blue-text">
+            arrow_back
+        </i>
+    </a>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+    cargarRecaudaciones();
+
+
+
+})
+</script>

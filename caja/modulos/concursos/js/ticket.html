@@ -1,0 +1,469 @@
+function quitapuntos(num) {
+    busca = '.';
+    reemplaza = '';
+    while (num.indexOf(busca) != -1) {
+        console.log(num + "primero")
+        num = num.replace(busca, reemplaza);
+    }
+    return num;
+}
+
+function quitaguion(num) {
+    busca = '-';
+    reemplaza = '';
+    while (num.indexOf(busca) != -1) {
+        num = num.replace(busca, reemplaza);
+    }
+    return num;
+}
+
+function guardarclientes(nombres, apellidos, fono) {
+    var rut1 = $('#rut1').html();
+    rut1 = rut1.trim();
+    db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes/").push({
+        nombres: nombres,
+        apellidos: apellidos,
+        rut: rut,
+        fono: fono
+    });
+    $('#nombres').val('').blur();
+    $('#apellidos').val('').blur();
+    $('#telefono').val('').blur();
+    $('#nombres').focus();
+    Materialize.toast('
+<div class="green-text">
+    <span style="font-size:200%;">
+        Cliente Registrado
+    </span>
+</div>
+', 4000)
+    $('#rut1').html('');
+    $('#rutdv').val('').blur();
+    $('#rut').focus()
+    $('#modalingreso').modal('close');
+}
+
+function abrirregistro() {
+    var rut1 = $('#rut1').html();
+    rut1 = rut1.trim();
+    rut = rut1;
+    estadorut = false;
+    db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes/").orderByChild('rut').equalTo(rut).once('value', function(revrut) {
+        revrut.forEach(function(revrutitem) {
+            estadorut = true;
+        });
+        //valida si existe el rut registrado
+        if (estadorut == false) {
+            if (rut1 != "") {
+                if (rut1.length > 10) {
+                    $('#modalingreso').modal('open');
+                } else {
+                    Materialize.toast('
+<div class="yellow-text">
+    <span style="font-size:250%;">
+        RUT Incompleto
+    </span>
+</div>
+', 4000)
+                }
+            } else {
+                Materialize.toast('
+<div class="yellow-text">
+    <span style="font-size:250%;">
+        Ingrese un RUT
+    </span>
+</div>
+', 4000)
+            }
+        } else {
+            Materialize.toast('
+<div class="yellow-text">
+    <span style="font-size:200%;">
+        RUT ya registrado
+    </span>
+</div>
+', 4000)
+            $('#rut1').html('');
+        }
+    })
+    setTimeout(function() {
+        $('#rut1').html('')
+        $('#modalingreso').modal('close');
+    }, 30000);
+}
+
+function cancelartodo(caracter) {
+    $('#rut1').html('');
+}
+
+function cargarestados() {
+    db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes/").once('value', function(datoes) {
+        datoes.forEach(function(iteme) {
+            db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes/" + iteme.key).update({
+                estado: true
+            })
+        })
+    })
+}
+rutaconcursos = "clientes/q5s9Ek12z2PFbvAqNixWnJshTBW2/locales/-KbTAO7iREQaVE8GQeqA/concursos/listado/";
+
+function reproducirTicketGanador(nomTicket, rutTicket) {
+    console.log('ganadorrrrrrrrrrrrrrrrrrrr')
+    $('#nombreTickerGanador').html(nomTicket);
+    $('#rutTickerGanador').html(rutTicket);
+    campana.play();
+    var f = new Date();
+    hora = f.getHours() + ":" + f.getMinutes()
+    var mes = f.getMonth() + 1;
+    mes = parseInt(mes)
+    var dia = f.getDate()
+    dia = parseInt(dia)
+    if (mes < 10) {
+        mes = "0" + mes
+    }
+    if (dia < 10) {
+        dia = "0" + dia
+    }
+    $('#nombreTickerGanador').html(nomTicket)
+    $('#rutTickerGanador').html(rutTicket)
+    $('#modalalerta').modal('close');
+    $('#modalTicketGanador').modal('open');
+    minutos = parseInt(f.getMinutes())
+    if (minutos < 10) {
+        minutos = 0 + minutos
+    }
+    hora = f.getHours()
+    hoy = dia + "-" + mes + "-" + f.getFullYear()
+    db.ref(rutaconcursos).push({
+        fecha: hoy,
+        ganador: nomTicket,
+        rut: rutTicket,
+        premio: 2000,
+        estado: false,
+        hora: hora,
+        minuto: minutos
+    });
+    setTimeout(function() {
+        $('#modalTicketGanador').modal('close');
+    }, 21000);
+}
+
+function tecladorut(caracter) {
+    $('#rut1').focus();
+    var varactual = $('#rut1').html();
+    varactual = varactual.trim()
+    varactual = quitapuntos(varactual)
+    varactual = quitaguion(varactual)
+    primeraparte = ""
+    segundaparte = ""
+    terceraparte = ""
+    dgv = ""
+    var pantalla = varactual + caracter;
+    if (pantalla.length < 8) {
+        $('#rut1').html(pantalla);
+        $('#rut1').attr('class', 'black-text center grey lighten-1')
+    }
+    if (pantalla.length == 8) {
+        $('#rut1').attr('class', 'green-text center grey lighten-1')
+        primeraparte = pantalla.substring(0, 1);
+        primeraparte = primeraparte + "."
+        segundaparte = pantalla.substring(1, 4);
+        segundaparte = segundaparte + "."
+        terceraparte = pantalla.substring(4, 7)
+        terceraparte = terceraparte + "-"
+        dgv = pantalla.substring(7, 8);
+        conpuntos = primeraparte + segundaparte + terceraparte + dgv
+        $('#rut1').html(conpuntos);
+    }
+    if (pantalla.length == 9) {
+        $('#rut1').attr('class', 'green-text center grey lighten-1')
+        primeraparte = pantalla.substring(0, 2);
+        primeraparte = primeraparte + "."
+        segundaparte = pantalla.substring(2, 5);
+        segundaparte = segundaparte + "."
+        terceraparte = pantalla.substring(5, 8)
+        terceraparte = terceraparte + "-"
+        dgv = pantalla.substring(8, 9);
+        conpuntos = primeraparte + segundaparte + terceraparte + dgv
+        $('#rut1').html(conpuntos);
+    }
+}
+
+function borrarrut() {
+    $('#rut1').html('');
+    $('#rut1').focus();
+}
+
+function generarticket() {
+    var rut1 = $('#rut1').html();
+    rut1 = rut1.trim()
+    control = 0;
+    acumulador = 0;
+    var f = new Date();
+    hora = f.getHours() + ":" + f.getMinutes()
+    var mes = f.getMonth() + 1;
+    mes = parseInt(mes)
+    var dia = f.getDate()
+    dia = parseInt(dia)
+    if (mes < 10) {
+        mes = "0" + mes
+    }
+    if (dia < 10) {
+        dia = "0" + dia
+    }
+    hoy = dia + "-" + mes + "-" + f.getFullYear()
+    hora1 = f.getHours()
+    if (hora1 < 10) {
+        hora1 = "0" + hora1
+    } else {
+        hora1 = hora1 + ""
+    }
+    if (f.getMinutes() < 9) {
+        minuto = "0" + f.getMinutes();
+    } else {
+        minuto = f.getMinutes() + ""
+    }
+    horanueva = hora1 + minuto
+    hornueva = parseInt(horanueva)
+    nombres = ""
+    hora = ""
+    apellidos = ""
+    acumuladorcupones = 0;
+    llavecli = ""
+    if (rut1 == '1.816.115-5') {
+        $('#modalalerta').modal('open');
+        setTimeout(function() {
+            console.log('')
+            contenido = "
+<div>
+    "
+            contenido += "
+    <p class="center" style="font-size:150%; font-weight:800;">
+        Rut falso
+    </p>
+    "
+            contenido += "
+    <p class="center" style="font-size:150%; font-weight:800;">
+        1.816.115-5
+    </p>
+    "
+            $('#contenidoimpresion').html(contenido)
+            $('#contenidoimpresion').print()
+            $('#contenidoimpresion').html('')
+        }, 1000);
+    } else {
+        db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes").orderByChild('rut').equalTo(rut1).once('value', function(datos) {
+            nombres = "";
+            apellidos = "";
+            estadocli = ""
+            datos.forEach(function(item) {
+                llavecli = item.key
+                estadocli = item.val().estado
+                nombres = item.val().nombres
+                apellidos = item.val().apellidos
+                nombres = nombres + " " + apellidos
+                if (item.val().acumuladorcupones) {
+                    acumuladorcupones = parseInt(item.val().acumuladorcupones)
+                }
+                acumuladorcupones = acumuladorcupones + 1
+                control = 1;
+            })
+        }).then(function() {
+            if (nombres != "") {
+                acumulador = 0;
+                db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/sorteos/registro/").orderByChild('rut').equalTo(rut1).once('value', function(datos2) {
+                    datos2.forEach(function(item2) {
+                        if (item2.val().fecha == hoy) {
+                            acumulador = acumulador + 1
+                        }
+                    })
+                    if (acumulador < 8) {
+                        db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/sorteos/registro/").orderByChild('rut').equalTo(rut1).limitToLast(1).once('value', function(datos2) {
+                            control2 = 1;
+                            horaultimo = 0;
+                            datos2.forEach(function(item2) {
+                                if (item2.val().fecha == hoy) {
+                                    if (item2.val().hora) {
+                                        hora = item2.val().hora;
+                                        busca = ':';
+                                        reemplaza = "";
+                                        horaultimo = hora.toString().replace(busca, reemplaza);
+                                        horaultimo = parseInt(horaultimo)
+                                    }
+                                }
+                                horanueva = parseInt(horanueva)
+                                analisis = horanueva - horaultimo;
+                                if (horanueva) {
+                                    analisis = analisis - 40
+                                    tiemporestante = 60 - analisis
+                                    console.log(analisis)
+                                    if (analisis < 60) {
+                                        control2 = 0
+                                    } else {
+                                        control2 = 1;
+                                    }
+                                }
+                            })
+                            // activar la linea para sacar la validacion de tiempo
+                            //control2=1
+                            // activar la linea para sacar la validacion de tiempo
+                            if (control2 == 1) {
+                                hora3 = f.getHours() + ":" + minuto
+                                numerocupon = 0;
+                                db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/sorteos/registro/").orderByKey().limitToLast(1).once('value', function(datos3) {
+                                    datos3.forEach(function(item3) {
+                                        numerocupon = item3.val().numerocupon
+                                        numerocupon = numerocupon + 1;
+                                    })
+                                    if (acumuladorcupones < 20) {
+                                        console.log('menor a 20')
+                                        db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes/" + llavecli).update({
+                                            acumuladorcupones: acumuladorcupones,
+                                            horaultimoticket: hora
+                                        })
+                                    } else {
+                                        console.log('mayor a 20')
+                                        db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/clientes/" + llavecli).update({
+                                            acumuladorcupones: 0,
+                                            horaultimoticket: hora
+                                        })
+                                        reproducirTicketGanador(nombres, rut1);
+                                    }
+                                    if (estadocli == true) {
+                                        console.log('true')
+                                        db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/sorteos/registro/").push({
+                                            rut: rut1,
+                                            nombres: nombres,
+                                            hora: hora3,
+                                            numerocupon: numerocupon,
+                                            estado: true,
+                                            fecha: hoy
+                                        });
+                                    } else {
+                                        console.log('false')
+                                        db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/sorteos/registro/").push({
+                                            rut: rut1,
+                                            nombres: nombres,
+                                            hora: hora3,
+                                            numerocupon: numerocupon,
+                                            estado: false,
+                                            fecha: hoy
+                                        });
+                                    }
+                                    setTimeout(function() {
+                                        contenido = ""
+                                        contenido += "
+    <div style="font-size:80%;">
+        "
+                                        contenido += "
+        <p>
+            Fecha: " + hoy + "  Hora: " + hora3 + "
+        </p>
+        "
+                                        contenido += "
+        <p>
+            <img src="images/logoticket2.jpg" style="width:80%; height:80%;"/>
+        </p>
+        "
+                                        contenido += "
+        <p>
+            Nombre: " + nombres + " " + apellidos + "
+        </p>
+        "
+                                        contenido += "
+        <p>
+            Rut: " + rut1 + "
+        </p>
+        "
+                                        contenido += "
+        <p>
+            Este cupon es valido solo con carnet en mano
+        </p>
+        "
+                                        contenido += "
+        <p>
+            Cupon:  " + numerocupon + "
+        </p>
+    </div>
+    "
+                                        $('#contenidoimpresion').html(contenido)
+                                        $('#modalInscripcion').modal('open');
+                                        setTimeout(function() {
+                                            $('#modalInscripcion').modal('close');
+                                        }, 10000);
+                                        $('#contenidoimpresion').html('')
+                                    }, 1000);
+                                    Materialize.toast('
+    <div class="green-text">
+        <span style="font-size:200%;">
+            Ticket Registrado para el sorteo!
+        </span>
+    </div>
+    ', 4000)
+                                })
+                                $('#rut1').html('');
+                                $('#rut1').focus();
+                            } else {
+                                if (control2 == 3) {
+                                    Materialize.toast('
+    <div class="yellow-text">
+        <span style="font-size:200%;">
+            Maximo 8 cupones por dia
+        </span>
+    </div>
+    ', 4000)
+                                    $('#rut1').html('');
+                                    $('#rut1').focus();
+                                } else {
+                                    Materialize.toast('
+    <div class="yellow-text">
+        <span style="font-size:200%;">
+            Cada una hora puede sacar cupones
+        </span>
+    </div>
+    ', 4000)
+                                    $('#rut1').html('');
+                                    $('#rut1').focus();
+                                }
+                            }
+                        })
+                    } else {
+                        alertify.error('Solo se puede obtener 4 ticket por dia')
+                    }
+                })
+            } else {
+                Materialize.toast('
+    <div class="yellow-text">
+        <span style="font-size:200%;">
+            Rut no registrado
+        </span>
+    </div>
+    ', 4000)
+                $('#rut1').html('');
+            }
+        })
+    }
+}
+var campana = new Audio('images/campana.wav');
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyA_JCRyVWsHWZmqomJMFKF1fVKXsWNbdZc",
+    authDomain: "trabajo-fa9a9.firebaseapp.com",
+    databaseURL: "https://trabajo-fa9a9.firebaseio.com",
+    storageBucket: "trabajo-fa9a9.appspot.com",
+    messagingSenderId: "14037110144"
+};
+firebase.initializeApp(config);
+var db = firebase.database();
+$(document).ready(function() {
+    $('.modal').modal();
+    $('#printable').hide();
+    db.ref("clientes/" + sessionStorage.cliente + "/locales/" + sessionStorage.localactual + "/personaGanadora/").on('value', function(snapTicketGanador) {
+        console.log('funcionano ticket ganador')
+        if (snapTicketGanador.val().estado == true) {
+            console.log('funcionano ticket ganador')
+            // reproducirTicketGanador(snapTicketGanador.val().nombres, snapTicketGanador.val().rut);
+        } else {}
+    })
+})
+</div>

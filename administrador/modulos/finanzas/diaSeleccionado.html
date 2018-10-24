@@ -1,0 +1,94 @@
+<script src="modulos/finanzas/js/finanzas.js">
+</script>
+<div class="row">
+    <!-- Columa dias-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+   $('#encabezado').html('01/02/2018');
+ cargarDiaSeleccionado()
+})
+    </script>
+    <div class="col s12 m6 offset-m3">
+        <ul class="collection with-header">
+            <li class="collection-item ">
+                <div>
+                    <span>
+                        Caja Base
+                    </span>
+                    <a class="secondary-content blue-text" href="#!" id="cajaBase">
+                        $400.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item ">
+                <div>
+                    IN
+                    <a class="secondary-content blue-text" href="#!" id="entradas">
+                        $200.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item ">
+                <div>
+                    <span>
+                        OUT
+                    </span>
+                    <a class="secondary-content blue-text" href="#!" id="salidas">
+                        $200.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item blue-text">
+                <div>
+                    <span onclick=" cargadorModulo('app', 'finanzas', 'contadoresDiaSeleccionado')">
+                        GananciaContadoress
+                    </span>
+                    <a class="secondary-content blue-text" href="#!" id="gananciaContadores">
+                        $600.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item">
+                <div>
+                    <span onclick=" cargadorModulo('app', 'finanzas', 'gastosSeleccionado')">
+                        Gastos
+                    </span>
+                    <a class="secondary-content blue-text" href="#!" id="gastos">
+                        $400.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item blue-text">
+                <div>
+                    Ganancia
+                    <a class="secondary-content blue-text" href="#!" id="ganancia">
+                        $200.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item ">
+                <div>
+                    Diferencia
+                    <a class="secondary-content t" href="#!" id="diferencia">
+                        $200.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item ">
+                <div>
+                    Deposito
+                    <a class="secondary-content blue-text" href="#!" id="deposito">
+                        $600.000
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large white " onclick="cargadorModulo('app', 'finanzas', 'detalleDias')">
+        <i class="large material-icons blue-text">
+            arrow_back
+        </i>
+    </a>
+</div>

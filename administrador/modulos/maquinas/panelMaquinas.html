@@ -1,0 +1,42 @@
+<script src="modulos/maquinas/js/maquinas.js" type="text/javascript">
+</script>
+<div class="row ">
+    <div class="col m12 s12 " id="contenidoMaquinas">
+        <table id="tablaMaquinas">
+            <thead>
+                <th>
+                    Nº
+                </th>
+                <th>
+                    IN
+                </th>
+                <th>
+                    OUT
+                </th>
+                <th>
+                    Ganancia
+                </th>
+                <th>
+                </th>
+            </thead>
+            <tbody id="listadomaquinas">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large white " onclick="cargadorModulo('app','maquinas','agregarMaquina')">
+        <i class="large material-icons blue-text">
+            add
+        </i>
+    </a>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+    cargarmaquinas();
+
+
+
+
+})
+</script>

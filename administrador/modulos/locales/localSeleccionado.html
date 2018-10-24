@@ -1,0 +1,102 @@
+<style type="text/css">
+    .collection-item:hover{
+background-color:rgba(0, 0, 0, 0.32);
+}
+</style>
+<script src="modulos/locales/js/locales.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function($) {
+ $('#listo').hide('1', function() {});
+setTimeout(function(){  cargarLocalSeleccionado(); }, 1000);
+
+              $('#encabezado').html(obtenerFecha())
+        console.log('Cargando configuración...')
+
+
+    });
+</script>
+<div class="row">
+    <div class="col m4 offset-m4 card s12" id="preloader">
+        <h5>
+            Cargando
+        </h5>
+        <div class="progress">
+            <div class="indeterminate">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="listo">
+    <div class="col offset-m3 s12 m6">
+        <ul class="collection ">
+            <li class="collection-item ">
+                Fecha
+                <a class="secondary-content ">
+                    <span id="fechaLocalSeleccionado">
+                    </span>
+                </a>
+            </li>
+            <li class="collection-item ">
+                CajaBase
+                <a class="secondary-content ">
+                    <span id="cajaBaseLocalSeleccionado">
+                    </span>
+                </a>
+            </li>
+            <li class="collection-item " onclick="cargadorModulo('app', 'locales', 'recaudaciones');">
+                Recaudaciones
+                <a class="secondary-content ">
+                    <span id="recaudacionesLocalSeleccionado">
+                    </span>
+                </a>
+            </li>
+            <li class="collection-item ">
+                <div onclick="cargadorModulo('app', 'locales', 'premios');">
+                    Premios
+                    <a class="secondary-content">
+                        <span id="premiosLocalSeleccionado">
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item ">
+                <div onclick="cargadorModulo('app', 'locales', 'gastos');">
+                    Gastos
+                    <a class="secondary-content">
+                        <span id="gastosLocalSeleccionado">
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item blue darken-2 white-text">
+                <div onclick="cargadorModulo('app', 'locales', 'balance');">
+                    Balance
+                    <a class="secondary-content ">
+                        <span class="white-text" id="balanceLocalSeleccionado">
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large white blue-text">
+        <i class="large material-icons blue-text">
+            menu
+        </i>
+    </a>
+    <ul>
+        <li class="waves-effect waves-light" onclick="cargadorModulo('app','maquinas','panelMaquinas')">
+            <a class="blue-text" href="#!">
+                Maquinas
+            </a>
+        </li>
+        <li class="waves-effect waves-light" onclick="cargadorModulo('app','finanzas','finanzasLocalSeleccionado')">
+            <a class="blue-text" href="#!">
+                Finanzas
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,35 @@
+<script src="modulos/cuadratura/js/contadores2.js" type="text/javascript">
+</script>
+<ul class="tabs light-blue darken-2 " id="tabs-swipe-demo">
+    <li class="tab col s3">
+        <a class="active" href="#cajaBase">
+            <span class=" white-text">
+                Entrega Caja
+            </span>
+        </a>
+    </li>
+</ul>
+<div class="col s12 " id="cajaBase">
+</div>
+<section class="container">
+</section>
+<script src="modulos/cajabase/js/cajabase.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){    
+cargarEntregaCaja();
+
+
+
+$('ul.tabs').tabs();
+         });
+</script>
+<style type="text/css">
+    .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #ffffff;
+    will-change: left, right;
+}
+</style>
