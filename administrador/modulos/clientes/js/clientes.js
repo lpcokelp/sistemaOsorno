@@ -38,15 +38,13 @@ function cargarValoresClientes() {
     })
 }
 
-function modificarCliente(rut, nombre, telefono) {
-    db.ref(rutaclientes + sessionStorage.clienteActual).update({
-        nombre: nombre,
-        telefono: telefono
-    })
-    Materialize.toast('Cliente Modificado con Exito!', 4000)
+function eliminarClientes(llave) {
+    db.ref(rutaclientes + llave).remove()
+    Materialize.toast('Cliente Modificado con Exito!', 4000);
+    cargarClientes()
 }
 
-function cargarclientes() {
+function cargarClientes() {
     $('#encabezado').html('Clientes')
     db.ref(rutaclientes).orderByChild("rut").once('value', function(datmaq) {
         contenidotablacliente = ""
@@ -60,8 +58,8 @@ function cargarclientes() {
             <td>` + puntuar(datoscliente.telefono) + ` </td>
             ` + puntuar(datoscliente.rut) + ` 
             <td>
-            <i class=" material-icons" onclick="cargarOpcionesCliente('` + itemmaq.key + `')">
-            menu
+            <i class=" material-icons" onclick="eliminarClientes('` + itemmaq.key + `')">
+            delete
             </i> 
             </td>
             </tr>

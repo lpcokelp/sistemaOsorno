@@ -136,17 +136,12 @@ function cargarCierre() {
         cajaBasePorRecuperar3 = 0;
         cajabase2 = cajabase
         balanceDiario=ganancia;
-        if (ganancia > 0) {
-            $('#recuperacionPendiente').html(puntuar((cajaBasePorRecuperar) * -1))
-        } else {
-            $('#recuperacionPendiente').html(0)
-        }
+ 
         balanceDos = cajabase + ganancia - cajaBasePorRecuperar * -1
         $('#balanceDos').html(puntuar(balanceDos))
-
         console.log("caja base referencial ")
         diferencia = montoEntregaDeCaja - (balanceDiario + cajabase2)
-        deposito = ganancia - (diferencia * -1);
+        deposito = ganancia - (diferencia );
  
 
       
@@ -162,9 +157,7 @@ function cargarCierre() {
         $('#ganancia').html(puntuar(ganancia))
         $('#diferencia').html(puntuar(diferencia))
         $('#deposito').html(puntuar(deposito))
-        if (deposito < 0) {
-            $('#deposito').html(0);
-        }
+  
         db.ref(rutaDatosImportantesCuadratura).update({
             ganancia: ganancia,
             diferencia: diferencia,
