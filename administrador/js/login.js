@@ -19,7 +19,7 @@ fechaActual=""
       if (user) {
           datosLocales = [];
           cargarBarra("barraNavegacion", "barraNavegacion", "barraNavegacion");
-          cargadorModulo('app', 'locales', 'localSeleccionado');
+          cargadorModulo('app', 'locales', 'todosLosLocales');
           db.ref(rutacuentas).orderByKey().equalTo(firebase.auth().currentUser.uid).once('value', function(datosuser) {
               datosuser.forEach(function(itemuser) {
                   sessionStorage.tipocredencial = itemuser.val().tipo;

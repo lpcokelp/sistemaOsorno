@@ -2,7 +2,7 @@ var listaLocales = []
 
 function cargarLocales() {
     listaLocales = []
-    db.ref("sistema/locales/" + firebase.auth().currentUser.uid).once('value', function(datoslocales) {
+    db.ref("sistema/locales/").once('value', function(datoslocales) {
         contenidolocales = `
            `;
         contenidobarra = "";
