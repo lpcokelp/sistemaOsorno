@@ -177,6 +177,7 @@ function eliminarRecaudacion(recaudacion, monto, maquina) {
 }
 
 function cargarRecaudaciones() {
+    console.log("Cargando Recaudaciones");
     arregloMaquinaRecaudaciones = [];
     arregloContadorRecaudaciones = [];
     arregloMontoRecaudaciones = [];
@@ -206,11 +207,59 @@ function cargarRecaudaciones() {
         db.ref(rutaDatosTurno).update({
             recaudacionesTotales: montoTotalRecaudaciones
         })
-        $('#tablaRecaudaciones').html(contenidoTablaRecaudaciones);
+        $('#cuerpoRecaudaciones').html(contenidoTablaRecaudaciones);
         $('#recaudacionTotal').html(puntos("" + montoTotalRecaudaciones + ""));
         $('#numeroTotalRecaudaciones').html(contadorRecaudacion);
+      
+        var tablaRec =$('#tablaRecaudaciones').DataTable({
+            "pageLength": 7,
+            orderCellsTop: true,
+            fixedHeader: true,
+            "searching": false,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+
+        $('#tablaRecaudaciones thead tr').clone(true).appendTo( '#tablaRecaudaciones thead' );
+        $('#tablaRecaudaciones thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( tablaRec.column(i).search() !== this.value ) {
+                    tablaRec
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
     })
 }
+
+
 
 function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
     if (numeroMaquinaRecaudacion == '') {

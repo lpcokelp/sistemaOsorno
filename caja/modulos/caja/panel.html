@@ -133,36 +133,8 @@
     <div class="row">
         <div class="col s12 m9 card" style="height: 600px;">
             <div class="row">
-                <div class="col input-field s3">
-                    <h5>
-                        Recaudaciones
-                    </h5>
-                </div>
-                <div class="col s9">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input class="validate" id="numeroMaquinaRecaudacion" onkeyup="buscarRecaudacionMaquina(this.value);" type="text">
-                                <label for="icon_prefix">
-                                    Numero de maquina
-                                </label>
-                            </input>
-                        </div>
-                        <div class=" col s6">
-                            <h5>
-                                N°:
-                                <a class="" id="numeroTotalRecaudaciones">
-                                </a>
-                            </h5>
-                        </div>
-                        <div class=" col s6">
-                            <h5>
-                                Total recaudacion:
-                                <a class="" id="recaudacionTotal">
-                                </a>
-                            </h5>
-                        </div>
-                    </div>
-                </div>
+          
+      
                 <div class="col s12">
                     <div>
                         <div>
@@ -170,28 +142,25 @@
                                 <div class="col s12">
                                     <div class="row">
                                         <div class="col s12">
-                                            <table class="bordered striped ">
+                                            <table class="bordered striped " id="tablaRecaudaciones">
                                                 <thead>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                         Maquina
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                         Monto.
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                         Hrs.
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                     </th>
                                                 </thead>
-                                            </table>
-                                        </div>
-                                        <div class="col s12" style="max-height: 250px; overflow-y: scroll;">
-                                            <table class="bordered striped ">
-                                                <tbody id="tablaRecaudaciones">
+                                                <tbody id="cuerpoRecaudaciones">
                                                 </tbody>
                                             </table>
                                         </div>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -250,37 +219,7 @@
 <div class="col s12 " id="gastos" style="display: none;">
     <div class="row">
         <div class="col s12 m9 card" style="height: 600px;">
-            <div class="row">
-                <div class="col input-field s3">
-                    <h5>
-                        Gastos
-                    </h5>
-                </div>
-                <div class="col s9">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input class="validate" id="motivoGastoBuscar" onkeyup="buscarGastos(this.value);" type="text">
-                                <label for="icon_prefix">
-                                    Motivo
-                                </label>
-                            </input>
-                        </div>
-                        <div class=" col s6">
-                            <h5>
-                                N°:
-                                <a class="" id="numeroTotalGastos">
-                                </a>
-                            </h5>
-                        </div>
-                        <div class=" col s6">
-                            <h5>
-                                Total Gastos:
-                                <a class="" id="gastosTotal">
-                                </a>
-                            </h5>
-                        </div>
-                    </div>
-                </div>
+            <div class="row">  
                 <div class="col s12">
                     <div>
                         <div>
@@ -288,28 +227,27 @@
                                 <div class="col s12">
                                     <div class="row">
                                         <div class="col s12">
-                                            <table class="bordered striped ">
+                                            <table class="bordered striped " id=tablaGastos>
                                                 <thead>
-                                                    <th style="width: 25%;">
+                                                    <th>
                                                         Monto
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th>
                                                         Motivo
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th>
                                                         Hora
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th>
                                                     </th>
                                                 </thead>
-                                            </table>
-                                        </div>
-                                        <div class="col s12" style="max-height: 250px; overflow-y: scroll;">
-                                            <table class="bordered striped ">
-                                                <tbody id="tablaGastos">
+                                                <tbody id="cuerpoGastos">
+
                                                 </tbody>
                                             </table>
+                                      
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>
