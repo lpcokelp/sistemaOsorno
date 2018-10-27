@@ -2,40 +2,58 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-   $('#encabezado').html('Agregar Sorteo')
+   $('#encabezado').html('Agregar Sorteo');
+   $("#fecha").val(obtenerFecha())
+   $('.datepicker').pickadate({ //datepicker
+        format: 'yyyy-mm-dd',
+        firstDay: true,
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
+        weekdaysLetter: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        labelMonthNext: 'Mes siguiente',
+        labelMonthPrev: 'Mes anterior',
+        labelMonthSelect: 'Selecciona un mes',
+        labelYearSelect: 'Selecciona un año',
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']
+    });
 })
 </script>
 <div class="row darken-1 ">
-    <div class="col s12 m12">
-        <br>
-        </br>
-    </div>
+  
     <div class="col offset-m3 s12 m6 card">
         <form onsubmit="guardarSorteo(fecha.value,Hora.value,premio.value); return false">
             <div class=" ">
                 <div class="row">
-                    <div class="col s6 m4">
+                    <div class="col s12 m6">
                         <label class="blue-text">
-                            fecha
+                            
+                            Cuando Será el sorteo?
                         </label>
-                        <input class="blue-text" id="fecha" style="font-size:150%;" type="date">
-                        </input>
+                        <input class="datepicker" id="fecha"  type="text" placeholder="Haz click" >
+                       
+              
                     </div>               
-                    <div class="col s6 m4">
+                    <div class="col s12 m6">
                         <label>
-                            Hora
+                            A que hora será?
                         </label>
-                        <input id="Hora" type="time">
+                        <input id="Hora" type="time" class="campos" required>
                         </input>
                     </div>
-                    <div class="col s6 m4">
+                    <div class="col s12 m6">
                         <label>
-                            premio
+                            Que vas sortear?
                         </label>
-                        <input id="premio" type="text">
+                        <input id="premio" type="text" required class="campos" placeholder="">
                         </input>
                     </div>
-                    <div class="col s6 m4">
+                    <div class="col s12 m6">
                         <button class="btn-large white blue-text lighten-1" style="width: 100%;" type="submit">
                             Guardar
                         </button>

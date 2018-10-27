@@ -41,7 +41,8 @@ function iniciarJornada() {
                         ganancia: 0,
                         diferencia: 0,
                         montoEntregaDeCaja: 0,
-                        deposito: 0
+                        deposito: 0,
+                        cajaBaseReferencial:0
                     })
                     console.log('Inicializando Maquinas...Listo...')
                     rutaDatosContadores = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + jornada.key + "/contadores/"

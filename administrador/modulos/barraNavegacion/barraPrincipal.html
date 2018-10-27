@@ -9,36 +9,7 @@
             </i>
         </a>
         <ul class="right hide-on-med-and-down" id="barraComputador">
-            <li>
-                <a class="white-text" href="#app" onclick="cargadorModulo('app', 'locales', 'localSeleccionado')">
-                    Dia Actual
-                </a>
-            </li>
-            <li>
-                <a class="white-text" href="#app" onclick="cargadorModulo('app','finanzas','finanzasLocalSeleccionado')">
-                    Finanzas
-                </a>
-            </li>
-            <li>
-                <a class="white-text" href="#app" onclick="cargadorModulo('app','maquinas','panelMaquinas')">
-                    Maquinas
-                </a>
-            </li>
-            <li>
-                <a href="#app" onclick="cargadorModulo('app','clientes','panelClientes')">
-                    Clientes
-                </a>
-            </li>
-            <li>
-                    <a href="#app" onclick="cargadorModulo('app','Sorteo','panelSorteo')">
-                        Sorteos
-                    </a>
-                </li>
-            <li>
-                <a href="#app" onclick="cargadorModulo('app','locales','todosLosLocales')">
-                    Locales
-                </a>
-            </li>
+          
             <li>
                 <a class="white-text" href="#app" id="notificacionesPC" onclick="$('#modalNotificaciones').modal('open')">
                     <i class="material-icons right">
@@ -63,36 +34,7 @@
                     Menú
                 </a>
             </li>
-            <li class=" darken-2">
-                <a href="#app" onclick="cargadorModulo('app', 'locales', 'localSeleccionado')">
-                    Dia Actual
-                </a>
-            </li>
-            <li class=" darken-2">
-                <a href="#app" onclick="cargadorModulo('app','finanzas','finanzasLocalSeleccionado')">
-                    Finanzas
-                </a>
-            </li>
-            <li>
-                <a href="#app" onclick="cargadorModulo('app','maquinas','panelMaquinas')">
-                    Maquinas
-                </a>
-            </li>
-            <li>
-                <a href="#app" onclick="cargadorModulo('app','clientes','panelClientes')">
-                    Clientes
-                </a>
-            </li>
-            <li>
-                <a href="#app" onclick="cargadorModulo('app','Sorteo','panelSorteo')">
-                    Sorteos
-                </a>
-            </li>
-            <li>
-                <a href="#app" onclick="cargadorModulo('app','locales','todosLosLocales')">
-                    Locales
-                </a>
-            </li>
+
             <li>
                 <a href="#app" id="notificacionesCelu" onclick="$('#modalNotificaciones').modal('open')">
                 </a>
@@ -145,7 +87,8 @@ function cargarCajaBaseActual(){
             draggable: true    // Choose whether you can drag to open on touch screens,
 
         });
-        
+        cargarLocales();
+
 cargarNotificaciones();
     });
 </script>

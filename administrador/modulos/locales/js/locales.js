@@ -11,26 +11,29 @@ function cargarLocales() {
             console.log(datlocales)
             if (datlocales.estado == true) {
                 estado = 'Abierto';
-                clase = "green"
+                clase = "green";
+                textoMonto= `   <p> Dinero en Caja : $`+puntuar(datlocales.monto)+`</p>`
             } else {
                 estado = 'Cerrado';
                 clase = "grey"
+                textoMonto= `   <p> Dia Anterior : $`+puntuar(datlocales.monto)+`</p>`
             }
-            clase = 'green'
+  
             contenidolocales += `            
         <div class="col s12 m6">
         <div class="card  ` + clase + `  darken-1">
         <div class="card-content white-text">
         <div class="row">
         <div class="col s12 m12"> 
-        <span class="card-title">` + datlocales.nombre + `</span>
+        <span class="card-title"  onclick="cargarLocal('` + itemlocal.key + `', '` + datlocales.nombre + `')">` + itemlocal.key + `</span>
+        <p> Estado : `+estado+`</p>
+        <br>
+        `+textoMonto+`
         </div>
 
         </div>
         </div>
-        <div class="card-action  ` + clase + `  darken-3 white-text" >
-        <a href="#!"  onclick="cargarLocal('` + itemlocal.key + `', '` + datlocales.nombre + `')"><i class="material-icons">menu</i></a>
-        </div>
+      
         </div>
         </div>
         `
@@ -43,7 +46,11 @@ function cargarLocales() {
 }
 
 function cargarBalances() {
-    rutaContadores = "sistema/jornadas/coyhaique/" + jornadaActual + "/contadores/"
+
+    console.log(
+        "cargandoBalances"
+    );
+    rutaContadores = "sistema/jornadas/"+sessionStorage.localactual+"/"+ jornadaActual + "/contadores/"
     db.ref(rutaContadores).once('value', function(datContad) {
         contenidos = ""
         total = 0;
@@ -61,7 +68,34 @@ function cargarBalances() {
             contenidos += '<td style="width:25%;">' + puntuar(parseInt(datContadoress.val().recaudacionesContador) - parseInt(datContadoress.val().premiosContador)) + '</td>';
             contenidos += '<td style="width:15%;">  ' + hora + '</td></tr>'
         })
-        $('#tablaBalance').html(contenidos)
+        $('#cuerpoBalance').html(contenidos);
+        $('#tablaBalance').DataTable({
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+        $("#tablaBalance").fadeIn(2000);
     })
 }
 
@@ -96,7 +130,7 @@ function cargarRecaudaciones() {
     rutaRecaudaciones = "sistema/jornadas/" + sessionStorage.localactual + "/" + jornadaActual + "/recaudaciones/"
     db.ref(rutaRecaudaciones).once('value', function(datosuser) {
         datosuser.forEach(function(itemuser) {
-            console.log(itemuser.val().hora)
+         console.log("Cargando recaudaciones!!!")
             if (typeof itemuser.val().hora === "undefined") {
                 hora = ""
             } else {
@@ -104,9 +138,10 @@ function cargarRecaudaciones() {
             }
             contenidoRecaudaciones += ` 
 <tr>
-<td style="width:33%;">` + itemuser.val().maquina + ` </td>
+<td >` + itemuser.val().maquina + ` </td>
 
-<td style="width:33%;">` + itemuser.val().monto + ` </td>
+<td >` + itemuser.val().monto + ` </td>
+<td >` + itemuser.val().hora + ` </td>
 
 </tr>
 
@@ -114,7 +149,33 @@ function cargarRecaudaciones() {
 `
         })
         $('#encabezado').html('Recaudaciones')
-        $('#contenidoRecaudaciones').html(contenidoRecaudaciones)
+        $('#contenidoRecaudaciones').html(contenidoRecaudaciones);
+        $('#tablaRecaudaciones').DataTable({
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
     })
 }
 

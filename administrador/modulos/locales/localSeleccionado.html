@@ -9,8 +9,9 @@ background-color:rgba(0, 0, 0, 0.32);
     $(document).ready(function($) {
  $('#listo').hide('1', function() {});
 setTimeout(function(){  cargarLocalSeleccionado(); }, 1000);
+cargarBarra("barraNavegacion", "barraNavegacion", "barraNavegacion");
 
-              $('#encabezado').html(obtenerFecha())
+              $('#encabezado').html(sessionStorage.localactual)
         console.log('Cargando configuración...')
 
 
@@ -98,5 +99,13 @@ setTimeout(function(){  cargarLocalSeleccionado(); }, 1000);
                 Finanzas
             </a>
         </li>
+        <li class="waves-effect waves-light" onclick="cargadorModulo('app','locales','todosLosLocales')">
+            <a class="btn-floating btn-large white " >
+                <i class="large material-icons blue-text">
+                    arrow_back
+                </i>
+            </a>
+        </li>
     </ul>
 </div>
+

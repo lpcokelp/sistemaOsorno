@@ -18,7 +18,7 @@ fechaActual=""
   firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
           datosLocales = [];
-          cargarBarra("barraNavegacion", "barraNavegacion", "barraNavegacion");
+
           cargadorModulo('app', 'locales', 'todosLosLocales');
           db.ref(rutacuentas).orderByKey().equalTo(firebase.auth().currentUser.uid).once('value', function(datosuser) {
               datosuser.forEach(function(itemuser) {

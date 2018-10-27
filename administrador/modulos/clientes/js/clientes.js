@@ -53,9 +53,9 @@ function cargarClientes() {
 
             contenidotablacliente += `
             <tr>
-            <td class="blue-text" style="font-size:130%;x   " >` + datoscliente.rut + ` </td>
-            <td >` + puntuar(datoscliente.nombre) + ` </td>
-            <td>` + puntuar(datoscliente.telefono) + ` </td>
+            <td class="blue-text" style="font-size:130%;x   " >` + puntuar (datoscliente.rut) + ` </td>
+            <td >` + datoscliente.nombre + ` </td>
+            <td>` + datoscliente.telefono + ` </td>
             ` + puntuar(datoscliente.rut) + ` 
             <td>
             <i class=" material-icons" onclick="eliminarClientes('` + itemmaq.key + `')">

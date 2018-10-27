@@ -8,7 +8,7 @@
                     <h4>
                         Jornada Inactiva
                     </h4>
-                    <p>
+                    <p id="fechaActual">
                         fecha: 18/11/2017
                     </p>
                     <a class="secondary-content btn btn-floating btn-large pulse" onclick="iniciarJornada()">
@@ -20,4 +20,9 @@
             </ul>
         </div>
     </div>
+
+    <script>
+      $(document).ready(function(){    
+      $('#fechaActual').html(obtenerFecha());
+         });</script>
 </section>
