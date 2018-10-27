@@ -167,17 +167,30 @@ function restarPremios(premionuevo) {
 }
 
 function eliminarPremio(premio, monto, maquina) {
-    alertify.confirm('Eliminar Premio', 'Está seguro que desea eliminar el premio?', function() {
-        Materialize.toast('Premio Eliminado', 3000);
-        restarPremios(monto);
-        cargarpremios();
-        restarPremiosContador(monto, maquina)
-        db.ref(rutapremios + premio).remove()
-        db.ref(rutaPremiosJornada + premio).remove()
-    }, function() {});
+
+    swal({
+        title: 'Está seguro?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si!'
+      }).then((result) => {
+        if (result.value) {
+            Materialize.toast('Premio Eliminado', 3000);
+            restarPremios(monto);
+            cargarpremios();
+            restarPremiosContador(monto, maquina)
+            db.ref(rutapremios + premio).remove()
+            db.ref(rutaPremiosJornada + premio).remove()
+    
+        }
+      })
+
 }
 
 function cargarpremios() {
+    console.log("Hola")
     arregloMaquinaPremios = [];
     arregloContadorPremios = [];
     arregloMontoPremios = [];
@@ -209,7 +222,53 @@ function cargarpremios() {
         })
         $('#premiosTotal').html(contadorPremios);
         $('#premiosTotalPremios').html(puntos("" + montoTotalPremios + ""))
-        $('#tablapremios').html(contenidoTablaPremios);
+        $('#cuerpoPremios').html(contenidoTablaPremios);
+  
+        var table =$('#tablaPremios').DataTable({
+            "pageLength": 7,
+            orderCellsTop: true,
+            fixedHeader: true,
+            "searching": false,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+
+        $('#tablaPremios thead tr').clone(true).appendTo( '#tablaPremios thead' );
+        $('#tablaPremios thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( table.column(i).search() !== this.value ) {
+                    table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
     })
 }
 

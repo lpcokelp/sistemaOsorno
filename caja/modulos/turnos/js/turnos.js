@@ -39,9 +39,7 @@ function cargarturnos() {
         <br>
         <a class="teal-text">
         Trabajador : ` + iturnos.val().trabajador + `
-        </a>  
-
-        <a href="#!" class="secondary-content" onclick="imprimir('` + iturnos.key + `','` + iturnos.val().estado + `')"><i class="material-icons">print</i></a>                
+        </a>                
         </li>`
         });
         $('#listadoturnos').html(contenidoturnos)
@@ -49,11 +47,25 @@ function cargarturnos() {
 }
 
 function ingresarturno(llaveturno, estado) {
-    if (estado) {
+    console.log(estado)
+    console.log("ingresando el aturno")
+    if (estado=='true') {
         rutas.turnoactual = llaveturno;
         cargadorModulo('app', 'caja', 'panel');
     } else {
-        Materialize.toast('Turno inactivo.', 3000);
+   swal({
+      title: "Codigo de seguridad", 
+      input: "password",
+
+    }).then((result) => {
+      console.log(result.value);
+      if(result.value=="8521"){
+        rutas.turnoactual = llaveturno;
+        cargadorModulo('app', 'caja', 'panel');
+      }else{
+        Materialize.toast('Pass Incorrecta', 3000);  
+      }
+      })
     }
 }
 

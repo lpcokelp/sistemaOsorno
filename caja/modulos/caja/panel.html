@@ -1,3 +1,14 @@
+
+<style>
+.tabs .indicator {
+    position: absolute;
+    bottom: 0;
+   
+    z-index: 0; height: 50px; background-color: rgba(0, 0, 0, 0.3);
+    will-change: left, right;
+}
+
+  </style>
 <ul class="tabs light-blue darken-2 " id="tabs-swipe-demo">
     <li class="tab col s2">
         <a class="active" href="#premios" onclick="setTimeout(function(){ $('#montopremio').focus().val('')}, 300);">
@@ -30,38 +41,10 @@
 </ul>
 <div class="col s12 " id="premios">
     <div class="row">
-        <div class="col s12 m9 card" style="height: 500px;">
+        <div class="col s12 m9 card" style="height: 600px;">
             <div class="row">
-                <div class="col input-field s3">
-                    <p>
-                        Premios
-                    </p>
-                </div>
-                <div class="col s9">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input class="validate" id="numeroMaquina" onkeyup="buscarNumeroMaquina(this.value);" type="text">
-                                <label for="icon_prefix">
-                                    Numero de maquina
-                                </label>
-                            </input>
-                        </div>
-                        <div class=" col s6">
-                            <p>
-                                N°:
-                                <a class="" id="premiosTotal">
-                                </a>
-                            </p>
-                        </div>
-                        <div class=" col s6">
-                            <p>
-                                Total Premios:
-                                <a class="" id="premiosTotalPremios">
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+           
+      
                 <div class="col s12">
                     <div>
                         <div>
@@ -69,28 +52,26 @@
                                 <div class="col s12">
                                     <div class="row">
                                         <div class="col s12">
-                                            <table class="bordered striped ">
+                                            <table class="bordered striped " id="tablaPremios">
                                                 <thead>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                         Maquina
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                         Monto.
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                         Hrs.
                                                     </th>
-                                                    <th style="width: 25%;">
+                                                    <th >
                                                     </th>
                                                 </thead>
-                                            </table>
-                                        </div>
-                                        <div class="col s12" style="max-height: 250px; overflow-y: scroll;">
-                                            <table class="bordered striped ">
-                                                <tbody id="tablapremios">
+                                                <tbody id="cuerpoPremios">
+
                                                 </tbody>
                                             </table>
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s12 m3 card" style="height: 500px;">
+        <div class="col s12 m3 card" style="height: 600px;">
             <div class="row">
                 <div class="col input-field s12">
                     <h5>
@@ -150,7 +131,7 @@
     <script src="modulos/caja/js/recaudaciones.js" type="text/javascript">
     </script>
     <div class="row">
-        <div class="col s12 m9 card" style="height: 500px;">
+        <div class="col s12 m9 card" style="height: 600px;">
             <div class="row">
                 <div class="col input-field s3">
                     <h5>
@@ -219,7 +200,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s12 m3 card" style="height: 500px;">
+        <div class="col s12 m3 card" style="height: 600px;">
             <div class="row">
                 <div class="col input-field s12">
                     <h5>
@@ -268,7 +249,7 @@
 </div>
 <div class="col s12 " id="gastos" style="display: none;">
     <div class="row">
-        <div class="col s12 m9 card" style="height: 500px;">
+        <div class="col s12 m9 card" style="height: 600px;">
             <div class="row">
                 <div class="col input-field s3">
                     <h5>
@@ -337,7 +318,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s12 m3 card" style="height: 500px;">
+        <div class="col s12 m3 card" style="height: 600px;">
             <div class="row">
                 <div class="col input-field s12">
                     <h5>

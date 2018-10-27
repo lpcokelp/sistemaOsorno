@@ -69,7 +69,11 @@ function cargarBalances() {
             contenidos += '<td style="width:15%;">  ' + hora + '</td></tr>'
         })
         $('#cuerpoBalance').html(contenidos);
-        $('#tablaBalance').DataTable({
+        var table =$('#tablaBalance').DataTable({
+            "pageLength": 7,
+            orderCellsTop: true,
+            fixedHeader: true,
+            "searching": false,
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -79,7 +83,6 @@ function cargarBalances() {
                 "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                 "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
                 "sInfoPostFix": "",
-                "sSearch": "Buscar:",
                 "sUrl": "",
                 "sInfoThousands": ",",
                 "sLoadingRecords": "Cargando...",
@@ -95,6 +98,21 @@ function cargarBalances() {
                 }
             }
         });
+
+        $('#tablaBalance thead tr').clone(true).appendTo( '#tablaPremios thead' );
+        $('#tablaBalance thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( table.column(i).search() !== this.value ) {
+                    table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
         $("#tablaBalance").fadeIn(2000);
     })
 }
