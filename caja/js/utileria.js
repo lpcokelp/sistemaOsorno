@@ -1,3 +1,12 @@
+
+function eliminarPuntos(monto){
+    var monto = monto.replace(".", "");
+    var monto = monto.replace(".", "");
+    var monto = monto.replace(".", "");
+    var monto = monto.replace(".", "");
+    return monto;
+}
+
 function obtenerHora() {
     var ho = new Date();
     hora1 = parseInt(ho.getHours())

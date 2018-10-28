@@ -1,37 +1,39 @@
-rutapremios = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/turnos/" + rutas.turnoactual + "/premios/"
+rutaPremios = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/turnos/" + rutas.turnoactual + "/premios/"
 rutaPremiosJornada = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/premios/"
-rutaDatosTurno = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/turnos/" + rutas.turnoactual + "/datosTurno/"
 rutaDatosImportantesPremios = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/datosImportantes/";
-rutaDatosContadores = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/contadores/"
 contadorPremios = 0;
 
-function guardarpremios(monto, maquina) {
- 
-    var monto = monto.replace(".", "");
-    var monto = monto.replace(".", "");
-    var monto = monto.replace(".", "");
-    var monto = monto.replace(".", "");
-    if(parseInt(monto)>120000){
+function guardarPremios(monto, maquina) {
+    //Se eliminan los puntos
+    monto = eliminarPuntos(monto);
+    if (parseInt(monto) > 120000) {
         db.ref("sistema/notificaciones/coyhaique/").push({
-            fecha:obtenerFecha(),
-            hora:obtenerHora(),
-            detalle:"Se pagó un Premio de : $"+puntuar(monto) + " en la maquina : " +maquina
+            fecha: obtenerFecha(),
+            hora: obtenerHora(),
+            detalle: "Se pagó un Premio de : $" + puntuar(monto) + " en la maquina : " + maquina
         })
-    } 
+    }
     if (validarmaquina(maquina) == true) {
         db.ref(rutapremios).push({
             monto: monto,
             maquina: maquina,
             hora: obtenerHora(),
             contador: contadorPremios + 1
-        }).then(function(datoss) {
+        }).then(function (datoss) {
             db.ref(rutaPremiosJornada + datoss.key).update({
                 monto: monto,
                 maquina: maquina,
                 hora: obtenerHora()
             });
+            contenidoTablaPremios = $('#cuerpoPremios').html();
+            contenidoTablaPremios += `<tr id="` + datoss.key + `">
+            <td>`+ arregloMaquinaPremios[i] + `</td>
+            <td>`+ puntos(monto) + `</td>
+            <td>`+ obtenerHora() + `</td>
+            <td>  <i class="material-icons"  onclick="eliminarPremio('` + datoss.key + `','` + monto + `')">delete</i></td>
+            </tr>`;
+            $('#cuerpoPremios').html(contenidoTablaPremios);
         });
-        cargarpremios();
         sumarPremios(monto);
         sumarPremiosContador(monto, maquina);
         $('#montopremio').val('');
@@ -43,13 +45,13 @@ function guardarpremios(monto, maquina) {
 
 function sumarPremios(premionuevo) {
     premiosActuales = 0;
-    db.ref(rutaDatosImportantesPremios).once('value', function(datosPremios) {
+    db.ref(rutaDatosImportantesPremios).once('value', function (datosPremios) {
         if (datosPremios.val().premios == undefined) {
             premiosActuales = premionuevo;
         } else {
             premiosActuales = parseInt(datosPremios.val().premios) + parseInt(premionuevo)
         }
-    }).then(function(datos) {
+    }).then(function (datos) {
         db.ref(rutaDatosImportantesPremios).update({
             premios: premiosActuales
         })
@@ -58,13 +60,13 @@ function sumarPremios(premionuevo) {
 
 function sumarPremiosContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function (datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
         control = 0
         llaveMaquina = ""
-        datosPremiosContador.forEach(function(datosPremios) {
+        datosPremiosContador.forEach(function (datosPremios) {
             control = 1;
             llaveMaquina = datosPremios.key;
             if (datosPremios.val().premiosContador == undefined) {
@@ -72,7 +74,7 @@ function sumarPremiosContador(premionuevo, maquina) {
             } else {
                 premiosContador = parseInt(datosPremios.val().premiosContador);
             }
-            
+
             premiosContador += parseInt(premionuevo);
             if (datosPremios.val().recaudacionesContador == undefined) {
                 recaudacionesContador = 0;
@@ -80,12 +82,7 @@ function sumarPremiosContador(premionuevo, maquina) {
                 recaudacionesContador = parseInt(datosPremios.val().recaudacionesContador);
             }
         })
-
-
-
-
         balanceContador = recaudacionesContador - premiosContador;
-
         if (control == 1) {
             console.log("Existe un registro de la maquina" + maquina)
             db.ref(rutaDatosContadores + llaveMaquina).update({
@@ -108,13 +105,13 @@ function sumarPremiosContador(premionuevo, maquina) {
 
 function restarPremiosContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function (datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
         control = 0;
         llaveContador = ""
-        datosPremiosContador.forEach(function(datosPremios) {
+        datosPremiosContador.forEach(function (datosPremios) {
             llaveContador = datosPremios.key;
             control = 1;
             if (datosPremios.val().premiosContador == undefined) {
@@ -153,13 +150,13 @@ function restarPremiosContador(premionuevo, maquina) {
 function restarPremios(premionuevo) {
     premionuevo = parseInt(premionuevo);
     premiosActuales = 0;
-    db.ref(rutaDatosImportantesPremios).once('value', function(datosPremios) {
+    db.ref(rutaDatosImportantesPremios).once('value', function (datosPremios) {
         if (datosPremios.val().premios == undefined) {
             premiosActuales = premionuevo;
         } else {
             premiosActuales = parseInt(datosPremios.val().premios) - parseInt(premionuevo)
         }
-    }).then(function(datos) {
+    }).then(function (datos) {
         db.ref(rutaDatosImportantesPremios).update({
             premios: premiosActuales
         })
@@ -167,7 +164,6 @@ function restarPremios(premionuevo) {
 }
 
 function eliminarPremio(premio, monto, maquina) {
-
     swal({
         title: 'Está seguro?',
         type: 'warning',
@@ -175,18 +171,16 @@ function eliminarPremio(premio, monto, maquina) {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si!'
-      }).then((result) => {
+    }).then((result) => {
         if (result.value) {
             Materialize.toast('Premio Eliminado', 3000);
             restarPremios(monto);
-            cargarpremios();
+            $('#' + premio).remove();
             restarPremiosContador(monto, maquina)
             db.ref(rutapremios + premio).remove()
             db.ref(rutaPremiosJornada + premio).remove()
-    
         }
-      })
-
+    })
 }
 
 function cargarpremios() {
@@ -196,11 +190,11 @@ function cargarpremios() {
     arregloMontoPremios = [];
     arregloHoraPremios = [];
     arregloKeyPremios = [];
-    db.ref(rutapremios).orderByChild('contador').once('value', function(datosPremios) {
+    db.ref(rutapremios).orderByChild('contador').once('value', function (datosPremios) {
         contenidoTablaPremios = ""
         montoTotalPremios = 0;
         contadorPremios = 0;
-        datosPremios.forEach(function(ipremios) {
+        datosPremios.forEach(function (ipremios) {
             arregloMaquinaPremios.push(ipremios.val().maquina);
             arregloContadorPremios.push(ipremios.val().contador);
             arregloMontoPremios.push(ipremios.val().monto);
@@ -211,11 +205,11 @@ function cargarpremios() {
         })
         for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
             contenidoTablaPremios += `<tr>
-<td  style="width: 25%;">` + arregloMaquinaPremios[i] + `</td>
-<td style="width: 25%;">` + puntos(arregloMontoPremios[i]) + `</td>
-<td style="width: 25%;">` + arregloHoraPremios[i] + `</td>
-<td style="width: 25%;">  <i class="material-icons"  onclick="eliminarPremio('` + arregloKeyPremios[i] + `','` + arregloMontoPremios[i] + `','` + arregloMaquinaPremios[i] + `')">delete</i></td>
-</tr>`
+            <td>` + arregloMaquinaPremios[i] + `</td>
+            <td>` + puntos(arregloMontoPremios[i]) + `</td>
+            <td>` + arregloHoraPremios[i] + `</td>
+            <td>  <i class="material-icons"  onclick="eliminarPremio('` + arregloKeyPremios[i] + `','` + arregloMontoPremios[i] + `','` + arregloMaquinaPremios[i] + `')">delete</i></td>
+            </tr>`
         }
         db.ref(rutaDatosTurno).update({
             premiosTotales: montoTotalPremios
@@ -223,8 +217,7 @@ function cargarpremios() {
         $('#premiosTotal').html(contadorPremios);
         $('#premiosTotalPremios').html(puntos("" + montoTotalPremios + ""))
         $('#cuerpoPremios').html(contenidoTablaPremios);
-  
-        var table =$('#tablaPremios').DataTable({
+        var table = $('#tablaPremios').DataTable({
             "pageLength": 7,
             orderCellsTop: true,
             fixedHeader: true,
@@ -254,21 +247,19 @@ function cargarpremios() {
                 }
             }
         });
-
-        $('#tablaPremios thead tr').clone(true).appendTo( '#tablaPremios thead' );
-        $('#tablaPremios thead tr:eq(1) th').each( function (i) {
+        $('#tablaPremios thead tr').clone(true).appendTo('#tablaPremios thead');
+        $('#tablaPremios thead tr:eq(1) th').each(function (i) {
             var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-     
-            $( 'input', this ).on( 'keyup change', function () {
-                if ( table.column(i).search() !== this.value ) {
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
                     table
                         .column(i)
-                        .search( this.value )
+                        .search(this.value)
                         .draw();
                 }
-            } );
-        } );
+            });
+        });
     })
 }
 
@@ -277,10 +268,10 @@ function buscarNumeroMaquina(numeroMaquina) {
     if (numeroMaquina == '') {
         cargarpremios();
     } else {
-        db.ref(rutapremios).orderByChild('maquina').equalTo(numeroMaquina).once('value', function(datosRecaudacionMaquina) {
+        db.ref(rutapremios).orderByChild('maquina').equalTo(numeroMaquina).once('value', function (datosRecaudacionMaquina) {
             contenidoTablaPremios2 = ""
             totMaquina = 0;
-            datosRecaudacionMaquina.forEach(function(nMaquina) {
+            datosRecaudacionMaquina.forEach(function (nMaquina) {
                 contenidoTablaPremios2 += `<tr>
 <td  style="width: 25%;">` + nMaquina.val().maquina + `</td>
 <td style="width: 25%;">` + puntos(nMaquina.val().monto) + `</td>
