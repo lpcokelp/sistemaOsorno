@@ -88,7 +88,7 @@
                     </h5>
                 </div>
                 <div class="col s12" st="">
-                    <form class="row" onsubmit="guardarpremios(montopremio.value,maquinapremio.value); return false">
+                    <form class="row" onsubmit="guardarPremios(montopremio.value,maquinapremio.value); return false">
                         <div class="col input-field s12">
                             <input class="validate" id="montopremio" onkeyup="puntuarInput(this.value,this.id)" required="true" type="text">
                                 <label for="montopremio">
@@ -104,7 +104,7 @@
                             </input>
                         </div>
                         <div class="col input-field s6">
-                            <a class="btn-floating btn-large waves-effect waves-light grey right ">
+                            <a class=" btn-floating btn-large waves-effect waves-light grey right ">
                                 <i class="material-icons large">
                                     cancel
                                 </i>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col input-field s6">
                             <button class="btn-floating btn-large waves-effect waves-light blue right" type="submit">
-                                <i class="material-icons">
+                                <i class="material-icons large">
                                     save
                                 </i>
                             </button>
@@ -444,6 +444,21 @@
         </a>
     </div>
 </section>
+
+<script type="text/javascript">
+    rutaDatosTurno = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/turnos/" + rutas.turnoactual + "/datosTurno/"
+    rutaDatosContadores = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/contadores/"
+        function volver(){
+            $("#app").load("modulos/turnos/panelTurnos.html");
+            }
+        $(document).ready(function(){    
+            cargarpremios();
+            cargarRecaudaciones();
+            cargarGastos();
+            $('select').material_select();
+            $('ul.tabs').tabs();
+             });
+    </script>
 <script src="modulos/caja/js/ganadores.js" type="text/javascript">
 </script>
 <script src="modulos/caja/js/premios.js" type="text/javascript">
@@ -454,18 +469,7 @@
 </script>
 <script src="modulos/caja/js/gastos.js" type="text/javascript">
 </script>
-<script type="text/javascript">
-    function volver(){
-        $("#app").load("modulos/turnos/panelTurnos.html");
-        }
-    $(document).ready(function(){    
-        cargarpremios();
-        cargarRecaudaciones();
-        cargarGastos();
-        $('select').material_select();
-        $('ul.tabs').tabs();
-         });
-</script>
+
 <style type="text/css">
     .indicator {
     position: absolute;
