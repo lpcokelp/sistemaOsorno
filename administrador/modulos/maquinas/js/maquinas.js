@@ -39,8 +39,10 @@ function cargarValoresModificar() {
         $('#tipoMaquina').val(datos.tipoMaquina)
         $('#inMaquina').val(datos.inMaquina)
         $('#outMaquina').val(datos.outMaquina)
+    
     })
 }
+
 
 function modificarMaquina(multiMaquina, inMaquina, outMaquina) {
     db.ref(rutamaquinas + sessionStorage.maquinaActual).update({
@@ -86,13 +88,13 @@ function cargarmaquinas() {
             </tr>
             `
         })
-        $('#listadomaquinas').html(contenidotablamaquina);
-        altura = parseInt(screen.height);
-        altura = altura * 0.6;
-        estilo = 'style="max-height: ' + altura + 'px; overflow-y: scroll;"';
-        $('#contenidoMaquinas').attr('style', estilo);
-    }).then(function() {
-        $('#tablaMaquinas').DataTable({
+        $('#listadoMaquinas').html(contenidotablamaquina);
+      
+        var tablaRec =$('#tablaMaquinas').DataTable({
+            "pageLength": 7,
+            orderCellsTop: true,
+            fixedHeader: true,
+            "searching": false,
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -118,5 +120,20 @@ function cargarmaquinas() {
                 }
             }
         });
+
+        $('#tablaMaquinas thead tr').clone(true).appendTo( '#tablaMaquinas thead' );
+        $('#tablaMaquinas thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( tablaRec.column(i).search() !== this.value ) {
+                    tablaRec
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
     })
 }

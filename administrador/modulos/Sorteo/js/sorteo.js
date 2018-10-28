@@ -78,12 +78,12 @@ function cargarSorteo() {
             `
         })
         $('#listadoSorteo').html(contenidoTablaSorteo);
-        altura = parseInt(screen.height);
-        altura = altura * 0.6;
-        estilo = 'style="max-height: ' + altura + 'px; overflow-y: scroll;"';
-        $('#contenidoSorteo').attr('style', estilo);
-    }).then(function() {
-        $('#tablaSorteo').DataTable({
+      
+        var tablaRec =$('#tablaSorteo').DataTable({
+            "pageLength": 7,
+            orderCellsTop: true,
+            fixedHeader: true,
+            "searching": false,
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -109,5 +109,20 @@ function cargarSorteo() {
                 }
             }
         });
+
+        $('#tablaSorteo thead tr').clone(true).appendTo( '#tablaSorteo thead' );
+        $('#tablaSorteo thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( tablaRec.column(i).search() !== this.value ) {
+                    tablaRec
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
     })
 }

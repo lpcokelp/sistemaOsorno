@@ -65,13 +65,13 @@ function cargarClientes() {
             </tr>
             `
         })
-        $('#listadoclientes').html(contenidotablacliente);
-        altura = parseInt(screen.height);
-        altura = altura * 0.6;
-        estilo = 'style="max-height: ' + altura + 'px; overflow-y: scroll;"';
-        $('#contenidoClientes').attr('style', estilo);
-    }).then(function() {
-        $('#tablaClientes').DataTable({
+        $('#listadoSorteo').html(contenidotablacliente);
+      
+        var tablaRec =$('#tablaClientes').DataTable({
+            "pageLength": 7,
+            orderCellsTop: true,
+            fixedHeader: true,
+            "searching": false,
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -97,5 +97,20 @@ function cargarClientes() {
                 }
             }
         });
+
+        $('#tablaClientes thead tr').clone(true).appendTo( '#tablaClientes thead' );
+        $('#tablaClientes thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( tablaRec.column(i).search() !== this.value ) {
+                    tablaRec
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
     })
 }
