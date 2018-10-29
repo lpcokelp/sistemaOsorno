@@ -1,3 +1,19 @@
+
+
+rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
+db.ref(rutaLocal).on('value', function(datLocales) {
+     if(datLocales.val().estado==true){
+        //existe jornada activa
+        sessionStorage.estadoLocal=true;
+        console.log("local abierto")
+     }else{
+        sessionStorage.localactual=false;
+        console.log("Local cerrado")
+     }
+        validacionJornada = false;
+
+    
+    })
 function iniciarJornada() {
     var numeroJornada = 0;
     var controlJornada = 0;

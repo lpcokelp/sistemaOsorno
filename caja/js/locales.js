@@ -1,4 +1,4 @@
-
+rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
 var fechaJornadaActual=""
 function cargarprueba() {
     cargadorModulo('app', 'locales', 'localSeleccionado');
@@ -12,6 +12,22 @@ function cargarLocal(datos) {
 function abrirlocal() {
     cargadorModulo('app', 'locales', 'menulocal');
 }
+
+//sincronizar estado local
+//medinte esta sincronizacion se verificará si existe una jornada activa
+ db.ref(rutaLocal).on('value', function(datLocales) {
+     if(datLocales.val().estado==true){
+        //existe jornada activa
+        sessionStorage.estadoLocal=true;
+        console.log("local abierto")
+     }else{
+        sessionStorage.localactual=false;
+        console.log("Local cerrado")
+     }
+        validacionJornada = false;
+
+    
+    })
 
 function validarJornada() {
     

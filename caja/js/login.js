@@ -27,8 +27,9 @@
                   sessionStorage.localcredencial = itemuser.val().local;
                   rutas.admin = firebase.auth().currentUser.uid;
                   rutas.jornadas = 'sistema/jornadas/' + sessionStorage.localcredencial + '/';
-                  validarJornada();
+             
                   cargarmaquinas();
+                  sincronizarJornada();
               })
               if (sessionStorage.tipocredencial == "admin") {
                   // lo tira al panel de admin  
@@ -57,8 +58,27 @@
         cajaBaseReferenciall=datCo.val().cajaBase;
         
     })
+    rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
+function sincronizarJornada(){
 
-
+db.ref(rutaLocal).on('value', function(datLocales) {
+     if(datLocales.val().estado==true){
+        //existe jornada activa
+        sessionStorage.estadoLocal=true;
+        console.log("local abierto");
+           validacionJornada = true;
+                rutas.jornadaActual = datLocales.key;
+                cargadorModulo('app', 'turnos', 'panelTurnos')
+     }else{
+        sessionStorage.localactual=false;
+        console.log("Local cerrado");
+        validacionJornada = false
+        cargadorModulo('app', 'jornada', 'inactiva')
+     }
+      
+    
+    })
+}
   function cargarmaquinas() {
 
       db.ref('sistema/maquinas/' + sessionStorage.localcredencial).once('value', function(datmaq) {
@@ -70,6 +90,9 @@
           })
       })
   }
+
+
+  
 
   function cerrarsession() {
       alertify.confirm('Cerrar Session', 'Esta seguro que desea cerrar sesion?', function() {
