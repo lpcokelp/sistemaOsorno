@@ -88,13 +88,9 @@ function cargarmaquinas() {
             </tr>
             `
         })
-        $('#cuerpoMaquinas').html(contenidotablamaquina);
-        altura = parseInt(screen.height);
-        altura = altura * 0.6;
-        estilo = 'style="max-height: ' + altura + 'px; overflow-y: scroll;"';
-        $('#contenidoMaquinas').attr('style', estilo);
-    }).then(function() {
-        var tablaMaq =$('#tablaMaquinas').DataTable({
+        $('#listadoMaquinas').html(contenidotablamaquina);
+      
+        var tablaRec =$('#tablaMaquinas').DataTable({
             "pageLength": 7,
             orderCellsTop: true,
             fixedHeader: true,
@@ -131,8 +127,8 @@ function cargarmaquinas() {
             $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
      
             $( 'input', this ).on( 'keyup change', function () {
-                if ( tablaMaq.column(i).search() !== this.value ) {
-                    tablaMaq
+                if ( tablaRec.column(i).search() !== this.value ) {
+                    tablaRec
                         .column(i)
                         .search( this.value )
                         .draw();
