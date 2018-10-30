@@ -77,9 +77,9 @@ function cargarSorteo() {
             </tr>
             `
         })
-        $('#cuerpoSorteo').html(contenidoTablaSorteo);
+        $('#listadoSorteo').html(contenidoTablaSorteo);
       
-        var tablaSor =$('#tablaSorteo').DataTable({
+        var tablaRec =$('#tablaSorteo').DataTable({
             "pageLength": 7,
             orderCellsTop: true,
             fixedHeader: true,
@@ -116,8 +116,8 @@ function cargarSorteo() {
             $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
      
             $( 'input', this ).on( 'keyup change', function () {
-                if ( tablaSor.column(i).search() !== this.value ) {
-                    tablaSor
+                if ( tablaRec.column(i).search() !== this.value ) {
+                    tablaRec
                         .column(i)
                         .search( this.value )
                         .draw();
