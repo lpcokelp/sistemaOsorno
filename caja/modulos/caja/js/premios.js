@@ -14,7 +14,7 @@ function guardarPremios(monto, maquina) {
         })
     }
     if (validarmaquina(maquina) == true) {
-        db.ref(rutapremios).push({
+        db.ref(rutaPremios).push({
             monto: monto,
             maquina: maquina,
             hora: obtenerHora(),
@@ -27,7 +27,7 @@ function guardarPremios(monto, maquina) {
             });
             contenidoTablaPremios = $('#cuerpoPremios').html();
             contenidoTablaPremios += `<tr id="` + datoss.key + `">
-            <td>`+ arregloMaquinaPremios[i] + `</td>
+            <td>`+ maquina + `</td>
             <td>`+ puntos(monto) + `</td>
             <td>`+ obtenerHora() + `</td>
             <td>  <i class="material-icons"  onclick="eliminarPremio('` + datoss.key + `','` + monto + `')">delete</i></td>
@@ -177,7 +177,8 @@ function eliminarPremio(premio, monto, maquina) {
             restarPremios(monto);
             $('#' + premio).remove();
             restarPremiosContador(monto, maquina)
-            db.ref(rutapremios + premio).remove()
+            db.ref(rutaPremios + premio).remove()
+            $("#"+premio).remove();
             db.ref(rutaPremiosJornada + premio).remove()
         }
     })
@@ -190,7 +191,7 @@ function cargarpremios() {
     arregloMontoPremios = [];
     arregloHoraPremios = [];
     arregloKeyPremios = [];
-    db.ref(rutapremios).orderByChild('contador').once('value', function (datosPremios) {
+    db.ref(rutaPremios).orderByChild('contador').once('value', function (datosPremios) {
         contenidoTablaPremios = ""
         montoTotalPremios = 0;
         contadorPremios = 0;
@@ -217,49 +218,8 @@ function cargarpremios() {
         $('#premiosTotal').html(contadorPremios);
         $('#premiosTotalPremios').html(puntos("" + montoTotalPremios + ""))
         $('#cuerpoPremios').html(contenidoTablaPremios);
-        var table = $('#tablaPremios').DataTable({
-            "pageLength": 7,
-            orderCellsTop: true,
-            fixedHeader: true,
-            "searching": false,
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            }
-        });
-        $('#tablaPremios thead tr').clone(true).appendTo('#tablaPremios thead');
-        $('#tablaPremios thead tr:eq(1) th').each(function (i) {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-            $('input', this).on('keyup change', function () {
-                if (table.column(i).search() !== this.value) {
-                    table
-                        .column(i)
-                        .search(this.value)
-                        .draw();
-                }
-            });
-        });
+
+    
     })
 }
 
@@ -268,7 +228,7 @@ function buscarNumeroMaquina(numeroMaquina) {
     if (numeroMaquina == '') {
         cargarpremios();
     } else {
-        db.ref(rutapremios).orderByChild('maquina').equalTo(numeroMaquina).once('value', function (datosRecaudacionMaquina) {
+        db.ref(rutaPremios).orderByChild('maquina').equalTo(numeroMaquina).once('value', function (datosRecaudacionMaquina) {
             contenidoTablaPremios2 = ""
             totMaquina = 0;
             datosRecaudacionMaquina.forEach(function (nMaquina) {
