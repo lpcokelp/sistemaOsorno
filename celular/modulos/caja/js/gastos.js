@@ -40,8 +40,8 @@ function guardarGasto(monto, motivo,tipo) {
   
     cargarGastos();
     sumarGastos(monto);
-    $('#montoGasto').val('').focus();
-    $('#motivoGasto').val('').blur();
+    $('#montoGasto').val('');
+    $('#motivoGasto').val('');
 }
 
 function sumarGastos(gastoNuevo) {

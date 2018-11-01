@@ -30,8 +30,8 @@ function guardarPremios(monto, maquina) {
         });
         sumarPremios(monto);
         sumarPremiosContador(monto, maquina);
-        $('#montopremio').val('').focus();
-        $('#maquinapremio').val('').blur();
+        $('#montopremio').val('');
+        $('#maquinapremio').val('');
     } else {
         Materialize.toast('Maquina no registrada', 3000);
     }

@@ -1,0 +1,175 @@
+<script src="modulos/cuadratura/js/contadores2.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        $('.collapsible').collapsible();
+        $('#PreLoader').hide('1', function() {   
+});
+cargarCierre();
+    });
+</script>
+<div class="row center" id="PreLoader">
+    <div class="col s12 m4 offset-m4 center card">
+        <h4>
+            Cargando
+        </h4>
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle">
+                    </div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle">
+                    </div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="contenido">
+    <div class="col s12 m6 offset-m3">
+        
+        <ul class="collection with-header" data-collapsible="accordion">
+            <li class="collection-item">
+                <h5>
+                    Cuadratura del Dia <span id="fechaActual" class="blue-text"></span>
+                </h5>
+            </li>
+ 
+    
+            <li class="collection-item">
+                <div>
+                    Caja base:
+                    <a class="secondary-content blue-text" id="CuadraturaCajaBase">
+                        $60.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item">
+                <div>
+                  Entrega Caja
+                    <a class="secondary-content blue-text" id="montoEntregaDeCaja">
+                        $60.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item">
+                <div>
+                  Entrada
+                    <a class="secondary-content blue-text" >
+                        <span id="entrada" class="green-text"> 
+
+                    </a>
+
+                   
+                </div>
+            </li>
+            <li class="collection-item">
+                <div>
+                    Salida 
+                    <a class="secondary-content blue-text" >
+                   
+                        </span> -<span id="salida" class="red-text"> </span> 
+                    </a>
+
+                   
+                </div>
+            </li>
+            <li class="collection-item">
+                <div>
+                    Balance Contadores 
+                    <a class="secondary-content blue-text" >
+                     
+                        <span id="gananciaContadores" class="blue-text"> </span>
+                    </a>
+
+                   
+                </div>
+            </li>
+            <li class="collection-item">
+                <div>
+                    Gastos
+                    <a class="secondary-content blue-text" id="gastos">
+                        $60.000
+                    </a>
+                </div>
+            </li>
+            <li class="collection-item">
+                    <div>
+                        Ganancia del dia
+                        <a class="secondary-content blue-text" id="deposito">
+                            $60.000
+                        </a>
+                    </div>
+                </li>
+        
+
+       
+            <li class="collection-item">
+                <div>
+                    Diferencia
+                    <a class="secondary-content blue-text" id="diferencia">
+                        $60.000
+                    </a>
+                </div>
+            </li>
+         
+        </ul>
+    </div>
+</div>
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large blue darken-2">
+        <i class="large material-icons">
+            menu
+        </i>
+    </a>
+    <ul>
+        <li class="waves-effect waves-light">
+            <a href="#!" onclick="cargadorModulo('app', 'cuadratura', 'contadoreshoy')">
+                Contadores
+            </a>
+        </li>
+        <li class="waves-effect waves-light">
+            <a href="#!" onclick="cargadorModulo('app', 'cuadratura', 'cuadratura')">
+                Balance
+            </a>
+        </li>
+        <li class="waves-effect waves-light">
+            <a href="#!" onclick="cargadorModulo('app', 'cuadratura', 'diferencias')">
+                Diferencias
+            </a>
+        </li>
+        <li class="waves-effect waves-light">
+            <a href="#!" onclick="cargadorModulo('app', 'cuadratura', 'agregarcontador')">
+                <i class=" material-icons">
+                    add
+                </i>
+            </a>
+        </li>
+        <li class="waves-effect waves-light grey">
+            <a href="#!" onclick="cargadorModulo('app', 'turnos', 'panelTurnos')">
+                <i class=" material-icons">
+                    arrow_back
+                </i>
+            </a>
+        </li>
+        <li class="waves-effect waves-light grey darken-2">
+            <a onclick="cerrarJornada()">
+                <i class=" material-icons">
+                    power_settings_new
+                </i>
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+     $(document).ready(function($) {
+
+ cargarContadores() 
+    });
+</script>

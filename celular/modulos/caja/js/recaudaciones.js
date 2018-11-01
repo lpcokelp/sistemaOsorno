@@ -43,8 +43,8 @@ function guardarRecaudaciones(monto, maquina) {
         sumarRecaudacionesContador(monto, maquina)
         cargarRecaudaciones();
         sumarRecaudaciones(monto);
-        $('#montoRecaudaciones').val('').focus();
-        $('#maquinaRecaudacion').val('').blur();
+        $('#montoRecaudaciones').val('');
+        $('#maquinaRecaudacion').val('');
     } else {
         Materialize.toast('Maquina no registrada', 3000);
     }

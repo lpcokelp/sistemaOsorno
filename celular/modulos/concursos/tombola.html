@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+            <title>
+                Sorteo
+            </title>
+            <!-- Compiled and minified CSS -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css?family=Roboto:900" rel="stylesheet">
+                    <style>
+                        .splitflap {
+        margin: 0 auto;
+        -webkit-perspective-origin: top center;
+        -moz-perspective-origin: top center;
+        -ms-perspective-origin: top center;
+        perspective-origin: top center;
+        -webkit-perspective: 900px;
+        -moz-perspective: 900px;
+        -ms-perspective: 900px;
+        perspective: 900px;
+    }
+    /*!
+Styles for full screen background video demo
+*/
+    /* =============================================================================
+  RESETS
+============================================================================= */
+    
+    html,
+    body,
+    div,
+    h1,
+    p,
+    a,
+    video {
+        margin: 0;
+        padding: 0;
+    }
+    /* =============================================================================
+  HTML, BODY
+============================================================================= */
+    
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+        font-size: 50px;
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.5;
+    }
+    /* =============================================================================
+  CONTENT
+============================================================================= */
+    
+    .content {
+        position: relative;
+        top: 10%;
+        z-index: 2;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .content__heading {
+        margin-bottom: 24px;
+        color: #272727;
+        font-size: 44px;
+    }
+    
+    .content__teaser {
+        margin-bottom: 24px;
+        color: #595959;
+        font-size: 22px;
+    }
+    
+    .content__cta {
+        display: inline-block;
+        margin: 0;
+        padding: 12px 48px;
+        color: #ff3c64;
+        font-size: 22px;
+        text-decoration: none;
+        border: solid 4px #ff3c64;
+    }
+    /* =============================================================================
+  VIDEO
+============================================================================= */
+    
+    .video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    
+    .parpadea {
+        animation-name: parpadeo;
+        animation-duration: 0.4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: parpadeo;
+        -webkit-animation-duration: 0.4s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+    }
+    .fondomonedas{
+        background-image: "http://www.hdfondos.eu/pictures/2015/0505/1/gold-coins-pics-328846.jpg";
+    }
+
+    .rallas {
+    border:dashed 4px #ffeb0d;
+-moz-border-radius: 0px;
+-webkit-border-radius: 0px;
+border-radius: 0px;
+    }
+    @-moz-keyframes parpadeo {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
+    }
+    
+    @-webkit-keyframes parpadeo {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
+    }
+    
+    @keyframes parpadeo {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
+    }
+                    </style>
+                </link>
+            </link>
+        </meta>
+    </head>
+    <section>
+        <div class="modal black-text" id="modalGanador" style="width:700px border:dotted 10px #000000;
+-moz-border-radius: 27px;
+-webkit-border-radius: 27px;
+border-radius: 27px;
+font-size:150%;">
+            <div class="modal-content center">
+                <h4 style="font-size: 120%;">
+                    Felicidades!
+                </h4>
+                <p id="premioSorteo">
+                </p>
+                <p id="nombreGanador">
+                </p>
+                <p id="rutGanador">
+                </p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="modal black-text yellow" id="modalGiroNombres" style=" width:700px;border:dotted 10px #000000;
+-moz-border-radius: 27px;
+-webkit-border-radius: 27px;
+border-radius: 27px;
+font-size:150%;">
+            <div class="modal-content center">
+                <p id="nombreClienteSorteo">
+                </p>
+                <p id="rutClienteSorteo">
+                </p>
+            </div>
+        </div>
+    </section>
+    <body style="overflow-y:hidden;overflow-x: hidden;">
+        <div class="slider fullscreen" id="contenidopublicidad" style="height: 100%; position: absolute;">
+            <ul class="slides" id="sliderpubli">
+            </ul>
+        </div>
+        <div class="content">
+            <!--  div concurso -->
+            <div class="row" id="rowconcurso">
+                <!--  izquierda -->
+                <div class="col s2">
+                    <div class="row" id="">
+                        <div class="col m12 center">
+                            <span class="white-text grey darken-2" id="horaactual1">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--  izquierda -->
+                <!--  centro-->
+                <div class="col s7">
+                    <div id="contenidosorteo">
+                        <div class="row">
+                            <div class="col s12">
+                                <img src="http://chamaclub.cl/produccion/trabajadores/images/logochamaclubdos.png">
+                                </img>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  centro -->
+                <!--  derecha -->
+                <div class="col m3 right white-text">
+                    <div class="row yellow-text" style="border:dashed 5px #000000; background-color: rgba(0, 0, 0, 0.7);">
+                        <div class="col m12 ">
+                            <h3>
+                                Concursos Dia Actual
+                            </h3>
+                        </div>
+                        <div class="col s12 yellow-text">
+                            <table class="bordered" style="font-size:80%;">
+                                <th>
+                                    Hora
+                                </th>
+                                <tbody id="cuerpoconcursos">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--  derecha -->
+            </div>
+        </div>
+        <!-- /content -->
+        <video autoplay="" class="video" id="my-video" loop="" muted="">
+            <!-- <source src="http://chamaclub.cl/produccion/trabajadores/images/fondo.mp4" type="video/mp4">-->
+            <source id="fondotombola" src="http://chamaclub.cl/produccion/trabajadores/images/introcasino.mp4" type="video/mp4">
+            </source>
+        </video>
+        <!-- CARGADOR DE COD FIREBASE-->
+        <script src="http://chamaclub.cl/produccion/trabajadores/js/fireapp.js" type="text/javascript">
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js">
+        </script>
+        <!-- /video -->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js">
+        </script>
+        <script src="http://chamaclub.cl/produccion/trabajadores/js/sischama.js" type="text/javascript">
+        </script>
+        <script src="js/tombola.js" type="text/javascript">
+        </script>
+        <script src="js/vibrar.js">
+        </script>
+    </body>
+    <style type="text/css">
+        .bordes{
+border:dashed 8px #000000;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+-moz-box-shadow: 28px 28px 13px #000000;
+-webkit-box-shadow: 28px 28px 13px #000000;
+box-shadow: 28px 28px 13px #000000;
+    }
+    </style>
+</html>

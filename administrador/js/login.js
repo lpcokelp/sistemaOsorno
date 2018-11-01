@@ -28,13 +28,10 @@ fechaActual=""
               if (sessionStorage.tipocredencial == "admin") {
                   // lo tira al panel de admin
               } else {
-                  if (sessionStorage.tipocredencial == "trabajador") {
-                      // lo tira al panel de caja
-                      firebase.auth().signOut();
-                      // An error happened.
-                  } else {
+                 
                       // no lo tira a ningun lado y lo desconecta
-                  }
+                      firebase.auth().signOut();
+                
               }
           })
       } else {

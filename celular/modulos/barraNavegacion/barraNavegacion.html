@@ -1,0 +1,77 @@
+
+<script src="js/cargadores.js">
+</script>
+<nav class="nav-extended">
+    <div class="nav-wrapper light-blue darken-2">
+        <a class="brand-logo" href="#!">
+            ChamaClub
+        </a>
+        <a class="button-collapse" data-activates="mobile-demo" href="#">
+            <i class="material-icons">
+                menu
+            </i>
+        </a>
+        <ul class="right hide-on-med-and-down" id="barraComputador">
+            <li>
+                <a onclick="validarJornada();">
+                    Caja
+                </a>
+            </li>
+            <li>
+                <a onclick="cerrarsession();" title="">
+                    Cerrar Sesion
+                </a>
+            </li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li>
+                <div class="user-view light-blue darken-2">
+                    <h4>
+                        Menú
+                    </h4>
+                </div>
+            </li>
+            <li>
+                <div class="divider">
+                </div>
+            </li>
+            <li>
+                <a onclick="validarJornada();">
+                    Caja
+                </a>
+            </li>
+            <li>
+                <div class="divider">
+                </div>
+            </li>
+            <li>
+                <div class="divider">
+                </div>
+            </li>
+            <li>
+                <a onclick="cerrarsession();" title="">
+                    Cerrar Sesion
+                </a>
+            </li>
+        </ul>
+        <div class="nav-content" id="tabNavegacion">
+        </div>
+    </div>
+</nav>
+<script type="text/javascript">
+    $(document).ready(function(){
+         
+     $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true, // Choose whether you can drag to open on touch screens,
+    
+  });
+     cargarBarra();
+
+    
+        
+
+         });
+</script>
