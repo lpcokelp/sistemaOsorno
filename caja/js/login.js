@@ -29,7 +29,7 @@
                   rutas.jornadas = 'sistema/jornadas/' + sessionStorage.localcredencial + '/';
              
                   cargarmaquinas();
-                  sincronizarJornada();
+                  sincronizarJornadas(sessionStorage.localcredencial);
               })
               if (sessionStorage.tipocredencial == "admin") {
                   // lo tira al panel de admin  
@@ -53,11 +53,7 @@
 
   cajaBaseReferenciall=0;
   cajaBasePorRecuperar=0;
-    db.ref('sistema/locales/' +"coyhaique").once('value', function(datCo) {
-        console.log(cajaBaseReferenciall+"Caja base "+datCo.val().cajaBase)
-        cajaBaseReferenciall=datCo.val().cajaBase;
-        
-    })
+
     rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
 function sincronizarJornada(){
 
@@ -83,7 +79,6 @@ db.ref(rutaLocal).on('value', function(datLocales) {
 
       db.ref('sistema/maquinas/' + sessionStorage.localcredencial).once('value', function(datmaq) {
           datmaq.forEach(function(itemMaq) {
-              console.log(itemMaq.val());
               llaveMaquinas.push(itemMaq.key);
               maquinas.push(itemMaq.val().numMaquina);
               estadoMaquinas.push(false)
