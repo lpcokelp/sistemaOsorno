@@ -18,6 +18,18 @@ function abrirlocal() {
 //medinte esta sincronizacion se verificará si existe una jornada activa
 
 
+function abrirLocal(){
+    db.ref(rutaLocal).update({
+        estado:true
+    })
+}
+
+function cerrarLocal(){
+    db.ref(rutaLocal).update({
+        estado:false
+    })
+}
+
 function sincronizarJornadas(local){
     console.log(local)
     db.ref(rutaLocal="sistema/locales/"+local).on('value', function(datosLocales) {

@@ -3,6 +3,7 @@
 rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
 
 function iniciarJornada() {
+    $('#botonIniciar').prop("disabled", false);
     var numeroJornada = 0;
     var controlJornada = 0;
     var llaveUltimaJornada = 0;
@@ -17,7 +18,7 @@ function iniciarJornada() {
                     db.ref(rutas.jornadas + llaveUltimaJornada).update({
                         estado: true
                     })
-                    validarJornada();
+                    abrirLocal();
                 } else {
                     Materialize.toast('Codigo Incorrecto.', 3000);
                 }
