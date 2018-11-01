@@ -215,7 +215,7 @@ function cargarRecaudaciones() {
         <td>`+ maquina + `</td>
         <td>`+ puntos(monto) + `</td>
         <td>`+ obtenerHora() + `</td>
-        <td>  <i class="material-icons"  onclick="eliminarPremio('` + datoss.key + `','` + monto + `')">delete</i></td>
+        <td>  <i class="material-icons"  onclick="eliminarRecaudaciones('` + datoss.key + `','` + monto + `')">delete</i></td>
         </tr>`;
         $('#cuerpoRecaudaciones').html(cuerpoRecaudaciones);
 
