@@ -31,6 +31,14 @@ function guardarRecaudaciones(monto, maquina) {
                 maquina: maquina,
                 hora: obtenerHora(),
             });
+            cuerpoRecaudaciones = $('#cuerpoRecaudaciones').html();
+            cuerpoRecaudaciones += `<tr id="` + datoss.key + `">
+            <td>`+ maquina + `</td>
+            <td>`+ puntos(monto) + `</td>
+            <td>`+ obtenerHora() + `</td>
+            <td>  <i class="material-icons"  onclick="eliminarRecaudaciones('` + datoss.key + `','` + monto + `')">delete</i></td>
+            </tr>`;
+            $('#cuerpoRecaudaciones').html(cuerpoRecaudaciones);
         });
         sumarRecaudacionesContador(monto, maquina)
         cargarRecaudaciones();
@@ -210,14 +218,7 @@ function cargarRecaudaciones() {
         $('#cuerpoRecaudaciones').html(contenidoTablaRecaudaciones);
         $('#recaudacionTotal').html(puntos("" + montoTotalRecaudaciones + ""));
         $('#numeroTotalRecaudaciones').html(contadorRecaudacion);
-        cuerpoRecaudaciones = $('#cuerpoRecaudaciones').html();
-        cuerpoRecaudaciones += `<tr id="` + datoss.key + `">
-        <td>`+ maquina + `</td>
-        <td>`+ puntos(monto) + `</td>
-        <td>`+ obtenerHora() + `</td>
-        <td>  <i class="material-icons"  onclick="eliminarRecaudaciones('` + datoss.key + `','` + monto + `')">delete</i></td>
-        </tr>`;
-        $('#cuerpoRecaudaciones').html(cuerpoRecaudaciones);
+
 
     })
 }
@@ -225,12 +226,15 @@ function cargarRecaudaciones() {
 
 
 function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
+
+cantidadRec=0;
     if (numeroMaquinaRecaudacion == '') {
         cargarRecaudaciones();
     } else {
         db.ref(rutaRecaudaciones).orderByChild('maquina').equalTo(numeroMaquinaRecaudacion).once('value', function(datosRecaudacionMaquina) {
             contenidoTablaRecaudacion2 = ""
             totMaquinaRecaudacion = 0;
+            cantidadRec++;
             datosRecaudacionMaquina.forEach(function(rMaquina) {
                 contenidoTablaRecaudacion2 += `<tr>
 <td  style="width: 25%;">` + rMaquina.val().maquina + `</td>
@@ -241,8 +245,9 @@ function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
                 totMaquinaRecaudacion += parseInt(rMaquina.val().monto)
             })
             console.log(totMaquinaRecaudacion);
+            $('#cantidadRec').html(cantidadRec);
             $('#recaudacionTotal').html(puntos("" + totMaquinaRecaudacion + ""))
-            $('#tablaRecaudaciones').html(contenidoTablaRecaudacion2);
+            $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
         })
     }
 }

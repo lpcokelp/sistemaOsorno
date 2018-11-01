@@ -3,24 +3,30 @@
 rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
 
 function iniciarJornada() {
-    $('#botonIniciar').prop("disabled", false);
-    var numeroJornada = 0;
-    var controlJornada = 0;
-    var llaveUltimaJornada = 0;
+    $('#botonIniciar').prop("disabled", true);
+
+
     db.ref(rutas.jornadas).orderByChild('fecha').equalTo(obtenerFecha()).once('value', function(ivalJor) {
+        var numeroJornada = 0;
+        var controlJornada = 0;
+        var llaveUltimaJornada = 0;
         ivalJor.forEach(function(valJornada) {
             controlJornada = 1;
             llaveUltimaJornada = valJornada.key
         })
         if (controlJornada == 1) {
-            alertify.prompt('Jornada existente ', 'Se detectó una jornada existente con la fecha ' + obtenerFecha() + '. Si desea iniciar la jornada existente ingrese el codigo de seguridad.', 'Prompt Value', function(evt, value) {
-                if (value = "3891") {
+            alertify.prompt('Jornada existente ', 'Se detectó una jornada existente con la fecha ' + obtenerFecha() + '. Si desea iniciar la jornada existente ingrese el codigo de seguridad.', 'Prompt Value', function(evt, bal) {
+               
+              
+                if (bal == "3891") {
                     db.ref(rutas.jornadas + llaveUltimaJornada).update({
                         estado: true
                     })
-                    abrirLocal();
+                  
+                    abrirLocal(llaveUltimaJornada);
                 } else {
                     Materialize.toast('Codigo Incorrecto.', 3000);
+                    $('#botonIniciar').prop("disabled", false);
                 }
             }, function() {})
         } else {
@@ -33,7 +39,7 @@ function iniciarJornada() {
                     numero: numeroJornada,
                     fecha: obtenerFecha()
                 }).then(function(jornada) {
-                    validarJornada();
+                 
                     db.ref(rutas.jornadas + jornada.key + "/datosImportantes/").update({
                         gastos: 0,
                         premios: 0,
@@ -69,6 +75,7 @@ function iniciarJornada() {
                             diferenciaOut: 0
                         })
                     }
+                    abrirLocal(jornada.key);
                 })
             })
         }

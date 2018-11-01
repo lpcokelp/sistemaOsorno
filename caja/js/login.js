@@ -55,26 +55,7 @@
   cajaBasePorRecuperar=0;
 
     rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
-function sincronizarJornada(){
 
-db.ref(rutaLocal).on('value', function(datLocales) {
-     if(datLocales.val().estado==true){
-        //existe jornada activa
-        sessionStorage.estadoLocal=true;
-        console.log("local abierto");
-           validacionJornada = true;
-                rutas.jornadaActual = datLocales.key;
-                cargadorModulo('app', 'turnos', 'panelTurnos')
-     }else{
-        sessionStorage.localactual=false;
-        console.log("Local cerrado");
-        validacionJornada = false
-        cargadorModulo('app', 'jornada', 'inactiva')
-     }
-      
-    
-    })
-}
   function cargarmaquinas() {
 
       db.ref('sistema/maquinas/' + sessionStorage.localcredencial).once('value', function(datmaq) {

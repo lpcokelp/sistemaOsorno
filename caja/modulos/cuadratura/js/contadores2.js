@@ -145,6 +145,8 @@ function cargarCierre() {
  
 
       
+
+
  
         $('#balanceDiario').html(puntuar(balanceDiario))
         $('#loquedeberiahaber').html(puntuar(ganancia + cajabase2 + (cajaBasePorRecuperar * -1)))
@@ -154,10 +156,10 @@ function cargarCierre() {
         $('#salida').html(puntuar(salidas))
         $('#gananciaContadores').html(puntuar(gananciaContadores))
         $('#gastos').html(puntuar(gastos))
-        $('#ganancia').html(puntuar(ganancia))
-        $('#diferencia').html(puntuar(diferencia))
-        $('#deposito').html(puntuar(deposito))
-  
+        $('#ganancia').html(puntuar(gananciaContadores-gastos));
+        $('#diferencia').html(puntuar(diferencia));
+        $('#deposito').html(puntos(gananciaContadores-gastos));
+
         db.ref(rutaDatosImportantesCuadratura).update({
             ganancia: ganancia,
             diferencia: diferencia,
@@ -327,7 +329,7 @@ function cerrarJornada() {
             db.ref(rutas.jornadas + rutas.jornadaActual).update({
                 estado: false
             })
-            validarJornada();
+            cerrarLocal();
         });
     }, function() {});
 }

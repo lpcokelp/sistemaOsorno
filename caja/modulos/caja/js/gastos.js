@@ -32,7 +32,12 @@ function guardarGasto(monto, motivo,tipo) {
             hora: obtenerHora(),
             tipo:tipo
         })
+
+ 
+       
+
     })
+  
     cargarGastos();
     sumarGastos(monto);
     $('#montoGasto').val('');
@@ -89,20 +94,15 @@ function cargarGastos() {
             contadorGastos += 1;
             montoTotalGastos += parseInt(iGastos.val().monto)
         })
+
         db.ref(rutaDatosTurno).update({
             gastosTotales: montoTotalGastos
         })
+       
         $('#cuerpoGastos').html(contenidoTablaGastos);
         $('#gastosTotal').html(puntos(montoTotalGastos));
-        $('#numeroTotalGastos').html(contadorGastos);       
-        cuerpoGastos = $('#cuerpoGastos').html();
-        cuerpoGastos += `<tr id="` + datoss.key + `">
-        <td>`+ maquina + `</td>
-        <td>`+ puntos(monto) + `</td>
-        <td>`+ obtenerHora() + `</td>
-        <td>  <i class="material-icons"  onclick="eliminarGasto('` + datoss.key + `','` + monto + `')">delete</i></td>
-        </tr>`;
-        $('#cuerpoGastos').html(cuerpoGastos);
+        $('#numeroTotalGastos').html(contadorGastos);
+  
 
     })
 }

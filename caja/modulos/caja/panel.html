@@ -59,13 +59,13 @@
                                             <table class="bordered striped " id="tablaPremios">
                                                 <thead>
                                                     <th class="encabezadoTabla" >
-                                                        Maquina <input type="text" placeholder="Maquina">
+                                                        Maquina <input type="text" placeholder="Maquina" onkeyup="buscarNumeroMaquinaPrem(this.value)">
                                                     </th>
                                                     <th class="encabezadoTabla">
-                                                        Monto. <input type="text" placeholder="Maquina">
+                                                       N°: <span id="cantidadPremios"></span>
                                                     </th>
                                                     <th class="encabezadoTabla"> 
-                                                        Hrs.<input type="text" placeholder="Maquina">
+                                                       Total: <span id="premiosTotalPremios"></span>                                                   
                                                     </th>
                                                     <th class="encabezadoTabla">
                                                     </th>
@@ -88,7 +88,7 @@
             <div class="row">
                 <div class="col input-field s12">
                     <h5>
-                        Registro
+                        Registrar Premio
                     </h5>
                 </div>
                 <div class="col s12" st="">
@@ -148,15 +148,15 @@
                                         <div class="col s12">
                                             <table class="bordered striped " id="tablaRecaudaciones">
                                                 <thead>
-                                                    <th >
-                                                        Maquina <input type="text" placeholder="Maquina">
-                                                    </th>
-                                                    <th >
-                                                        Monto. <input type="text" placeholder="Monto">
-                                                    </th>
-                                                    <th >
-                                                        Hrs. <input type="text" placeholder="Hora">
-                                                    </th>
+                                                        <th class="encabezadoTabla" >
+                                                                Maquina <input type="text" placeholder="Maquina" onkeyup="buscarRecaudacionMaquina(this.value)">
+                                                            </th>
+                                                            <th class="encabezadoTabla">
+                                                               N°: <span id="cantidadRec"></span>
+                                                            </th>
+                                                            <th class="encabezadoTabla"> 
+                                                               Total: <span id="recaudacionTotal"></span>                                                   
+                                                            </th>
                                                     <th >
                                                     </th>
                                                 </thead>
@@ -177,7 +177,7 @@
             <div class="row">
                 <div class="col input-field s12">
                     <h5>
-                        Registro
+                        Registrar Recaudacion
                     </h5>
                 </div>
                 <div class="col s12" st="">
@@ -264,7 +264,7 @@
             <div class="row">
                 <div class="col input-field s12">
                     <h5>
-                        Registro
+                        Registrar Gasto
                     </h5>
                 </div>
                 <div class="col s12" st="">

@@ -18,9 +18,10 @@ function abrirlocal() {
 //medinte esta sincronizacion se verificará si existe una jornada activa
 
 
-function abrirLocal(){
+function abrirLocal(rutaJornada){
     db.ref(rutaLocal).update({
-        estado:true
+        estado:true,
+jornada:rutaJornada
     })
 }
 
@@ -32,11 +33,14 @@ function cerrarLocal(){
 
 function sincronizarJornadas(local){
     console.log(local)
-    db.ref(rutaLocal="sistema/locales/"+local).on('value', function(datosLocales) {
+    rutaLocal
+    
+    db.ref("sistema/locales/"+local).on('value', function(datosLocales) {
         console.log(local+" ->"+datosLocales.val().estado)
         if(datosLocales.val().estado==true){
            //existe jornada activa
            sessionStorage.estadoLocal=true;
+           rutas.jornadaActual=datosLocales.val().jornada
            console.log("local abierto");
            cargadorModulo('app', 'turnos', 'panelTurnos')
         }else{
@@ -54,8 +58,8 @@ function validarJornada() {
   
     $('#tabNavegacion').html(` `)
 
-        if ( sessionStorage.estadoLocal == true) {
-            validacionJornada = true
+        if ( sessionStorage.estadoLocal == "true") {
+        
             cargadorModulo('app', 'turnos', 'panelTurnos')
         } else {
             rutas.jornadaActual = '';

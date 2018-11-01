@@ -25,14 +25,8 @@ function guardarPremios(monto, maquina) {
                 maquina: maquina,
                 hora: obtenerHora()
             });
-            contenidoTablaPremios = $('#cuerpoPremios').html();
-            contenidoTablaPremios += `<tr id="` + datoss.key + `">
-            <td>`+ maquina + `</td>
-            <td>`+ puntos(monto) + `</td>
-            <td>`+ obtenerHora() + `</td>
-            <td>  <i class="material-icons"  onclick="eliminarPremio('` + datoss.key + `','` + monto + `')">delete</i></td>
-            </tr>`;
-            $('#cuerpoPremios').html(contenidoTablaPremios);
+            cargarpremios();
+            
         });
         sumarPremios(monto);
         sumarPremiosContador(monto, maquina);
@@ -215,7 +209,8 @@ function cargarpremios() {
         db.ref(rutaDatosTurno).update({
             premiosTotales: montoTotalPremios
         })
-        $('#premiosTotal').html(contadorPremios);
+        $('#cantidadPremios').html(contadorPremios);
+
         $('#premiosTotalPremios').html(puntos("" + montoTotalPremios + ""))
         $('#cuerpoPremios').html(contenidoTablaPremios);
 
@@ -223,7 +218,7 @@ function cargarpremios() {
     })
 }
 
-function buscarNumeroMaquina(numeroMaquina) {
+function buscarNumeroMaquinaPrem(numeroMaquina) {
     contadorPremios = 0;
     if (numeroMaquina == '') {
         cargarpremios();
@@ -243,7 +238,7 @@ function buscarNumeroMaquina(numeroMaquina) {
             })
             $('#premiosTotal').html(contadorPremios);
             $('#premiosTotalPremios').html(puntos("" + totMaquina + ""))
-            $('#tablapremios').html(contenidoTablaPremios2);
+            $('#cuerpoPremios').html(contenidoTablaPremios2);
         })
     }
 }
