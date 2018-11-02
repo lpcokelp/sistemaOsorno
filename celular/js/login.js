@@ -31,12 +31,23 @@
                   cargarmaquinas();
                   sincronizarJornadas(sessionStorage.localcredencial);
               })
-              if (sessionStorage.tipocredencial == "celular") {
-                cargarBarra("barraNavegacion", "barraNavegacion", "barraNavegacion");
+              if (sessionStorage.tipocredencial == "admin") {
+                  // lo tira al panel de admin  
+                  firebase.auth().signOut();
               } else {
-     
-                      firebase.auth().signOut();
-              
+                  if (sessionStorage.tipocredencial == "celular") {
+                      // lo tira al panel de caja
+                      cargarBarra("barraNavegacion", "barraNavegacion", "barraNavegacion");
+                      // An error happened.
+                  } else {
+
+                    if (sessionStorage.tipocredencial == "trabajador") {
+                        // lo tira al panel de caja
+                        firebase.auth().signOut();
+                        // An error happened.
+                    }
+                      // no lo tira a ningun lado y lo desconecta
+                  }
               }
           })
       } else {

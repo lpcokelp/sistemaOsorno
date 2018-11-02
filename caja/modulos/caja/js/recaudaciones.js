@@ -28,7 +28,7 @@ function guardarRecaudaciones(monto, maquina) {
         }).then(function(datoss) {
             db.ref(rutaRecaudacionesJornada + datoss.key).update({
                 monto: monto,
-                maquina: maquina,
+                maquina: parseInt(maquina),
                 hora: obtenerHora(),
             });
             cuerpoRecaudaciones = $('#cuerpoRecaudaciones').html();
@@ -48,11 +48,12 @@ function guardarRecaudaciones(monto, maquina) {
     } else {
         Materialize.toast('Maquina no registrada', 3000);
     }
+    actualizarValorContadores(maquina)
 }
 
 function sumarRecaudacionesContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function(datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
@@ -77,7 +78,7 @@ function sumarRecaudacionesContador(premionuevo, maquina) {
         if (control == 1) {
             console.log("Sumando Recaudaciones")
             db.ref(rutaDatosContadores + llaveContador).update({
-                maquina: maquina,
+              
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador,
@@ -85,20 +86,14 @@ function sumarRecaudacionesContador(premionuevo, maquina) {
             })
         } else {
             console.log('opcion 2')
-            db.ref(rutaDatosContadores).push({
-                maquina: maquina,
-                premiosContador: premiosContador,
-                recaudacionesContador: recaudacionesContador,
-                balanceContador: balanceContador,
-                hora:obtenerHora()
-            })
+      
         }
     })
 }
 
 function restarRecaudacionesContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function(datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
@@ -112,32 +107,29 @@ function restarRecaudacionesContador(premionuevo, maquina) {
             } else {
                 premiosContador = datosPremios.val().premiosContador;
             }
-            premiosContador -= premionuevo;
+    
             if (datosPremios.val().recaudacionesContador == undefined) {
                 recaudacionesContador = 0;
             } else {
                 recaudacionesContador = parseInt(datosPremios.val().recaudacionesContador);
             }
+            recaudacionesContador -= premionuevo;
         })
         balanceContador = recaudacionesContador - premiosContador;
         if (control == 1) {
             console.log("opcion 1")
             db.ref(rutaDatosContadores + llaveContador).update({
-                maquina: maquina,
+              
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador
             })
         } else {
             console.log('opcion 2')
-            db.ref(rutaDatosContadores).push({
-                maquina: maquina,
-                premiosContador: premiosContador,
-                recaudacionesContador: recaudacionesContador,
-                balanceContador: balanceContador
-            })
+          
         }
     })
+    actualizarValorContadores(maquina)
 }
 
 function sumarRecaudaciones(recaudacionnueva) {
@@ -180,8 +172,11 @@ function eliminarRecaudacion(recaudacion, monto, maquina) {
         cargarRecaudaciones();
         restarRecaudacionesContador(monto, maquina)
         db.ref(rutaRecaudaciones + recaudacion).remove()
+        $('#'+recaudacion).remove();
         db.ref(rutaRecaudacionesJornada + recaudacion).remove()
+        
     }, function() {});
+    
 }
 
 function cargarRecaudaciones() {
@@ -205,8 +200,8 @@ function cargarRecaudaciones() {
             montoTotalRecaudaciones += parseInt(iRecaudaciones.val().monto)
         })
         for (var i = arregloKeyRecaudaciones.length - 1; i > -1; i--) {
-            contenidoTablaRecaudaciones += `<tr>
-<td  style="width: 25%;">` + arregloMaquinaRecaudaciones[i] + `</td>
+            contenidoTablaRecaudaciones += `<tr style="font-size:130%;" id="` + arregloKeyRecaudaciones[i] + `">
+<td class="encabezadoTablaPremios blue-text" style="font-size:130%;">` + arregloMaquinaRecaudaciones[i] + `</td>
 <td style="width: 25%;">` + puntos(arregloMontoRecaudaciones[i]) + `</td>
 <td style="width: 25%;">` + arregloHoraRecaudaciones[i] + `</td>
 <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarRecaudacion('` + arregloKeyRecaudaciones[i] + `','` + arregloMontoRecaudaciones[i] + `','` + arregloMaquinaRecaudaciones[i] + `')">delete</i></td>
@@ -226,28 +221,32 @@ function cargarRecaudaciones() {
 
 
 function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
-
+    db.ref(rutaRecaudaciones).off();
+setTimeout(() => {
+    
 cantidadRec=0;
-    if (numeroMaquinaRecaudacion == '') {
-        cargarRecaudaciones();
-    } else {
-        db.ref(rutaRecaudaciones).orderByChild('maquina').equalTo(numeroMaquinaRecaudacion).once('value', function(datosRecaudacionMaquina) {
-            contenidoTablaRecaudacion2 = ""
-            totMaquinaRecaudacion = 0;
-            cantidadRec++;
-            datosRecaudacionMaquina.forEach(function(rMaquina) {
-                contenidoTablaRecaudacion2 += `<tr>
-<td  style="width: 25%;">` + rMaquina.val().maquina + `</td>
+if (numeroMaquinaRecaudacion == '') {
+    cargarRecaudaciones();
+} else {
+    db.ref(rutaRecaudaciones).orderByChild('maquina').equalTo(numeroMaquinaRecaudacion).once('value', function(datosRecaudacionMaquina) {
+        contenidoTablaRecaudacion2 = ""
+        totMaquinaRecaudacion = 0;
+        cantidadRec++;
+        datosRecaudacionMaquina.forEach(function(rMaquina) {
+            contenidoTablaRecaudacion2 += `<tr  style="font-size:130%;"  id="` + rMaquina.key + `">
+<td class="encabezadoTablaPremios blue-text" style="font-size:130%;">` + rMaquina.val().maquina + `</td>
 <td style="width: 25%;">` + puntos(rMaquina.val().monto) + `</td>
 <td style="width: 25%;">` + rMaquina.val().hora + `</td>
 <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarPremio('` + rMaquina.key + `','` + rMaquina.val().monto + `','` + rMaquina.val().maquina + `')">delete</i></td>
 </tr>`
-                totMaquinaRecaudacion += parseInt(rMaquina.val().monto)
-            })
-            console.log(totMaquinaRecaudacion);
-            $('#cantidadRec').html(cantidadRec);
-            $('#recaudacionTotal').html(puntos("" + totMaquinaRecaudacion + ""))
-            $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
+            totMaquinaRecaudacion += parseInt(rMaquina.val().monto)
         })
-    }
+        console.log(totMaquinaRecaudacion);
+        $('#cantidadRec').html(cantidadRec);
+        $('#recaudacionTotal').html(puntos("" + totMaquinaRecaudacion + ""))
+        $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
+    })
+}
+}, 300);
+
 }

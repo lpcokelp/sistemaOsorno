@@ -43,11 +43,12 @@ function guardarRecaudaciones(monto, maquina) {
         sumarRecaudacionesContador(monto, maquina)
         cargarRecaudaciones();
         sumarRecaudaciones(monto);
-        $('#montoRecaudaciones').val('');
-        $('#maquinaRecaudacion').val('');
+        $('#montoRecaudaciones').val('').focus();
+        $('#maquinaRecaudacion').val('').blur();
     } else {
         Materialize.toast('Maquina no registrada', 3000);
     }
+    actualizarValorContadores(maquina)
 }
 
 function sumarRecaudacionesContador(premionuevo, maquina) {
@@ -138,6 +139,7 @@ function restarRecaudacionesContador(premionuevo, maquina) {
             })
         }
     })
+    actualizarValorContadores(maquina)
 }
 
 function sumarRecaudaciones(recaudacionnueva) {
@@ -180,8 +182,10 @@ function eliminarRecaudacion(recaudacion, monto, maquina) {
         cargarRecaudaciones();
         restarRecaudacionesContador(monto, maquina)
         db.ref(rutaRecaudaciones + recaudacion).remove()
+        $('#'+recaudacion).remove();
         db.ref(rutaRecaudacionesJornada + recaudacion).remove()
     }, function() {});
+    
 }
 
 function cargarRecaudaciones() {
@@ -205,8 +209,8 @@ function cargarRecaudaciones() {
             montoTotalRecaudaciones += parseInt(iRecaudaciones.val().monto)
         })
         for (var i = arregloKeyRecaudaciones.length - 1; i > -1; i--) {
-            contenidoTablaRecaudaciones += `<tr>
-<td  style="width: 25%;">` + arregloMaquinaRecaudaciones[i] + `</td>
+            contenidoTablaRecaudaciones += `<tr style="font-size:130%;" id="` + arregloKeyRecaudaciones[i] + `">
+<td class="encabezadoTablaPremios blue-text" style="font-size:130%;">` + arregloMaquinaRecaudaciones[i] + `</td>
 <td style="width: 25%;">` + puntos(arregloMontoRecaudaciones[i]) + `</td>
 <td style="width: 25%;">` + arregloHoraRecaudaciones[i] + `</td>
 <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarRecaudacion('` + arregloKeyRecaudaciones[i] + `','` + arregloMontoRecaudaciones[i] + `','` + arregloMaquinaRecaudaciones[i] + `')">delete</i></td>
@@ -216,8 +220,9 @@ function cargarRecaudaciones() {
             recaudacionesTotales: montoTotalRecaudaciones
         })
         $('#cuerpoRecaudaciones').html(contenidoTablaRecaudaciones);
+        $('#cantidadRec').html(contadorRecaudacion);
         $('#recaudacionTotal').html(puntos("" + montoTotalRecaudaciones + ""));
-        $('#numeroTotalRecaudaciones').html(contadorRecaudacion);
+
 
 
     })
@@ -227,27 +232,31 @@ function cargarRecaudaciones() {
 
 function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
 
+setTimeout(() => {
+    
 cantidadRec=0;
-    if (numeroMaquinaRecaudacion == '') {
-        cargarRecaudaciones();
-    } else {
-        db.ref(rutaRecaudaciones).orderByChild('maquina').equalTo(numeroMaquinaRecaudacion).once('value', function(datosRecaudacionMaquina) {
-            contenidoTablaRecaudacion2 = ""
-            totMaquinaRecaudacion = 0;
-            cantidadRec++;
-            datosRecaudacionMaquina.forEach(function(rMaquina) {
-                contenidoTablaRecaudacion2 += `<tr>
-<td  style="width: 25%;">` + rMaquina.val().maquina + `</td>
+if (numeroMaquinaRecaudacion == '') {
+    cargarRecaudaciones();
+} else {
+    db.ref(rutaRecaudaciones).orderByChild('maquina').equalTo(numeroMaquinaRecaudacion).once('value', function(datosRecaudacionMaquina) {
+        contenidoTablaRecaudacion2 = ""
+        totMaquinaRecaudacion = 0;
+        cantidadRec++;
+        datosRecaudacionMaquina.forEach(function(rMaquina) {
+            contenidoTablaRecaudacion2 += `<tr  style="font-size:130%;"  id="` + rMaquina.key + `">
+<td class="encabezadoTablaPremios blue-text" style="font-size:130%;">` + rMaquina.val().maquina + `</td>
 <td style="width: 25%;">` + puntos(rMaquina.val().monto) + `</td>
 <td style="width: 25%;">` + rMaquina.val().hora + `</td>
 <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarPremio('` + rMaquina.key + `','` + rMaquina.val().monto + `','` + rMaquina.val().maquina + `')">delete</i></td>
 </tr>`
-                totMaquinaRecaudacion += parseInt(rMaquina.val().monto)
-            })
-            console.log(totMaquinaRecaudacion);
-            $('#cantidadRec').html(cantidadRec);
-            $('#recaudacionTotal').html(puntos("" + totMaquinaRecaudacion + ""))
-            $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
+            totMaquinaRecaudacion += parseInt(rMaquina.val().monto)
         })
-    }
+        console.log(totMaquinaRecaudacion);
+        $('#cantidadRec').html(cantidadRec);
+        $('#recaudacionTotal').html(puntos("" + totMaquinaRecaudacion + ""))
+        $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
+    })
+}
+}, 200);
+
 }

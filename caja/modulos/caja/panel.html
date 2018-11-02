@@ -8,8 +8,9 @@
     will-change: left, right;
 }
 
-.encabezadoTabla{
-    width:20%;
+
+.encabezadoTablaPremios{
+    width:25%;
 }
 
   </style>
@@ -58,20 +59,29 @@
                                         <div class="col s12">
                                             <table class="bordered striped " id="tablaPremios">
                                                 <thead>
-                                                    <th class="encabezadoTabla" >
-                                                        Maquina <input type="text" placeholder="Maquina" onkeyup="buscarNumeroMaquinaPrem(this.value)">
+                                                    <th class="encabezadoTablaPremios "  style="color:blue; font-size:130%;" >
+                                                         <input type="text" id="buscadorPremio"placeholder="Buscar Maquina" class="col s6">
+                                                         <button class="btn-floating btn-large waves-effect waves-light blue right"  onclick="buscarNumeroMaquinaPrem(buscadorPremio.value)"type="button">
+                                                            <i class="material-icons">
+                                                                search
+                                                            </i>
+                                                        </button>
                                                     </th>
-                                                    <th class="encabezadoTabla">
+                                                    <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
                                                        N°: <span id="cantidadPremios"></span>
                                                     </th>
-                                                    <th class="encabezadoTabla"> 
+                                                    <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;"> 
                                                        Total: <span id="premiosTotalPremios"></span>                                                   
                                                     </th>
-                                                    <th class="encabezadoTabla">
+                                                    <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
                                                     </th>
                                                 </thead>
+                                         
+                                            </table>
+                                        </div>
+                                        <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+                                            <table class="bordered striped ">
                                                 <tbody id="cuerpoPremios">
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -148,23 +158,32 @@
                                         <div class="col s12">
                                             <table class="bordered striped " id="tablaRecaudaciones">
                                                 <thead>
-                                                        <th class="encabezadoTabla" >
-                                                                Maquina <input type="text" placeholder="Maquina" onkeyup="buscarRecaudacionMaquina(this.value)">
+                                                        <th class="encabezadoTablaPremios"  style="color:blue; font-size:130%;">
+                                                                 <input type="text" id="buscadorRecaudacion" placeholder="Buscar Maquina" class="col s6">
+                                                                 <button class="btn-floating btn-large waves-effect waves-light blue right"  onclick="buscarRecaudacionMaquina(buscadorRecaudacion.value)"type="button">
+                                                                    <i class="material-icons">
+                                                                        search
+                                                                    </i>
+                                                                </button>
                                                             </th>
-                                                            <th class="encabezadoTabla">
-                                                               N°: <span id="numeroTotalRecaudaciones"></span>
+                                                            <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
+                                                               N°: <span id="cantidadRec"></span>
                                                             </th>
-                                                            <th class="encabezadoTabla"> 
+                                                            <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;"> 
                                                                Total: <span id="recaudacionTotal"></span>                                                   
                                                             </th>
-                                                    <th >
+                                                    <th style="color:blue; font-size:130%;" >
                                                     </th>
                                                 </thead>
+                                               
+                                            </table>
+                                        </div>
+                                        <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+                                            <table class="bordered striped ">
                                                 <tbody id="cuerpoRecaudaciones">
                                                 </tbody>
                                             </table>
                                         </div>
-                                    
                                     </div>
                                 </div>
                             </div>
@@ -233,25 +252,29 @@
                                         <div class="col s12">
                                             <table class="bordered striped " id=tablaGastos>
                                                 <thead>
-                                                    <th>
-                                                        Monto <input type="text" placeholder="Monto">
+                                                    <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
+                                                        Monto 
                                                     </th>
-                                                    <th>
-                                                        Motivo <input type="text" placeholder="Motivo">
+                                                    <th  class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
+                                                        Motivo 
                                                     </th>
-                                                    <th>
-                                                        Hora <input type="text" placeholder="Hora">
+                                                    <th  class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
+                                                        Hora 
                                                     </th>
-                                                    <th>
+                                                    <th  class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
                                                     </th>
                                                 </thead>
+                                        
+                                            </table>
+                                      
+                                        </div>
+                                        <div class="col s12" style="max-height: 550px; overflow-y: scroll;">
+                                            <table class="bordered striped ">
                                                 <tbody id="cuerpoGastos">
 
                                                 </tbody>
                                             </table>
-                                      
                                         </div>
-                                       
                                     </div>
                                 </div>
                             </div>

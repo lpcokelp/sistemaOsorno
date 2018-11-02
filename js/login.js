@@ -45,6 +45,10 @@ var config = {
                      // lo tira al panel de caja
                      location.href = "caja/panel.html";
                  } else {
+                    if (sessionStorage.tipocredencial == "celular") {
+                        // lo tira al panel de caja
+                        location.href = "celular/panel.html";
+                    }
                      // no lo tira a ningun lado y lo desconecta
                  }
              }

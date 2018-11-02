@@ -3,7 +3,7 @@
 <div class="row card">
     <div class="col s9">
         <h4>
-            Diferencias
+            Diferencia Contadores
         </h4>
     </div>
     <div class="col s12 ">
@@ -23,6 +23,11 @@
                     </tr>
                 </tr>
             </thead>
+       
+        </table>
+    </div>
+    <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+        <table class="bordered striped ">
             <tbody id="cuerpoDiferencias">
             </tbody>
         </table>
@@ -194,6 +199,7 @@
     $(document).ready(function($) {
 $('.modal').modal();
  $('.materialboxed').materialbox();
+ $('#encabezado').html("Diferencias Contadores");
  cargarContadores() 
     });
 </script>

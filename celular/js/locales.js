@@ -25,6 +25,41 @@ jornada:rutaJornada
     })
 }
 
+function actualizarValorContadores(maquinaActual) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquinaActual).once('value', function(datosPremiosContador) {
+        diferenciaOut = 0;
+        diferenciaIn = 0;
+        inAnterior = 0;
+        outAnterior = 0;
+        inHoy = 0;
+        outHoy = 0;
+        balance = 0;
+        llaveContador = ""
+        datosPremiosContador.forEach(function(datosPremios) {
+            llaveContador = datosPremios.key;
+
+            multiplicadorMaquina=parseInt(datosPremios.val().multiplicadorMaquina)
+            prem = parseInt(datosPremios.val().premiosContador);
+            rec = parseInt(datosPremios.val().recaudacionesContador);
+            entradas = parseInt(datosPremios.val().entrada)*multiplicadorMaquina;
+            salidas = parseInt(datosPremios.val().salida)*multiplicadorMaquina;
+            maquina= parseInt(datosPremios.val().maquina)
+            console.log(salidas+"salidas")
+            difIn =(prem-salidas);
+            difOut =(rec-entradas);
+
+        })
+        console.log('se está actualizando los datos')
+        db.ref(rutaDatosContadores + llaveContador).update({
+         
+            diferenciaOut: difOut,
+            diferenciaIn: difIn,
+            maquina:maquina
+    
+        })
+
+    })
+}
 function cerrarLocal(){
     db.ref(rutaLocal).update({
         estado:false
@@ -41,10 +76,13 @@ function sincronizarJornadas(local){
            //existe jornada activa
            sessionStorage.estadoLocal=true;
            rutas.jornadaActual=datosLocales.val().jornada
+           
            console.log("local abierto");
            cargadorModulo('app', 'turnos', 'panelTurnos')
+           rutaDatosImportantesCuadratura = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/datosImportantes/";
         }else{
            sessionStorage.localactual=false;
+           sessionStorage.estadoLocal=false;
            console.log("Local cerrado")
            cargadorModulo('app', 'jornada', 'inactiva')
         }
@@ -58,8 +96,8 @@ function validarJornada() {
   
     $('#tabNavegacion').html(` `)
 
-        if ( sessionStorage.estadoLocal == "true") {
-        
+        if ( sessionStorage.estadoLocal == "true" || sessionStorage.estadoLocal == true) {
+        $('#encabezado').html('Turnos')
             cargadorModulo('app', 'turnos', 'panelTurnos')
         } else {
             rutas.jornadaActual = '';

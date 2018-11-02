@@ -3,7 +3,7 @@
 <div class="row card">
     <div class="col s9">
         <h4>
-            Contadores Hoy.
+           Contadores Diarios
         </h4>
     </div>
     <div class="col s12 ">
@@ -11,18 +11,24 @@
             <thead>
                 <tr>
                     <tr>
-                        <th>
+                        <th style="width:10%;">
                             N°
                         </th>
-                        <th>
+                        <th  style="width:45%;">
                             IN
                         </th>
-                        <th>
+                        <th  style="width:45%;">
                             OUT
                         </th>
                     </tr>
                 </tr>
             </thead>
+         
+        </table>
+    </div>
+
+    <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+        <table class="bordered striped ">
             <tbody id="cuerpoContadores">
             </tbody>
         </table>
@@ -153,6 +159,7 @@
 <script type="text/javascript">
     $(document).ready(function($) {
 $('.modal').modal();
+$('#encabezado').html("Contadores Diarios");
  $('.materialboxed').materialbox();
  cargarContadores() 
     });

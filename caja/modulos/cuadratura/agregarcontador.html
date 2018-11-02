@@ -3,43 +3,46 @@
 <script type="text/javascript">
     $(document).ready(function($) {
 $('.modal').modal();
-
+$('#encabezado').html("Registrar Contador");
     });
 </script>
-<div class="col offset-m4 m4 s12 card">
+
+
     <div class="row">
-        <div class="col input-field s12">
-            <h5>
-                Registro Contador
-            </h5>
-        </div>
-        <div class="col s12" st="">
+       
+        <div class="col offset-m4 m4 s12 card" >
             <form class="row" onsubmit="registrarContador(maquinaContador.value,inContador.value,outContador.value); return false">
+               
+                <div class="col s9">
+                    <span>
+                       Contadores Diarios
+                    </span>
+                </div>
                 <div class="col input-field s12">
                     <input class="validate" id="maquinaContador" required="true" type="number">
                         <label for="maquinaContador">
-                            N°
+                            N° de la maquina
                         </label>
                     </input>
                 </div>
                 <div class="col input-field s12">
                     <input class="validate" id="inContador" required="true" type="number">
                         <label for="inContador">
-                            IN
+                            Contador IN
                         </label>
                     </input>
                 </div>
                 <div class="col input-field s12">
                     <input class="validate" id="outContador" required="true" type="number">
                         <label for="outContador">
-                            OUT
+                            Contador OUT
                         </label>
                     </input>
                 </div>
                 <div class="col input-field s6">
-                    <a class="btn-floating btn-large waves-effect waves-light grey right ">
+                    <a class="btn-floating btn-large waves-effect waves-light grey right " onclick="cargadorModulo('app', 'cuadratura', 'contadoreshoy')">
                         <i class="material-icons large">
-                            cancel
+                            arrow_back
                         </i>
                     </a>
                 </div>
@@ -56,7 +59,7 @@ $('.modal').modal();
             </form>
         </div>
     </div>
-</div>
+
 
 
 <div id="modalImagen" class="modal">

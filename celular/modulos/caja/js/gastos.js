@@ -40,8 +40,8 @@ function guardarGasto(monto, motivo,tipo) {
   
     cargarGastos();
     sumarGastos(monto);
-    $('#montoGasto').val('');
-    $('#motivoGasto').val('');
+    $('#montoGasto').val('').focus();
+    $('#motivoGasto').val('').blur();
 }
 
 function sumarGastos(gastoNuevo) {
@@ -74,6 +74,7 @@ function eliminarGasto(gasto, monto) {
         Materialize.toast('Gasto Eliminado', 3000);
         restarGastos(monto);
         cargarGastos();
+        $('#'+gasto).remove();
         db.ref(rutaGastos + gasto).remove()
         db.ref(rutaGastosJornada + gasto).remove()
     }, function() {});
@@ -85,11 +86,11 @@ function cargarGastos() {
         montoTotalGastos = 0;
         contadorGastos = 0;
         datosGastos.forEach(function(iGastos) {
-            contenidoTablaGastos += `<tr>
-            <td  style="width: 25%;">` + puntos(iGastos.val().monto) + `</td>
+            contenidoTablaGastos += `<tr style="font-size:130%;">
+            <td  class="encabezadoTablaPremios" >` + puntos(iGastos.val().monto) + `</td>
             <td style="width: 25%;">` + iGastos.val().motivo + `</td>
             <td style="width: 25%;">` + iGastos.val().hora + `</td>
-            <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarGasto('` + iGastos.key + `','` + iGastos.val().monto + `')">delete</i></td>
+            <td style="width: 25%;"> </td>
             </tr>`
             contadorGastos += 1;
             montoTotalGastos += parseInt(iGastos.val().monto)
@@ -116,11 +117,11 @@ function buscarGastos(motivoGastoBuscar) {
             contenidoTablaGastos2 = ""
             totalGastos = 0;
             datosBuscarGastos.forEach(function(hGasto) {
-                contenidoTablaGastos2 += `<tr>
-                <td  style="width: 25%;">` + puntos(hGasto.val().monto) + `</td>
+                contenidoTablaGastos2 += `<tr style="font-size:130%;">
+                <td  class="encabezadoTablaPremios blue-text" style="font-size:130%;">` + puntos(hGasto.val().monto) + `</td>
                 <td style="width: 25%;">` + hGasto.val().motivo + `</td>
                 <td style="width: 25%;">` + hGasto.val().hora + `</td>
-                <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarGasto('` + hGasto.key + `','` + hGasto.val().monto + `')">delete</i></td>
+                <td style="width: 25%;">  </td>
                 </tr>`
                 totalGastos += parseInt(hGasto.val().monto)
             })
