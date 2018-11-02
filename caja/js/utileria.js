@@ -7,6 +7,10 @@ function eliminarPuntos(monto){
     return monto;
 }
 
+
+function wea(mensaje){
+    console.log(mensaje);
+}
 function obtenerHora() {
     var ho = new Date();
     hora1 = parseInt(ho.getHours())

@@ -3,9 +3,9 @@
 rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
 
 function iniciarJornada() {
+    //desactiva el boton
     $('#botonIniciar').prop("disabled", true);
-
-
+    //Selecciona todos los registros que existan con la misma fecha
     db.ref(rutas.jornadas).orderByChild('fecha').equalTo(obtenerFecha()).once('value', function(ivalJor) {
         var numeroJornada = 0;
         var controlJornada = 0;
@@ -72,7 +72,8 @@ function iniciarJornada() {
                             salida: 0,
                             balance: 0,
                             diferenciaIn: 0,
-                            diferenciaOut: 0
+                            diferenciaOut: 0,
+                            multiplicadorMaquina:parseInt(multiplicadores[i])
                         })
                     }
                     abrirLocal(jornada.key);

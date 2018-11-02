@@ -170,7 +170,9 @@ function eliminarPremio(premio, monto, maquina) {
 }
 
 function cargarpremios() {
-    console.log("Hola")
+    console.log("Hola");
+    $('#buscadorPremio').val('');
+    contenidoTablaPremios="";
     arregloMaquinaPremios = [];
     arregloContadorPremios = [];
     arregloMontoPremios = [];
@@ -189,14 +191,18 @@ function cargarpremios() {
             contadorPremios += 1;
             montoTotalPremios += parseInt(ipremios.val().monto)
         })
-        for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
-            contenidoTablaPremios += `<tr  style="font-size:130%;" id="` + arregloKeyPremios[i] + `">
-            <td class="encabezadoTablaPremios blue-text" style="font-size:130%;"    >` + arregloMaquinaPremios[i] + `</td>
-            <td class="encabezadoTablaPremios">` + puntos(arregloMontoPremios[i]) + `</td>
-            <td class="encabezadoTablaPremios">` + arregloHoraPremios[i] + `</td>
-            <td class="encabezadoTablaPremios">  <i class="material-icons "  onclick="eliminarPremio('` + arregloKeyPremios[i] + `','` + arregloMontoPremios[i] + `','` + arregloMaquinaPremios[i] + `')">delete</i></td>
-            </tr>`
-        }
+
+
+            for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
+                contenidoTablaPremios += `<tr  style="font-size:130%;" id="` + arregloKeyPremios[i] + `">
+                <td class="encabezadoTablaPremios blue-text" style="font-size:130%;"    >` + arregloMaquinaPremios[i] + `</td>
+                <td class="encabezadoTablaPremios">` + puntos(arregloMontoPremios[i]) + `</td>
+                <td class="encabezadoTablaPremios">` + arregloHoraPremios[i] + `</td>
+                <td class="encabezadoTablaPremios">  <i class="material-icons "  onclick="eliminarPremio('` + arregloKeyPremios[i] + `','` + arregloMontoPremios[i] + `','` + arregloMaquinaPremios[i] + `')">delete</i></td>
+                </tr>`
+            }
+        
+   
         db.ref(rutaDatosTurno).update({
             premiosTotales: montoTotalPremios
         })
@@ -209,9 +215,18 @@ function cargarpremios() {
     })
 }
 
+
+function validarVacioPrem() {
+    console.log("si");
+   contenido=$('#buscadorPremio').val();
+    if(contenido==''){
+        cargarpremios()
+    }
+
+}
 function buscarNumeroMaquinaPrem(numeroMaquina) {
     db.ref(rutaPremios).off();
-setTimeout(() => {
+
     contadorPremios = 0;
     if (numeroMaquina == '') {
         cargarpremios();
@@ -234,7 +249,7 @@ setTimeout(() => {
             $('#cuerpoPremios').html(contenidoTablaPremios2);
         })
     }
-}, 200);
+
 
    
 }

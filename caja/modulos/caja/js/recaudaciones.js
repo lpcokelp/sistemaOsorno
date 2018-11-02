@@ -222,7 +222,7 @@ function cargarRecaudaciones() {
 
 function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
     db.ref(rutaRecaudaciones).off();
-setTimeout(() => {
+
     
 cantidadRec=0;
 if (numeroMaquinaRecaudacion == '') {
@@ -247,6 +247,6 @@ if (numeroMaquinaRecaudacion == '') {
         $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
     })
 }
-}, 300);
+
 
 }

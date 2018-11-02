@@ -16,14 +16,14 @@
   </style>
 <ul class="tabs light-blue darken-2 " id="tabs-swipe-demo">
     <li class="tab col s2">
-        <a class="active" href="#premios" onclick="setTimeout(function(){ $('#montopremio').focus().val('')}, 300);">
+        <a class="active" href="#premios" onclick="setTimeout(function(){ $('#montopremio').focus().val('');cargarpremios()}, 300);">
             <span class=" white-text">
                 Premios
             </span>
         </a>
     </li>
     <li class="tab col s2 white-text">
-        <a href="#recaudaciones"  onclick="setTimeout(function(){ $('#montoRecaudaciones').focus().val('')}, 300);">
+        <a href="#recaudaciones"  onclick="setTimeout(function(){ $('#montoRecaudaciones').focus().val('');cargarRecaudaciones()}, 300);">
             <span class=" white-text" >
                 Recaudaciones
             </span>
@@ -60,12 +60,16 @@
                                             <table class="bordered striped " id="tablaPremios">
                                                 <thead>
                                                     <th class="encabezadoTablaPremios "  style="color:blue; font-size:130%;" >
-                                                         <input type="text" id="buscadorPremio"placeholder="Buscar Maquina" class="col s6">
-                                                         <button class="btn-floating btn-large waves-effect waves-light blue right"  onclick="buscarNumeroMaquinaPrem(buscadorPremio.value)"type="button">
+                                                        <form onsubmit="buscarNumeroMaquinaPrem(buscadorPremio.value); return false">
+
+                                                       
+                                                        <input type="text" id="buscadorPremio"placeholder="Buscar Maquina" class="col s6">
+                                                         <button class="btn-floating btn-large waves-effect waves-light blue right" type="submit">
                                                             <i class="material-icons">
                                                                 search
                                                             </i>
                                                         </button>
+                                                    </form> 
                                                     </th>
                                                     <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
                                                        N°: <span id="cantidadPremios"></span>
@@ -99,6 +103,8 @@
                 <div class="col input-field s12">
                     <h5>
                         Registrar Premio
+                      
+                      
                     </h5>
                 </div>
                 <div class="col s12" st="">
@@ -158,14 +164,20 @@
                                         <div class="col s12">
                                             <table class="bordered striped " id="tablaRecaudaciones">
                                                 <thead>
-                                                        <th class="encabezadoTablaPremios"  style="color:blue; font-size:130%;">
-                                                                 <input type="text" id="buscadorRecaudacion" placeholder="Buscar Maquina" class="col s6">
-                                                                 <button class="btn-floating btn-large waves-effect waves-light blue right"  onclick="buscarRecaudacionMaquina(buscadorRecaudacion.value)"type="button">
+                                                        
+                                                            <th class="encabezadoTablaPremios "  style="color:blue; font-size:130%;" >
+                                                                <form onsubmit="buscarRecaudacionMaquina(buscadorRecaudacion.value); return false">
+        
+                                                               
+                                                                <input type="text" id="buscadorRecaudacion"placeholder="Buscar Maquina" class="col s6">
+                                                                 <button class="btn-floating btn-large waves-effect waves-light blue right" type="submit">
                                                                     <i class="material-icons">
                                                                         search
                                                                     </i>
                                                                 </button>
+                                                            </form> 
                                                             </th>
+                                                            
                                                             <th class="encabezadoTablaPremios" style="color:blue; font-size:130%;">
                                                                N°: <span id="cantidadRec"></span>
                                                             </th>

@@ -3,6 +3,7 @@
   var maquinas = [];
   var llaveMaquinas = [];
   var estadoMaquinas = [];
+  var multiplicadores=[];
   var config = {
     apiKey: "AIzaSyAaMeosluNyleN-sIehjUApL-K1f4k4Et8",
     authDomain: "osorno-50720.firebaseapp.com",
@@ -62,7 +63,9 @@
           datmaq.forEach(function(itemMaq) {
               llaveMaquinas.push(itemMaq.key);
               maquinas.push(itemMaq.val().numMaquina);
+              multiplicadores.push(itemMaq.val().multiMaquina);
               estadoMaquinas.push(false)
+             
           })
       })
   }
