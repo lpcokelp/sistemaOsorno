@@ -34,12 +34,12 @@ function guardarGasto(monto, motivo,tipo) {
         })
 
  
-       
+        cargarGastos();
+        sumarGastos(monto);
 
     })
   
-    cargarGastos();
-    sumarGastos(monto);
+
     $('#montoGasto').val('').focus();
     $('#motivoGasto').val('').blur();
 }
@@ -72,9 +72,10 @@ function restarGastos(gastoNuevo) {
 function eliminarGasto(gasto, monto) {
     alertify.confirm('Eliminar Gasto', 'Está seguro que desea eliminar el Gasto?', function() {
         Materialize.toast('Gasto Eliminado', 3000);
+        $('#'+gasto).remove();
         restarGastos(monto);
         cargarGastos();
-        $('#'+gasto).remove();
+      
         db.ref(rutaGastos + gasto).remove()
         db.ref(rutaGastosJornada + gasto).remove()
     }, function() {});
