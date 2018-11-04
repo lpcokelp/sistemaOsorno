@@ -52,8 +52,8 @@ function registrarContador(maquina, entrada, salida) {
                         diferenciaIn = parseInt(datosPremios.val().recaudacionesContador);
                         inAnterior = parseInt(InAyerTemporal);
                         outAnterior = parseInt(OutAyerTemporal);
-                        inHoy =parseInt(datosPremios.val().inHoy);
-                        outHoy =parseInt(datosPremios.val().outHoy);
+                        inHoy =parseInt(entrada);
+                        outHoy =parseInt(salida);
                         entrada = inHoy - inAnterior
                         salida = outHoy - outAnterior
                         
