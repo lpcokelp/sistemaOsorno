@@ -1,5 +1,5 @@
 //rutaLocalActual
-rutaLocalActual = "sistema/jornadas/coyhaique/"
+rutaLocalActual = "sistema/jornadas/"+sessionStorage.localactual+"/"
 $(document).ready(function() {
     $('select').material_select();
     $('.datepicker').pickadate({ //datepicker
@@ -86,7 +86,7 @@ function cargarFechaActual(llave) {
 }
 
 function cargarGastos() {
-    rutaContadores = "sistema/jornadas/coyhaique/" + sessionStorage.jornadaSeleccionada + "/gastos/"
+    rutaContadores = "sistema/jornadas/"+sessionStorage.localactual+"/" + sessionStorage.jornadaSeleccionada + "/gastos/"
     db.ref(rutaContadores).once('value', function(datContad) {
         contenido = ""
         total = 0;
@@ -103,7 +103,7 @@ function cargarGastos() {
 }
 
 function cargarContadores() {
-    rutaContadores = "sistema/jornadas/coyhaique/" + sessionStorage.jornadaSeleccionada + "/contadores/"
+    rutaContadores = "sistema/jornadas/"+sessionStorage.localactual+"/" + sessionStorage.jornadaSeleccionada + "/contadores/"
     db.ref(rutaContadores).once('value', function(datContad) {
         contenido = ""
         total = 0;
