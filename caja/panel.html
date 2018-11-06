@@ -105,25 +105,104 @@
                 </div>
                 </div>
         </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
+   
       </div>
 
+
       <div id="modalRecaudaciones" class="modal">
-        <div class="modal-content">
-          <h4>Recaudaciones</h4>
-          <p>A bunch of text</p>
+            <div class="modal-content">
+             
+              <form onsubmit="buscarRecMod(buscadorRecMod.value); return false">
+    
+                              <div class="row">
+                                    <div class="col s12 m4">
+                                    <h4>Recaudaciones</h4>
+                                    </div>
+    <div class="col s12 m8">
+            <input type="text" id="buscadorRecMod"placeholder="Buscar Maquina"  >
+         
+                   
+    </div>
+    <div class="col 2" hidden>
+            <button class="btn-floating btn-large waves-effect waves-light blue right" type="submit">
+                    <i class="material-icons" >
+                        search
+                    </i>
+                </button>
         </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
-      </div>
+    
+                              </div>     
+                    
+                </form> 
+    
+              <div class="row">
+                    <div class="col s12">
+                        <table class="bordered striped " id="tablaRec">
+                            <thead>
+                                <th  style="color:blue;  width:33%;" >
+                            
+                                </th>
+                                <th style="color:blue;width:33%;">
+                                   N°: <span id="cantidadRecMod"></span>
+                                </th>
+                                <th  style="color:blue;  width:33%;"> 
+                                   Total: <span id="recTotalMod"></span>                                                   
+                                </th>
+                               
+                            </thead>
+                     
+                        </table>
+                    </div>
+                    <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+                        <table class="bordered striped ">
+                            <tbody id="cuerpoRecMod">
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+            </div>
+         
+          </div>
+    
 
       <div id="modalGastos" class="modal">
         <div class="modal-content">
-          <h4>Gastos</h4>
-          <p>A bunch of text</p>
+                <div class="modal-content">
+         
+                      
+              
+                                        <div class="row">
+                                              <div class="col s12 m4">
+                                              <h4>Gastos</h4>
+                                              </div>
+           
+              
+                        <div class="row">
+                              <div class="col s12">
+                                  <table class="bordered striped " id="tablaGastos">
+                                      <thead>
+                                          <th  style="color:blue;  width:33%;" >
+                                      
+                                          </th>
+                                          <th style="color:blue;width:33%;">
+                                             N°: <span id="cantidadGastosMod"></span>
+                                          </th>
+                                          <th  style="color:blue;  width:33%;"> 
+                                             Total: <span id="gastosTotalMod"></span>                                                   
+                                          </th>
+                                         
+                                      </thead>
+                               
+                                  </table>
+                              </div>
+                              <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+                                  <table class="bordered striped ">
+                                      <tbody id="cuerpoGastosMod">
+                                      </tbody>
+                                  </table>
+                              </div>
+                              </div>
+                      </div>
         </div>
         <div class="modal-footer">
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>

@@ -122,6 +122,97 @@ function validarJornada() {
 }
 
 
+
+function cargarGastosMod() {
+    console.log("Hola");
+    $('#buscadorGastosMod').val('');
+    rutaGastosMod="sistema/jornadas/"+sessionStorage.localcredencial+"/"+rutas.jornadaActual+"/gastos/"
+    contenidoTablaPremios="";
+    arregloMaquinaPremios = [];
+    arregloContadorPremios = [];
+    arregloMontoPremios = [];
+    arregloHoraPremios = [];
+    arregloKeyPremios = [];
+    contadorPremios=0;
+    montoTotalPremios =0;
+  
+    db.ref(rutaGastosMod).once('value', function (datosPremiosMod) {
+  
+        datosPremiosMod.forEach(function (ipremiosMod) {
+            arregloMontoPremios.push(ipremiosMod.val().monto);
+            arregloHoraPremios.push(ipremiosMod.val().hora);
+            arregloMaquinaPremios.push(ipremiosMod.val().motivo)
+            arregloKeyPremios.push(ipremiosMod.key);
+            contadorPremios += 1;
+            montoTotalPremios += parseInt(ipremiosMod.val().monto)
+        })
+
+
+            for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
+                contenidoTablaPremios += `<tr   id="` + arregloKeyPremios[i] + `">
+                <td class=" blue-text"  width:33%;"    >` + arregloMaquinaPremios[i] + `</td>
+                <td class="" style="width:33%;">` + puntos(arregloMontoPremios[i]) + `</td>
+                <td class="" style="width:33%;">` + arregloHoraPremios[i] + `</td>
+            
+                </tr>`
+            }
+        
+   
+       
+        $('#cantidadGastosMod').html(contadorPremios);
+
+        $('#gastosTotalMod').html(puntos("" + montoTotalPremios + ""))
+        $('#cuerpoGastosMod').html(contenidoTablaPremios);
+
+    
+    })
+}
+
+function cargarRecMod() {
+    console.log("Hola");
+    $('#buscadorRecMod').val('');
+    rutaRecMod="sistema/jornadas/"+sessionStorage.localcredencial+"/"+rutas.jornadaActual+"/recaudaciones/"
+    contenidoTablaPremios="";
+    arregloMaquinaPremios = [];
+    arregloContadorPremios = [];
+    arregloMontoPremios = [];
+    arregloHoraPremios = [];
+    arregloKeyPremios = [];
+    contadorPremios=0;
+    montoTotalPremios =0;
+  
+    db.ref(rutaRecMod).once('value', function (datosPremiosMod) {
+  
+        datosPremiosMod.forEach(function (ipremiosMod) {
+            arregloMontoPremios.push(ipremiosMod.val().monto);
+            arregloHoraPremios.push(ipremiosMod.val().hora);
+            arregloMaquinaPremios.push(ipremiosMod.val().maquina)
+            arregloKeyPremios.push(ipremiosMod.key);
+            contadorPremios += 1;
+            montoTotalPremios += parseInt(ipremiosMod.val().monto)
+        })
+
+
+            for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
+                contenidoTablaPremios += `<tr   id="` + arregloKeyPremios[i] + `">
+                <td class=" blue-text" style="font-size:130%; width:33%;"    >` + arregloMaquinaPremios[i] + `</td>
+                <td class="" style="width:33%;">` + puntos(arregloMontoPremios[i]) + `</td>
+                <td class="" style="width:33%;">` + arregloHoraPremios[i] + `</td>
+            
+                </tr>`
+            }
+        
+   
+       
+        $('#cantidadRecMod').html(contadorPremios);
+
+        $('#recTotalMod').html(puntos("" + montoTotalPremios + ""))
+        $('#cuerpoRecMod').html(contenidoTablaPremios);
+
+    
+    })
+}
+
 function cargarPremiosMod() {
     console.log("Hola");
     $('#buscadorPremio').val('');
@@ -166,7 +257,69 @@ function cargarPremiosMod() {
     })
 }
 
+
+function buscarRecMod(numeroMaquina) {
+    rutaRecMod="sistema/jornadas/"+sessionStorage.localcredencial+"/"+rutas.jornadaActual+"/recaudaciones/"
+    db.ref(rutaRecMod).off();
+
+    contadorPremios = 0;
+    if (numeroMaquina == '') {
+        cargarRecMod();
+    } else {
+  
+            console.log("Hola");
+            $('#buscadorPremio').val('');
+            contenidoTablaPremios="";
+            arregloMaquinaPremios = [];
+            arregloContadorPremios = [];
+            arregloMontoPremios = [];
+            arregloHoraPremios = [];
+            arregloKeyPremios = [];
+            contadorPremios=0;
+            montoTotalPremios =0;
+         
+            db.ref(rutaRecMod).orderByChild('maquina').equalTo(parseInt(numeroMaquina)).once('value', function (datREc) {
+          
+                datREc.forEach(function (iRecMod) {
+                    arregloMontoPremios.push(iRecMod.val().monto);
+                    arregloHoraPremios.push(iRecMod.val().hora);
+                    arregloMaquinaPremios.push(iRecMod.val().maquina)
+                    arregloKeyPremios.push(iRecMod.key);
+                    contadorPremios += 1;
+                    montoTotalPremios += parseInt(iRecMod.val().monto)
+                })
+        
+        
+                    for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
+                        contenidoTablaPremios += `<tr   id="` + arregloKeyPremios[i] + `">
+                        <td class=" blue-text" style="font-size:130%; width:33%;"    >` + arregloMaquinaPremios[i] + `</td>
+                        <td class="" style="width:33%;">` + puntos(arregloMontoPremios[i]) + `</td>
+                        <td class="" style="width:33%;">` + arregloHoraPremios[i] + `</td>
+           
+                        </tr>`
+                    }
+                
+           
+               
+                $('#cantidadRecMod').html(contadorPremios);
+        
+                $('#recTotalMod').html(puntos("" + montoTotalPremios + ""))
+                $('#cuerpoRecMod').html(contenidoTablaPremios);
+        
+            
+            })
+
+
+
+
+    }
+
+
+   
+}
+
 function buscarPremMod(numeroMaquina) {
+    rutaPremiosMod="sistema/jornadas/"+sessionStorage.localcredencial+"/"+rutas.jornadaActual+"/premios/"
     db.ref(rutaPremiosMod).off();
 
     contadorPremios = 0;
@@ -184,7 +337,7 @@ function buscarPremMod(numeroMaquina) {
             arregloKeyPremios = [];
             contadorPremios=0;
             montoTotalPremios =0;
-            rutaPremiosMod="sistema/jornadas/"+sessionStorage.localcredencial+"/"+rutas.jornadaActual+"/premios/"
+            
             db.ref(rutaPremiosMod).orderByChild('maquina').equalTo(parseInt(numeroMaquina)).once('value', function (datosPremiosMod) {
           
                 datosPremiosMod.forEach(function (ipremiosMod) {

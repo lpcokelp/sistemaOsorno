@@ -76,7 +76,7 @@ function cargarturnos() {
                 <div class="col s6 m3">
                       
                                 <span class="title" style="font-size:130%;">
-                                <a href="#!" class="secondary-content"><a class="teal-text" onclick=" controlResumen('modalGastos');">
+                                <a href="#!" class="secondary-content"><a class="teal-text"  onclick=" controlResumen('modalGastos');">
                                 Gastos
                                 </a></a>
                                 </span>

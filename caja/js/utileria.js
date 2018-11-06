@@ -1,5 +1,5 @@
 
-function eliminarPuntos(monto){
+function eliminarPuntos(monto) {
     var monto = monto.replace(".", "");
     var monto = monto.replace(".", "");
     var monto = monto.replace(".", "");
@@ -8,25 +8,32 @@ function eliminarPuntos(monto){
 }
 
 
-function wea(mensaje){
+function wea(mensaje) {
     console.log(mensaje);
 }
 
-function controlResumen(modulo){
-    if(sessionStorage.estadoLocal == "true"){
-    $('#'+modulo).modal('open');
-    switch (modulo) {
-        case 'modalPremios':
-        cargarPremiosMod();
-            break;
-    
-        default:
-            break;
+function controlResumen(modulo) {
+    if (sessionStorage.estadoLocal == "true") {
+        $('#' + modulo).modal('open');
+        switch (modulo) {
+            case 'modalPremios':
+                cargarPremiosMod();
+                break;
+            case 'modalRecaudaciones':
+                cargarRecMod();
+                break;
+            case 'modalGastos':
+                cargarGastosMod();
+                break;
+
+
+            default:
+                break;
+        }
+    } else {
+        alert("no hay jornada abierta");
     }
-    }else{
-    alert("no hay jornada abierta");
-    }
-    
+
 }
 function obtenerHora() {
     var ho = new Date();
@@ -65,7 +72,7 @@ function obtenerPosMaquina() {
     return control;
 }
 
-function iniciarMaquinas() {}
+function iniciarMaquinas() { }
 
 function obtenerFecha() {
     var f = new Date();
@@ -73,14 +80,14 @@ function obtenerFecha() {
     mes = parseInt(mes)
     var dia = f.getDate()
     dia = parseInt(dia)
- 
+
     if (dia < 10) {
         dia = "0" + dia
     }
     if (mes < 10) {
         mes = "0" + mes
     }
-    hoy = f.getFullYear()+"-"+mes + "-" + dia 
+    hoy = f.getFullYear() + "-" + mes + "-" + dia
     return hoy;
 }
 
@@ -160,7 +167,7 @@ function puntuarInput(value, id) {
     console.log(valor);
     if (valor.length == 1) {
         // aqui evaluo el primer digito, si este corresponde a un numero todo sigue bien, en caso contrario se limpiara las variables
-        if (valor == '1' || valor == '2' || valor == '3' || valor == '4' || valor == '5' || valor == '6' || valor == '7' || valor == '8' || valor == '9') {} else {
+        if (valor == '1' || valor == '2' || valor == '3' || valor == '4' || valor == '5' || valor == '6' || valor == '7' || valor == '8' || valor == '9') { } else {
             value = ""
             valor = ""
             $('#' + id).val('');
@@ -169,8 +176,8 @@ function puntuarInput(value, id) {
     if (value.substring(0, 1) == "N") {
         $('#' + id).val('');
         value = ""
-    } else {}
-    if (value == "") {} else {
+    } else { }
+    if (value == "") { } else {
         var value = value.replace(".", "");
         var value = value.replace(".", "");
         var value = value.replace(".", "");
