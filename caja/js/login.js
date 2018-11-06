@@ -5,12 +5,12 @@
   var estadoMaquinas = [];
   var multiplicadores=[];
   var config = {
-    apiKey: "AIzaSyAaMeosluNyleN-sIehjUApL-K1f4k4Et8",
-    authDomain: "osorno-50720.firebaseapp.com",
-    databaseURL: "https://osorno-50720.firebaseio.com",
-    projectId: "osorno-50720",
-    storageBucket: "osorno-50720.appspot.com",
-    messagingSenderId: "245571353819"
+    apiKey: "AIzaSyCE3cr_7zL61A7qkqvMv1UFv21q84viVF4",
+    authDomain: "maquinaria-f81a4.firebaseapp.com",
+    databaseURL: "https://maquinaria-f81a4.firebaseio.com",
+    projectId: "maquinaria-f81a4",
+    storageBucket: "maquinaria-f81a4.appspot.com",
+    messagingSenderId: "331739499915"
   };
   firebase.initializeApp(config);
   var db = firebase.database();

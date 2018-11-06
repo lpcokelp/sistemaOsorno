@@ -11,6 +11,23 @@ function eliminarPuntos(monto){
 function wea(mensaje){
     console.log(mensaje);
 }
+
+function controlResumen(modulo){
+    if(sessionStorage.estadoLocal == "true"){
+    $('#'+modulo).modal('open');
+    switch (modulo) {
+        case 'modalPremios':
+        cargarPremiosMod();
+            break;
+    
+        default:
+            break;
+    }
+    }else{
+    alert("no hay jornada abierta");
+    }
+    
+}
 function obtenerHora() {
     var ho = new Date();
     hora1 = parseInt(ho.getHours())

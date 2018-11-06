@@ -50,6 +50,96 @@
         </div>
 
     </script>
+
+
+
+    <div id="modalPremios" class="modal">
+        <div class="modal-content">
+         
+          <form onsubmit="buscarPremMod(buscadorPremioMod.value); return false">
+
+                          <div class="row">
+                                <div class="col s12 m4">
+                                <h4>Premios</h4>
+                                </div>
+<div class="col s12 m8">
+        <input type="text" id="buscadorPremioMod"placeholder="Buscar Maquina"  >
+     
+               
+</div>
+<div class="col 2" hidden>
+        <button class="btn-floating btn-large waves-effect waves-light blue right" type="submit">
+                <i class="material-icons" >
+                    search
+                </i>
+            </button>
+    </div>
+
+                          </div>     
+                
+            </form> 
+
+          <div class="row">
+                <div class="col s12">
+                    <table class="bordered striped " id="tablaPremios">
+                        <thead>
+                            <th  style="color:blue;  width:33%;" >
+                        
+                            </th>
+                            <th style="color:blue;width:33%;">
+                               N°: <span id="cantidadPremiosMod"></span>
+                            </th>
+                            <th  style="color:blue;  width:33%;"> 
+                               Total: <span id="premiosTotalPremiosMod"></span>                                                   
+                            </th>
+                           
+                        </thead>
+                 
+                    </table>
+                </div>
+                <div class="col s12" style="max-height: 350px; overflow-y: scroll;">
+                    <table class="bordered striped ">
+                        <tbody id="cuerpoPremiosMod">
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
+
+      <div id="modalRecaudaciones" class="modal">
+        <div class="modal-content">
+          <h4>Recaudaciones</h4>
+          <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
+
+      <div id="modalGastos" class="modal">
+        <div class="modal-content">
+          <h4>Gastos</h4>
+          <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
+
+      <div id="modalResumen" class="modal">
+        <div class="modal-content">
+          <h4>Resumen</h4>
+          <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
+
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
         <script charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript"> </script>
 
@@ -86,4 +176,12 @@
         z-index: 0; height: 50px; background-color: rgba(0, 0, 0, 0.3); right: 464px; left: 0px;
     }
     </style>
+
+
+
+<script>
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+</script>
 </html>

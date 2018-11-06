@@ -42,6 +42,65 @@ function cargarturnos() {
         </a>                
         </li>`
         });
+
+        contenidoturnos += `
+        <li class="collection-item avatar" >
+                           
+            
+        <div class="row">
+                <div class="col s6 m3">
+                      
+                                <span class="title" style="font-size:130%;">
+                                <a href="#!" class="secondary-content"><a class="teal-text" onclick=" controlResumen('modalRecaudaciones');">
+                                Recaudaciones
+                                </a></a>
+                                </span>
+                                <p>
+                                $150.000
+                                <br>
+                                          
+                                
+                </div>
+                <div class="col s6 m3">
+                       
+                                <span class="title" style="font-size:130%;">
+                                <a href="#!" class="secondary-content"><a class="teal-text" onclick=" controlResumen('modalPremios');">
+                                Premios
+                                </a></a>
+                                </span>
+                                <p>
+                                $150.000
+                                <br>
+                             
+                </div>
+                <div class="col s6 m3">
+                      
+                                <span class="title" style="font-size:130%;">
+                                <a href="#!" class="secondary-content"><a class="teal-text" onclick=" controlResumen('modalGastos');">
+                                Gastos
+                                </a></a>
+                                </span>
+                                <p>
+                                $150.000
+                                <br>
+                                          
+                            
+                </div>
+                <div class="col s6 m3">
+                    
+                                <span class="title" style="font-size:130%;">
+                                <a href="#!" class="secondary-content"><a class="teal-text" onclick=" controlResumen('modalResumen');">
+                                Balance
+                                </a></a>
+                                </span>
+                                <p>
+                                $150.000
+                                <br>
+                                          
+                             
+                </div>
+            </div>
+        </li>`
         $('#listadoturnos').html(contenidoturnos)
     })
 }

@@ -16,7 +16,9 @@ function guardarPremios(monto, maquina) {
         }).then(function (datoss) {
             db.ref(rutaPremiosJornada + datoss.key).update({
                 monto: monto,
-                hora: obtenerHora()
+                hora: obtenerHora(),
+                maquina:parseInt(maquina)
+
             });
             cargarpremios();
             
