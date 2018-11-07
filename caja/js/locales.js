@@ -121,6 +121,26 @@ function validarJornada() {
 
 }
 
+function cargarResumenTurnos() {
+
+
+    rutaResumenJor="sistema/jornadas/"+sessionStorage.localcredencial+"/"+rutas.jornadaActual+"/datosImportantes/"
+    contenidoTablaPremios="";
+    arregloMaquinaPremios = [];
+    arregloContadorPremios = [];
+    arregloMontoPremios = [];
+    arregloHoraPremios = [];
+    arregloKeyPremios = [];
+    contadorPremios=0;
+    montoTotalPremios =0;
+  
+    db.ref(rutaResumenJor).on('value', function (datosPremiosMod) {
+  
+
+
+    })
+ 
+}
 
 
 function cargarGastosMod() {

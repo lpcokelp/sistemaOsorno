@@ -12,11 +12,11 @@ function cargarLocales() {
             if (datlocales.estado == true) {
                 estado = 'Abierto';
                 clase = "green";
-                textoMonto= `   <p> Dinero en Caja : $`+puntuar(datlocales.monto)+`</p>`
+                //textoMonto= `   <p> Dinero en Caja : $`+puntuar(datlocales.monto)+`</p>`
             } else {
                 estado = 'Cerrado';
                 clase = "grey"
-                textoMonto= `   <p> Dia Anterior : $`+puntuar(datlocales.monto)+`</p>`
+              //  textoMonto= `   <p> Dia Anterior : $`+puntuar(datlocales.monto)+`</p>`
             }
   
             contenidolocales += `            
@@ -28,7 +28,7 @@ function cargarLocales() {
         <span class="card-title"  onclick="cargarLocal('` + itemlocal.key + `', '` + datlocales.nombre + `')">` + itemlocal.key + `</span>
         <p> Estado : `+estado+`</p>
         <br>
-        `+textoMonto+`
+   
         </div>
 
         </div>

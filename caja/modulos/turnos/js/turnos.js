@@ -55,9 +55,7 @@ function cargarturnos() {
                                 Recaudaciones
                                 </a></a>
                                 </span>
-                                <p>
-                                $150.000
-                                <br>
+                            
                                           
                                 
                 </div>
@@ -68,9 +66,7 @@ function cargarturnos() {
                                 Premios
                                 </a></a>
                                 </span>
-                                <p>
-                                $150.000
-                                <br>
+                          
                              
                 </div>
                 <div class="col s6 m3">
@@ -80,9 +76,7 @@ function cargarturnos() {
                                 Gastos
                                 </a></a>
                                 </span>
-                                <p>
-                                $150.000
-                                <br>
+                            
                                           
                             
                 </div>
@@ -93,15 +87,14 @@ function cargarturnos() {
                                 Balance
                                 </a></a>
                                 </span>
-                                <p>
-                                $150.000
-                                <br>
+                             
                                           
                              
                 </div>
             </div>
         </li>`
-        $('#listadoturnos').html(contenidoturnos)
+        $('#listadoturnos').html(contenidoturnos);
+        cargarResumenTurnos();
     })
 }
 
