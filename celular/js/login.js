@@ -3,6 +3,7 @@
   var maquinas = [];
   var llaveMaquinas = [];
   var estadoMaquinas = [];
+  var multiplicadores=[];
   var config = {
     apiKey: "AIzaSyAaMeosluNyleN-sIehjUApL-K1f4k4Et8",
     authDomain: "osorno-50720.firebaseapp.com",
@@ -35,17 +36,11 @@
                   // lo tira al panel de admin  
                   firebase.auth().signOut();
               } else {
-                  if (sessionStorage.tipocredencial == "celular") {
+                  if (sessionStorage.tipocredencial == "trabajador") {
                       // lo tira al panel de caja
                       cargarBarra("barraNavegacion", "barraNavegacion", "barraNavegacion");
                       // An error happened.
                   } else {
-
-                    if (sessionStorage.tipocredencial == "trabajador") {
-                        // lo tira al panel de caja
-                        firebase.auth().signOut();
-                        // An error happened.
-                    }
                       // no lo tira a ningun lado y lo desconecta
                   }
               }
@@ -68,7 +63,9 @@
           datmaq.forEach(function(itemMaq) {
               llaveMaquinas.push(itemMaq.key);
               maquinas.push(itemMaq.val().numMaquina);
+              multiplicadores.push(itemMaq.val().multiMaquina);
               estadoMaquinas.push(false)
+             
           })
       })
   }

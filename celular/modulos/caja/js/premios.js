@@ -6,13 +6,7 @@ contadorPremios = 0;
 function guardarPremios(monto, maquina) {
     //Se eliminan los puntos
     monto = eliminarPuntos(monto);
-    if (parseInt(monto) > 120000) {
-        db.ref("sistema/notificaciones/coyhaique/").push({
-            fecha: obtenerFecha(),
-            hora: obtenerHora(),
-            detalle: "Se pagó un Premio de : $" + puntuar(monto) + " en la maquina : " + maquina
-        })
-    }
+  
     if (validarmaquina(maquina) == true) {
         db.ref(rutaPremios).push({
             monto: monto,
@@ -22,8 +16,9 @@ function guardarPremios(monto, maquina) {
         }).then(function (datoss) {
             db.ref(rutaPremiosJornada + datoss.key).update({
                 monto: monto,
-                maquina: maquina,
-                hora: obtenerHora()
+                hora: obtenerHora(),
+                maquina:parseInt(maquina)
+
             });
             cargarpremios();
             
@@ -55,7 +50,7 @@ function sumarPremios(premionuevo) {
 
 function sumarPremiosContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function (datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function (datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
@@ -81,19 +76,13 @@ function sumarPremiosContador(premionuevo, maquina) {
         if (control == 1) {
             console.log("Existe un registro de la maquina" + maquina)
             db.ref(rutaDatosContadores + llaveMaquina).update({
-                maquina: maquina,
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador
             })
         } else {
             console.log("No Existe un registro de la maquina" + maquina)
-            db.ref(rutaDatosContadores).push({
-                maquina: maquina,
-                premiosContador: premiosContador,
-                recaudacionesContador: recaudacionesContador,
-                balanceContador: balanceContador
-            })
+         
         }
     })
 }
@@ -101,7 +90,7 @@ function sumarPremiosContador(premionuevo, maquina) {
 function restarPremiosContador(premionuevo, maquina) {
    
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function (datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function (datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
@@ -126,7 +115,6 @@ function restarPremiosContador(premionuevo, maquina) {
         if (control == 1) {
             console.log("Restando Premio")
             db.ref(rutaDatosContadores + llaveContador).update({
-                maquina: maquina,
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador
@@ -135,7 +123,7 @@ function restarPremiosContador(premionuevo, maquina) {
         } else {
             console.log('Restando Premios')
             db.ref(rutaDatosContadores).push({
-                maquina: maquina,
+           
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador
@@ -184,7 +172,9 @@ function eliminarPremio(premio, monto, maquina) {
 }
 
 function cargarpremios() {
-    console.log("Hola")
+    console.log("Hola");
+    $('#buscadorPremio').val('');
+    contenidoTablaPremios="";
     arregloMaquinaPremios = [];
     arregloContadorPremios = [];
     arregloMontoPremios = [];
@@ -203,14 +193,18 @@ function cargarpremios() {
             contadorPremios += 1;
             montoTotalPremios += parseInt(ipremios.val().monto)
         })
-        for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
-            contenidoTablaPremios += `<tr  style="font-size:130%;" id="` + arregloKeyPremios[i] + `">
-            <td class="encabezadoTablaPremios blue-text" style="font-size:130%;"    >` + arregloMaquinaPremios[i] + `</td>
-            <td class="encabezadoTablaPremios">` + puntos(arregloMontoPremios[i]) + `</td>
-            <td class="encabezadoTablaPremios">` + arregloHoraPremios[i] + `</td>
-            <td class="encabezadoTablaPremios">  <i class="material-icons "  onclick="eliminarPremio('` + arregloKeyPremios[i] + `','` + arregloMontoPremios[i] + `','` + arregloMaquinaPremios[i] + `')">delete</i></td>
-            </tr>`
-        }
+
+
+            for (var i = arregloKeyPremios.length - 1; i > -1; i--) {
+                contenidoTablaPremios += `<tr  style="font-size:130%;" id="` + arregloKeyPremios[i] + `">
+                <td class="encabezadoTablaPremios blue-text" style="font-size:130%;"    >` + arregloMaquinaPremios[i] + `</td>
+                <td class="encabezadoTablaPremios">` + puntos(arregloMontoPremios[i]) + `</td>
+                <td class="encabezadoTablaPremios">` + arregloHoraPremios[i] + `</td>
+                <td class="encabezadoTablaPremios">  <i class="material-icons "  onclick="eliminarPremio('` + arregloKeyPremios[i] + `','` + arregloMontoPremios[i] + `','` + arregloMaquinaPremios[i] + `')">delete</i></td>
+                </tr>`
+            }
+        
+   
         db.ref(rutaDatosTurno).update({
             premiosTotales: montoTotalPremios
         })
@@ -223,9 +217,18 @@ function cargarpremios() {
     })
 }
 
+
+function validarVacioPrem() {
+    console.log("si");
+   contenido=$('#buscadorPremio').val();
+    if(contenido==''){
+        cargarpremios()
+    }
+
+}
 function buscarNumeroMaquinaPrem(numeroMaquina) {
     db.ref(rutaPremios).off();
-setTimeout(() => {
+
     contadorPremios = 0;
     if (numeroMaquina == '') {
         cargarpremios();
@@ -238,7 +241,7 @@ setTimeout(() => {
 <td  class="encabezadoTablaPremios blue-text" style="font-size:130%;" >` + nMaquina.val().maquina + `</td>
 <td class="encabezadoTablaPremios">` + puntos(nMaquina.val().monto) + `</td>
 <td class="encabezadoTablaPremios">` + nMaquina.val().hora + `</td>
-<td class="encabezadoTablaPremios">  </td>
+<td class="encabezadoTablaPremios">  <i class="material-icons"  onclick="eliminarPremio('` + nMaquina.key + `','` + nMaquina.val().monto + `','` + nMaquina.val().maquina + `')">delete</i></td>
 </tr>`
                 totMaquina += parseInt(nMaquina.val().monto)
                 contadorPremios += 1;
@@ -248,7 +251,7 @@ setTimeout(() => {
             $('#cuerpoPremios').html(contenidoTablaPremios2);
         })
     }
-}, 200);
+
 
    
 }

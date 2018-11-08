@@ -34,12 +34,12 @@ function guardarGasto(monto, motivo,tipo) {
         })
 
  
-       
+        cargarGastos();
+        sumarGastos(monto);
 
     })
   
-    cargarGastos();
-    sumarGastos(monto);
+
     $('#montoGasto').val('').focus();
     $('#motivoGasto').val('').blur();
 }
@@ -72,9 +72,10 @@ function restarGastos(gastoNuevo) {
 function eliminarGasto(gasto, monto) {
     alertify.confirm('Eliminar Gasto', 'Está seguro que desea eliminar el Gasto?', function() {
         Materialize.toast('Gasto Eliminado', 3000);
+        $('#'+gasto).remove();
         restarGastos(monto);
         cargarGastos();
-        $('#'+gasto).remove();
+      
         db.ref(rutaGastos + gasto).remove()
         db.ref(rutaGastosJornada + gasto).remove()
     }, function() {});
@@ -90,7 +91,7 @@ function cargarGastos() {
             <td  class="encabezadoTablaPremios" >` + puntos(iGastos.val().monto) + `</td>
             <td style="width: 25%;">` + iGastos.val().motivo + `</td>
             <td style="width: 25%;">` + iGastos.val().hora + `</td>
-            <td style="width: 25%;"> </td>
+            <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarGasto('` + iGastos.key + `','` + iGastos.val().monto + `')">delete</i></td>
             </tr>`
             contadorGastos += 1;
             montoTotalGastos += parseInt(iGastos.val().monto)
@@ -121,7 +122,7 @@ function buscarGastos(motivoGastoBuscar) {
                 <td  class="encabezadoTablaPremios blue-text" style="font-size:130%;">` + puntos(hGasto.val().monto) + `</td>
                 <td style="width: 25%;">` + hGasto.val().motivo + `</td>
                 <td style="width: 25%;">` + hGasto.val().hora + `</td>
-                <td style="width: 25%;">  </td>
+                <td style="width: 25%;">  <i class="material-icons"  onclick="eliminarGasto('` + hGasto.key + `','` + hGasto.val().monto + `')">delete</i></td>
                 </tr>`
                 totalGastos += parseInt(hGasto.val().monto)
             })

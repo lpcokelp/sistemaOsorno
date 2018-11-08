@@ -28,7 +28,7 @@ function guardarRecaudaciones(monto, maquina) {
         }).then(function(datoss) {
             db.ref(rutaRecaudacionesJornada + datoss.key).update({
                 monto: monto,
-                maquina: maquina,
+                maquina: parseInt(maquina),
                 hora: obtenerHora(),
             });
             cuerpoRecaudaciones = $('#cuerpoRecaudaciones').html();
@@ -53,7 +53,7 @@ function guardarRecaudaciones(monto, maquina) {
 
 function sumarRecaudacionesContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function(datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
@@ -78,7 +78,7 @@ function sumarRecaudacionesContador(premionuevo, maquina) {
         if (control == 1) {
             console.log("Sumando Recaudaciones")
             db.ref(rutaDatosContadores + llaveContador).update({
-                maquina: maquina,
+              
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador,
@@ -86,20 +86,14 @@ function sumarRecaudacionesContador(premionuevo, maquina) {
             })
         } else {
             console.log('opcion 2')
-            db.ref(rutaDatosContadores).push({
-                maquina: maquina,
-                premiosContador: premiosContador,
-                recaudacionesContador: recaudacionesContador,
-                balanceContador: balanceContador,
-                hora:obtenerHora()
-            })
+      
         }
     })
 }
 
 function restarRecaudacionesContador(premionuevo, maquina) {
     premiosActuales = 0;
-    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+    db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function(datosPremiosContador) {
         premiosContador = 0;
         recaudacionesContador = 0;
         balanceContador = 0;
@@ -113,30 +107,26 @@ function restarRecaudacionesContador(premionuevo, maquina) {
             } else {
                 premiosContador = datosPremios.val().premiosContador;
             }
-            premiosContador -= premionuevo;
+    
             if (datosPremios.val().recaudacionesContador == undefined) {
                 recaudacionesContador = 0;
             } else {
                 recaudacionesContador = parseInt(datosPremios.val().recaudacionesContador);
             }
+            recaudacionesContador -= premionuevo;
         })
         balanceContador = recaudacionesContador - premiosContador;
         if (control == 1) {
             console.log("opcion 1")
             db.ref(rutaDatosContadores + llaveContador).update({
-                maquina: maquina,
+              
                 premiosContador: premiosContador,
                 recaudacionesContador: recaudacionesContador,
                 balanceContador: balanceContador
             })
         } else {
             console.log('opcion 2')
-            db.ref(rutaDatosContadores).push({
-                maquina: maquina,
-                premiosContador: premiosContador,
-                recaudacionesContador: recaudacionesContador,
-                balanceContador: balanceContador
-            })
+          
         }
     })
     actualizarValorContadores(maquina)
@@ -184,6 +174,7 @@ function eliminarRecaudacion(recaudacion, monto, maquina) {
         db.ref(rutaRecaudaciones + recaudacion).remove()
         $('#'+recaudacion).remove();
         db.ref(rutaRecaudacionesJornada + recaudacion).remove()
+        
     }, function() {});
     
 }
@@ -220,9 +211,8 @@ function cargarRecaudaciones() {
             recaudacionesTotales: montoTotalRecaudaciones
         })
         $('#cuerpoRecaudaciones').html(contenidoTablaRecaudaciones);
-        $('#cantidadRec').html(contadorRecaudacion);
         $('#recaudacionTotal').html(puntos("" + montoTotalRecaudaciones + ""));
-
+        $('#numeroTotalRecaudaciones').html(contadorRecaudacion);
 
 
     })
@@ -231,8 +221,8 @@ function cargarRecaudaciones() {
 
 
 function buscarRecaudacionMaquina(numeroMaquinaRecaudacion) {
+    db.ref(rutaRecaudaciones).off();
 
-setTimeout(() => {
     
 cantidadRec=0;
 if (numeroMaquinaRecaudacion == '') {
@@ -257,6 +247,6 @@ if (numeroMaquinaRecaudacion == '') {
         $('#cuerpoRecaudaciones').html(contenidoTablaRecaudacion2);
     })
 }
-}, 200);
+
 
 }

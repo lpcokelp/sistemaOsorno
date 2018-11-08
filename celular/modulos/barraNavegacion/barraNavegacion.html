@@ -1,11 +1,10 @@
-
 <script src="js/cargadores.js">
 </script>
 <nav class="nav-extended">
     <div class="nav-wrapper light-blue darken-2">
-        <a class="brand-logo" href="#!">
+        <span class="brand-logo" href="#!" id="encabezado" style="font-size:110%;">
             ChamaClub
-        </a>
+        </span>
         <a class="button-collapse" data-activates="mobile-demo" href="#">
             <i class="material-icons">
                 menu
@@ -13,10 +12,30 @@
         </a>
         <ul class="right hide-on-med-and-down" id="barraComputador">
             <li>
-                <a onclick="validarJornada();">
-                    Caja
+                <a onclick="rutear('clientes')">
+                    Clientes
                 </a>
             </li>
+            <li>
+                <a onclick="rutear('recaudaciones')">
+                    Recaudaciones
+                </a>
+            </li>
+   
+            <li>
+                <a onclick="contadores();">
+                    Premios
+                </a>
+            </li>
+            <li>
+                <a onclick="contadores();">
+                        Cuadratura
+                    </a>
+                </li>
+    
+
+
+
             <li>
                 <a onclick="cerrarsession();" title="">
                     Cerrar Sesion
@@ -40,9 +59,15 @@
                     Caja
                 </a>
             </li>
+
             <li>
                 <div class="divider">
                 </div>
+            </li>
+            <li>
+                <a onclick="validarJornada();">
+                    Balance
+                </a>
             </li>
             <li>
                 <div class="divider">
@@ -59,19 +84,19 @@
     </div>
 </nav>
 <script type="text/javascript">
-    $(document).ready(function(){
-         
-     $('.button-collapse').sideNav({
-      menuWidth: 300, // Default is 300
-      edge: 'left', // Choose the horizontal origin
-      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-      draggable: true, // Choose whether you can drag to open on touch screens,
-    
-  });
-     cargarBarra();
+    $(document).ready(function () {
 
-    
-        
+        $('.button-collapse').sideNav({
+            menuWidth: 300, // Default is 300
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true, // Choose whether you can drag to open on touch screens,
 
-         });
+        });
+        cargarBarra();
+
+
+
+
+    });
 </script>

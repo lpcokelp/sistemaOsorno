@@ -3,9 +3,9 @@
 rutaLocal="sistema/locales/"+sessionStorage.localcredencial+"/"
 
 function iniciarJornada() {
+    //desactiva el boton
     $('#botonIniciar').prop("disabled", true);
-
-
+    //Selecciona todos los registros que existan con la misma fecha
     db.ref(rutas.jornadas).orderByChild('fecha').equalTo(obtenerFecha()).once('value', function(ivalJor) {
         var numeroJornada = 0;
         var controlJornada = 0;
@@ -59,7 +59,7 @@ function iniciarJornada() {
                     rutaDatosContadores = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + jornada.key + "/contadores/"
                     for (var i = maquinas.length - 1; i >= 0; i--) {
                         db.ref(rutaDatosContadores + llaveMaquinas[i]).update({
-                            maquina: maquinas[i],
+                            maquina: parseInt(maquinas[i]),
                             premiosContador: 0,
                             recaudacionesContador: 0,
                             balanceContador: 0,
@@ -72,7 +72,8 @@ function iniciarJornada() {
                             salida: 0,
                             balance: 0,
                             diferenciaIn: 0,
-                            diferenciaOut: 0
+                            diferenciaOut: 0,
+                            multiplicadorMaquina:parseInt(multiplicadores[i])
                         })
                     }
                     abrirLocal(jornada.key);

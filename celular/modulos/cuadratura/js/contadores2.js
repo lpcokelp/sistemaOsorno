@@ -36,7 +36,7 @@ function registrarContador(maquina, entrada, salida) {
             })
             //consultamos si es que los valores son iguales o mayores que ayer
             if (controlMaquina == 0) {
-                db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(maquina).once('value', function(datosPremiosContador) {
+                db.ref(rutaDatosContadores).orderByChild('maquina').equalTo(parseInt(maquina)).once('value', function(datosPremiosContador) {
                     diferenciaOut = 0;
                     diferenciaIn = 0;
                     inAnterior = 0;
@@ -45,23 +45,26 @@ function registrarContador(maquina, entrada, salida) {
                     outHoy = 0;
                     balance = 0;
                     llaveContador = ""
+                    wea("modificandoContadores");
                     datosPremiosContador.forEach(function(datosPremios) {
-                        console.log(entrada+"tez");
-                        console.log(salida+"tez")
                         llaveContador = datosPremios.key;
                         diferenciaOut = parseInt(datosPremios.val().premiosContador);
                         diferenciaIn = parseInt(datosPremios.val().recaudacionesContador);
                         inAnterior = parseInt(InAyerTemporal);
                         outAnterior = parseInt(OutAyerTemporal);
-                        inHoy = parseInt(entrada);
-                        outHoy = parseInt(salida);
-                        entrada = (inHoy - inAnterior)
-                        salida = (outHoy - outAnterior)
-                        diferenciaOut = (diferenciaOut) - (salida * multiplicadorMaquina);
-                        diferenciaIn = (diferenciaIn) - (entrada * multiplicadorMaquina);
-                      
+                        inHoy =parseInt(entrada);
+                        outHoy =parseInt(salida);
+                        entrada = inHoy - inAnterior
+                        salida = outHoy - outAnterior
+                        
+               
+                        multiplicadorMaquina=parseInt(datosPremios.val().multiplicadorMaquina);
+                        diferenciaOut = diferenciaOut - (salida * multiplicadorMaquina);
+                        diferenciaIn = diferenciaIn - (entrada * multiplicadorMaquina);
                         balanceContador = entrada - salida;
                         balance = (entrada - salida) * multiplicadorMaquina;
+
+            
                     })
                     console.log('se está actualizando los datos')
                     db.ref(rutaDatosContadores + llaveContador).update({
@@ -232,7 +235,7 @@ function cargarContadores() {
         contadorPremios = 0;
         datosPremios.forEach(function(ipremios) {
             balanceContadorTabla = ""
-            console.log(contadorPremios + "contador")
+ 
             console.log(ipremios.val().maquina);
             if (parseInt(ipremios.val().balance) < 0) {
                 balanceContadorTabla = "<span class='red-text'> $" + puntuar(ipremios.val().balance) + "</span>"
@@ -244,26 +247,27 @@ function cargarContadores() {
             } else {
                 multis = ipremios.val().multiplicadorMaquina
             }
-            entradaFinal = parseInt(ipremios.val().entrada) * multis;
+            entradaFinal = parseInt(ipremios.val().entrada) * ipremios.val().multiplicadorMaquina;
             salidaFinal = parseInt(ipremios.val().salida) * multis;
             totalEntrada += entradaFinal;
             totalSalida += salidaFinal;
+
             contenidoTablaPremios += `<tr style="font-size:130%;">
-<td style="width:10%; font-size:140%;"><span class=" blue-text" onclick="cargarModalContadores('` + ipremios.key + `')">` + puntuar(ipremios.val().maquina) + `</span></td>
-<td style="width:45%;">` + puntuar(ipremios.val().inHoy) + `</td>
-<td style="width:45%;">` + puntuar(ipremios.val().outHoy) + `</td>
-</tr>`
-            contenidoTablaBalance += `<tr  style="font-size:130%;">
-<td style="width:10%; font-size:140%;"><span  class=" blue-text" onclick="cargarModalContadores('` + ipremios.key + `')">` + puntuar(ipremios.val().maquina) + `</span></td>
-<td style="width:30%;">` + puntuar(entradaFinal) + `</td>
-<td style="width:30%;">` + puntuar(salidaFinal) + `</td>
-<td style="width:30%;">` + puntuar(ipremios.val().balance) + `</td>
-</tr>`
-            contenidoTablaDiferencias += `<tr style="font-size:130%;">
-<td style="width:10%; font-size:140%;"><span class=" blue-text" onclick="cargarModalContadores('` + ipremios.key + `')">` + puntuar(ipremios.val().maquina) + `</span></td>
-<td style="width:45%;">` + puntuar(ipremios.val().diferenciaIn) + `</td>
-<td style="width:45%;">` + puntuar(ipremios.val().diferenciaOut) + `</td>
-</tr>`
+            <td style="width:10%; font-size:140%;"><span class=" blue-text" onclick="cargarModalContadores('` + ipremios.key + `')">` + puntuar(ipremios.val().maquina) + `</span></td>
+            <td style="width:45%;">` + puntuar(ipremios.val().inHoy) + `</td>
+            <td style="width:45%;">` + puntuar(ipremios.val().outHoy) + `</td>
+            </tr>`
+                        contenidoTablaBalance += `<tr  style="font-size:130%;">
+            <td style="width:10%; font-size:140%;"><span  class=" blue-text" onclick="cargarModalContadores('` + ipremios.key + `')">` + puntuar(ipremios.val().maquina) + `</span></td>
+            <td style="width:30%;">` + puntuar(entradaFinal) + `</td>
+            <td style="width:30%;">` + puntuar(salidaFinal) + `</td>
+            <td style="width:30%;">` + puntuar(ipremios.val().balance) + `</td>
+            </tr>`
+                        contenidoTablaDiferencias += `<tr style="font-size:130%;">
+            <td style="width:10%; font-size:140%;"><span class=" blue-text" onclick="cargarModalContadores('` + ipremios.key + `')">` + puntuar(ipremios.val().maquina) + `</span></td>
+            <td style="width:45%;">` + puntuar(ipremios.val().diferenciaIn) + `</td>
+            <td style="width:45%;">` + puntuar(ipremios.val().diferenciaOut) + `</td>
+            </tr>`
         })
         console.log("Actualizando Montos")
         gananciaContadores = totalEntrada - totalSalida;
