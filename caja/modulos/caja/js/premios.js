@@ -35,16 +35,22 @@ function guardarPremios(monto, maquina) {
 
 function sumarPremios(premionuevo) {
     premiosActuales = 0;
+    db.ref(rutaDatosImportantesPremios).off();
     db.ref(rutaDatosImportantesPremios).once('value', function (datosPremios) {
+        
         if (datosPremios.val().premios == undefined) {
-            premiosActuales = premionuevo;
+            
+
+            db.ref(rutaDatosImportantesPremios).update({
+                premios: parseInt(premionuevo)
+            })
         } else {
             premiosActuales = parseInt(datosPremios.val().premios) + parseInt(premionuevo)
+
+            db.ref(rutaDatosImportantesPremios).update({
+                premios: premiosActuales
+            })
         }
-    }).then(function (datos) {
-        db.ref(rutaDatosImportantesPremios).update({
-            premios: premiosActuales
-        })
     })
 }
 
