@@ -25,7 +25,7 @@ function modificarMontoLocal(monto) {
 }
 
 function abrirLocal(rutaJornada) {
-    db.ref(rutaLocal).update({
+    db.ref("sistema/locales/" + sessionStorage.localcredencial + "/").update({
         estado: true,
         jornada: rutaJornada,
         monto: 0
@@ -74,7 +74,7 @@ function actualizarValorContadores(maquinaActual) {
     })
 }
 function cerrarLocal() {
-    db.ref(rutaLocal).update({
+    db.ref("sistema/locales/" + sessionStorage.localcredencial + "/").update({
         estado: false
     })
 }
