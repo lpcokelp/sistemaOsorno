@@ -40,8 +40,7 @@ function cargarValoresClientes() {
 
 function eliminarClientes(llave) {
     db.ref(rutaclientes + llave).remove()
-    Materialize.toast('Cliente Modificado con Exito!', 4000);
-    cargarClientes()
+    Materialize.toast('Cliente eliminado con Exito!', 4000)   
 }
 
 function cargarClientes() {
@@ -58,6 +57,9 @@ function cargarClientes() {
             <td>` + datoscliente.telefono + ` </td>
             ` + puntuar(datoscliente.rut) + ` 
             <td>
+            <i class=" material-icons" onclick="estadoClientes('` + itemmaq.key + `')">
+            block
+            </i> 
             <i class=" material-icons" onclick="eliminarClientes('` + itemmaq.key + `')">
             delete
             </i> 
@@ -65,7 +67,7 @@ function cargarClientes() {
             </tr>
             `
         })
-        $('#listadoSorteo').html(contenidotablacliente);
+        $('#listadoClientes').html(contenidotablacliente);
       
         var tablaRec =$('#tablaClientes').DataTable({
             "pageLength": 7,
@@ -101,7 +103,7 @@ function cargarClientes() {
         $('#tablaClientes thead tr').clone(true).appendTo( '#tablaClientes thead' );
         $('#tablaClientes thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            $(this).html( '<input type="text" placeholder=" '+title+'" />' );
      
             $( 'input', this ).on( 'keyup change', function () {
                 if ( tablaRec.column(i).search() !== this.value ) {
