@@ -1,5 +1,4 @@
 class Cuponera {
- 
     constructor(cajaTexto, contador, ventana) {
       this.cajaTexto = cajaTexto;
       this.contador = contador;
@@ -7,26 +6,24 @@ class Cuponera {
       this.busca = '.';
       this.reemplaza = '';
       this.temporal="";
+      this.rutSeleccionado;
+      this.rutaCupones="sistema/osorno/clientes/";
+      this.validarEstado=false;
     }
-
     //recibe un caracter y los agrega al campo rut
 agregarCaracter(caracter,actual){
     this.cajaTexto = actual;
     this.sinEspacio = this.cajaTexto.trim()
     this.cajaTexto = this.quitapuntos(this.sinEspacio)
-    console.log(this.cajaTexto+"sin puntos");
     this.cajaTexto = this.quitaguion(this.cajaTexto)
-    console.log(this.cajaTexto+"sin espacio ");
     this.primeraparte = ""
     this.segundaparte = ""
     this.terceraparte = ""
     this.dgv = ""
     this.cajaTexto = this.cajaTexto + caracter;
-    console.log(this.cajaTexto+"largo");
-
     if (this.cajaTexto.length < 8) {
         $('#rut1').val(this.cajaTexto);
- 
+        $('#rut2').val(this.cajaTexto);
     }
     if (this.cajaTexto.length == 8) {
         console.log("di")
@@ -38,6 +35,7 @@ agregarCaracter(caracter,actual){
         this.dgv = this.cajaTexto.substring(7, 8);
         this.conpuntos = this.primeraparte + this.segundaparte + this.terceraparte + this.dgv
         $('#rut1').val(this.conpuntos);
+        $('#rut2').val(this.conpuntos);
    
     }
     if (this.cajaTexto.length == 9) {
@@ -51,6 +49,7 @@ agregarCaracter(caracter,actual){
         this.dgv = this.cajaTexto.substring(8, 10);
         this.conpuntos = this.primeraparte + this.segundaparte + this.terceraparte + this.dgv
         $('#rut1').val(this.conpuntos);
+        $('#rut2').val(this.conpuntos);
      
     }
 }
@@ -76,6 +75,37 @@ agregarCaracter(caracter,actual){
 
 limpiarRut(){
     $('#rut1').val("");
+}
+
+
+crearCliente(nombreCliente,apellidoCliente){
+
+  this.rutCli=$('#rut1').val();
+
+  db.ref(this.rutaCupones).push({
+    rut:this.rutCli,
+    nombre:nombreCliente,
+    apellido:apellidoCliente
+  })
+  Materialize.toast('Cliente registrado y participando en el sorteo!', 4000)
+
+}
+
+registrarCupon(nombreCliente,apellidoCliente){
+    this.rutSeleccionado=$('#rut1').val();
+
+    $('#rut1').val('');
+  
+    swal({
+        position: 'top-end',
+        type: 'success',
+        title: 'Ya estas participando en el Sorteo',
+        showConfirmButton: false,
+        timer: 5000
+      })
+
+
+    
 }
 
 

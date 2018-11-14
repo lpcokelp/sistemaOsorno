@@ -124,7 +124,7 @@ function cargarmaquinas() {
         $('#tablaMaquinas thead tr').clone(true).appendTo( '#tablaMaquinas thead' );
         $('#tablaMaquinas thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            $(this).html( '<input type="text" placeholder=" '+title+'" />' );
      
             $( 'input', this ).on( 'keyup change', function () {
                 if ( tablaRec.column(i).search() !== this.value ) {

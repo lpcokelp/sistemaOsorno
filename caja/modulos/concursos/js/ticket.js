@@ -29,19 +29,46 @@ firebase.initializeApp(config);
 var db = firebase.database();
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        console.log("1 ")
         // cargadorModulo('app', 'locales', 'todosLosLocales');
         db.ref(rutacuentas).orderByKey().equalTo(firebase.auth().currentUser.uid).once('value', function(datosuser) {
             datosuser.forEach(function(itemuser) {
+                console.log("2 ")
                 sessionStorage.tipocredencial = itemuser.val().tipo;
                 sessionStorage.nombreusuario = itemuser.val().nombre;
                 sessionStorage.localcredencial = itemuser.val().local;
                 rutas.admin = firebase.auth().currentUser.uid;
             })
             if (sessionStorage.tipocredencial == "admin") {
-                // lo tira al inicio
-                firebase.auth().signOut();
+
+                console.log("3 ")
+                  // iniciaizamos rutas
+                  rutaActual = "sistema/jornadas/" + sessionStorage.localcredencial + "/"
+                  rutaJackpot = "sistema/jackpot/" + sessionStorage.localcredencial
+                  //buscamos la key de la ultima jornada
+                  db.ref(rutaActual).orderByChild('numero').limitToLast(1).on('value', function(datosuser) {
+                      validacionJornada = false;
+                      datosuser.forEach(function(itemuser) {
+                        console.log("4 ")
+                          //si la jornada está en true iniciamizamos la ruta de la jornada 
+                          if (itemuser.val().estado == true) {
+
+                            console.log("5 ")
+                              //jornada iniciada por lo que obtenemos las credenciales e inizializamos el sistema de ticket
+                              validacionJornada = true;
+                              rutas.jornadaActual = itemuser.key;
+                              refJornadaAcsual = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/"
+                              cargarClientes();
+                          } else {
+                              location.href = "../index.html"
+
+                              console.log("6 ")
+                          }
+                      })
+                  })
             } else {
                 if (sessionStorage.tipocredencial == "trabajador") {
+                    console.log("7 ")
                     // iniciaizamos rutas
                     rutaActual = "sistema/jornadas/" + sessionStorage.localcredencial + "/"
                     rutaJackpot = "sistema/jackpot/" + sessionStorage.localcredencial
@@ -49,6 +76,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                     db.ref(rutaActual).orderByChild('numero').limitToLast(1).on('value', function(datosuser) {
                         validacionJornada = false;
                         datosuser.forEach(function(itemuser) {
+
                             //si la jornada está en true iniciamizamos la ruta de la jornada 
                             if (itemuser.val().estado == true) {
                                 //jornada iniciada por lo que obtenemos las credenciales e inizializamos el sistema de ticket
@@ -57,17 +85,20 @@ firebase.auth().onAuthStateChanged(function(user) {
                                 refJornadaAcsual = "sistema/jornadas/" + sessionStorage.localcredencial + "/" + rutas.jornadaActual + "/"
                                 cargarClientes();
                             } else {
+                                console.log("8 ")
                                 location.href = "../index.html"
                             }
                         })
                     })
                 } else {
+                    console.log("9 ")
                     // no lo tira a ningun lado y lo desconecta
                     firebase.auth().signOut();
                 }
             }
         })
     } else {
+        console.log("10 ")
         location.href = "../index.html"
         console.log("No logeado")
     }
